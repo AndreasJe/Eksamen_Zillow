@@ -69,6 +69,11 @@ include __DIR__ . "/components/header.php";
         </p>
     </div>
 
+    <div>
+        <h2>session</h2>
+        <p> <?= Print_r($_SESSION); ?> </p>
+    </div>
+
     <div class="profile-wrapper">
         <h1 class="header">Profile</h1>
 
@@ -84,7 +89,7 @@ include __DIR__ . "/components/header.php";
                     </em>
                 </div>
                 <div class="right">
-                    <p>N/A</p>
+                    <p> <?= $_SESSION['first_name'] ?> <?= $_SESSION['last_name'] ?></p>
                     <a href="#editName" class="envokeModal" data-bs-toggle="modal">Edit</a>
                 </div>
 
@@ -96,7 +101,7 @@ include __DIR__ . "/components/header.php";
                     <em>Prefer to remain anonymous when writing reviews? Choose a unique screen name instead.</em>
                 </div>
                 <div class="right">
-                    <p>N/A</p>
+                    <p> <?= $_SESSION['user_name'] ?></p>
                     <a href="#screenName" class="envokeModal" data-bs-toggle="modal">Edit</a>
                 </div>
 
@@ -195,45 +200,49 @@ include __DIR__ . "/components/header.php";
             <div class="modal-header justify-content-center">
                 <h5 class="modal-title">Edit name</h5>
             </div>
-            <form action="">
+            <form onsubmit="return false">
                 <div class="modal-body d-flex flex-row justify-content-evenly">
                     <div class="d-flex flex-column justify-content-start ">
-                        <label class="pb-1" for="first-name">First name</label>
-                        <input type="text" name="first-name">
+                        <label class="pb-1" for="first_name">First name</label>
+                        <input type="text" name="first_name" required>
                     </div>
                     <div class="d-flex flex-column justify-content-end ">
-                        <label class="pb-1" for="last-name">Last name</label>
-                        <input type="text" name="last-name">
+                        <label class="pb-1" for="last_name">Last name</label>
+                        <input type="text" name="last_name" required>
                     </div>
-            </form>
 
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary">Apply</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="updateName()">Apply</button>
+                </div>
+            </form>
+            <div>
+                <em class="text-center" id="nameChange"> </em>
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 <!-- Modal for Edit Screen Name -->
 <div id="screenName" class="modal fade">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header justify-content-center">
-                <h5 class="modal-title">Edit screen name</h5>
-            </div>
-            <div class="modal-body">
-                <form action="">
-                    <input type="text" placeholder="Screen name" name="user-name">
-                </form>
+        <form onsubmit="return false">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <h5 class="modal-title">Edit screen name</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="text" placeholder="Screen name" name="user_name">
 
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="updateScreenName()">Apply</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Apply</button>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 
@@ -251,17 +260,17 @@ include __DIR__ . "/components/header.php";
                     </div>
 
                     <div class="pb-2">
-                        <label class="pb-1" for="new-email"> New email:</label>
-                        <input class="pb-1" type="email" name="new-email">
+                        <label class="pb-1" for="new_email"> New email:</label>
+                        <input class="pb-1" type="email" name="new_email">
                     </div>
                     <div>
-                        <label class="pb-1" for="confirm-email"> Confirm email:</label>
-                        <input class="pb-1" type="email" name="confirm-email">
+                        <label class="pb-1" for="confirm_email"> Confirm email:</label>
+                        <input class="pb-1" type="email" name="confirm_email">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Apply</button>
+                    <button type="button" class="btn btn-primary" onclick="changeEmail()">Apply</button>
                 </div>
             </form>
         </div>
@@ -340,8 +349,8 @@ include __DIR__ . "/components/header.php";
                 <div class="modal-body">
                     <div>
 
-                        <label class="pb-1" for="new-email"> Password</label>
-                        <input type="email" name="new-email">
+                        <label class="pb-1" for="new_email"> Password</label>
+                        <input type="email" name="new_email">
                         <div>
                             <em class="password_req p-3"> At least 8 characters<br>
 
@@ -353,8 +362,8 @@ include __DIR__ . "/components/header.php";
                         </div>
                     </div>
                     <div>
-                        <label for="confirm-email">Confirm password</label>
-                        <input type="email" name="confirm-email">
+                        <label for="confirm_email">Confirm password</label>
+                        <input type="email" name="confirm_email">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -411,6 +420,42 @@ async function sendVerify() {
 
     if (conn.ok) {
         verificationConfirm();
+    }
+}
+
+async function updateName() {
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("apis/api-edit-name", {
+        method: "POST",
+        body: new FormData(form)
+    })
+    if (conn.ok) {
+        location.href = "account-settings"
+    }
+}
+
+async function updateScreenName() {
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("apis/api-edit-screenname", {
+        method: "POST",
+        body: new FormData(form)
+    })
+    if (conn.ok) {
+        location.href = "account-settings"
+    }
+}
+
+async function changeEmail() {
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("apis/api-edit-email", {
+        method: "POST",
+        body: new FormData(form)
+    })
+    if (conn.ok) {
+        location.href = "account-settings"
     }
 }
 </script>

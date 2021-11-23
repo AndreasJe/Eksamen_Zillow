@@ -1,21 +1,36 @@
 <?php
 session_start();
 require_once('globals.php');
-// TODO: Make sure the user is logged
 
 
-// Validate
-if (!isset($_POST['item_name'])) {
+// Validate First Name
+if (!isset($_POST['first_name'])) {
     http_response_code(400);
     echo 'item_name required';
     exit();
 }
-if (strlen($_POST['item_name']) < _ITEM_MIN_LEN) {
+if (strlen($_POST['first_name']) < _ITEM_MIN_LEN) {
     http_response_code(400);
     echo 'item_name min ' . _ITEM_MIN_LEN . ' characters';
     exit();
 }
-if (strlen($_POST['item_name']) > _ITEM_MAX_LEN) {
+if (strlen($_POST['first_name']) > _ITEM_MAX_LEN) {
+    http_response_code(400);
+    echo 'item_name max ' . _ITEM_MAX_LEN . ' characters';
+    exit();
+}
+// Validate Last Name
+if (!isset($_POST['last_name'])) {
+    http_response_code(400);
+    echo 'item_name required';
+    exit();
+}
+if (strlen($_POST['last_name']) < _ITEM_MIN_LEN) {
+    http_response_code(400);
+    echo 'item_name min ' . _ITEM_MIN_LEN . ' characters';
+    exit();
+}
+if (strlen($_POST['last_name']) > _ITEM_MAX_LEN) {
     http_response_code(400);
     echo 'item_name max ' . _ITEM_MAX_LEN . ' characters';
     exit();
