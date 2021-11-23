@@ -41,6 +41,18 @@ main {
   padding: 72px 0;
 }
 
+/* Image*/
+#preview {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.preview-container {
+  background-color: #f1f1f4;
+  border: 1px solid #a7a6ab;
+}
+
 /* Modals for settings */
 
 #before {
@@ -141,16 +153,9 @@ main {
   height: auto;
 }
 
-/* modal_custom */
+/* Button designs: */
 
-.tab {
-  padding: 1rem;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.tab button {
+form button {
   text-align: center;
   align-self: stretch;
   padding: 9px 16px;
@@ -176,8 +181,63 @@ main {
   color: rgb(255, 255, 255);
 }
 
-.modal_custom em,
-.modal_custom .emA {
+.modal-link {
+  text-align: center;
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgb(13, 69, 153);
+  margin-top: 10px;
+}
+
+/* CSS For photo upload */
+
+#imgInp::-webkit-file-upload-button {
+  visibility: hidden;
+}
+#imgInp::before {
+  content: "Select a photo";
+  display: inline-block;
+  background: linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+#imgInp:hover::before {
+  border-color: black;
+}
+#imgInp:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+/* Modal for forgot password */
+
+#forgot {
+  z-index: 999999999999 !important;
+}
+
+#forgot .modal__content {
+  min-height: 400px;
+}
+
+/* Modal for signin */
+
+.tab {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.modal-content em,
+.modal-content .emA {
   -webkit-font-smoothing: antialiased;
   text-transform: none;
   font-family: "Open Sans", Tahoma, Geneva, sans-serif;
@@ -188,20 +248,6 @@ main {
   text-decoration: none;
   font-style: normal;
   display: inline-flex;
-}
-
-.modal__close {
-  position: absolute;
-  right: 20px;
-  top: 10px;
-  height: 10px;
-  width: 10px;
-  font-size: 25px !important;
-}
-.modal_info {
-  display: flex;
-  justify-content: center;
-  padding-top: 15px;
 }
 
 .password_req {
@@ -217,28 +263,6 @@ main {
   display: inline-flex;
   padding-left: 20px;
   padding-bottom: 15px;
-}
-
-.modal_custom {
-  z-index: 1000;
-  visibility: hidden;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(77, 77, 77, 0.7);
-  transition: all 0.4s;
-  border-radius: 8px;
-}
-
-.modal_custom:target {
-  visibility: visible;
-  opacity: 1;
 }
 
 .bneXgu {
@@ -288,7 +312,7 @@ main {
   margin: 0px 0px 8px;
 }
 
-.modal__content {
+.modal-content {
   box-shadow: rgb(0 0 0 / 30%) 0px 15px 30px 0px;
   box-sizing: border-box;
   background-color: rgb(255, 255, 255);
@@ -303,26 +327,11 @@ main {
   padding: 16px 16px 0px;
 }
 
-.modal_wrapper {
+.modal_dialog {
   padding: 24px 8px;
 }
 
-.modal_custom .modal_custom-link {
-  padding-bottom: 4px;
-  cursor: pointer;
-  margin-top: 8px;
-  text-align: center;
-  align-self: stretch;
-  padding-left: 16px;
-  padding-right: 16px;
-  color: rgb(13, 69, 153);
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.modal_custom label {
+.modal_content label {
   display: block;
   padding-bottom: 4px;
   color: rgb(42, 42, 51);
@@ -334,7 +343,7 @@ main {
   line-height: 24px;
 }
 
-.modal_custom input {
+.modal_content input {
   margin-bottom: 16px;
   appearance: none;
   width: 100%;
@@ -363,13 +372,22 @@ main {
   border: 0px;
 }
 
-.active-tab {
+.nav-link.active {
   border-bottom: rgb(0, 106, 255) 4px solid !important;
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
+  border-left: transparent !important;
+  border-right: transparent !important;
+  border-top: transparent !important;
 }
+.nav-tabs:hover {
+  border-left: transparent !important;
+  border-right: transparent !important;
+  border-top: transparent !important;
+}
+
 /* modal_custom END */
 
 /* PRODUCTS */
@@ -805,6 +823,7 @@ form.search_form button {
   font-size: 22px;
   margin-left: -13%;
   margin-top: 13px;
+  background-color: transparent !important;
 }
 form.search_form button i {
   cursor: pointer;
@@ -938,6 +957,7 @@ footer {
 }
 
 .footer_nav {
+  border-top: 1px solid rgb(209, 209, 213);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -1186,10 +1206,13 @@ footer {
   }
 
   .dropbtn2 img {
+    object-fit: cover;
     background-color: transparent;
     width: 50px;
     height: 50px;
     padding-right: -6px;
+    box-shadow: rgb(0 0 0 / 30%) 0px 3px 6px 0px;
+    border: 1px solid rgb(42, 42, 51);
   }
 
   .dropbtn2:hover,
@@ -1411,9 +1434,12 @@ footer {
   }
 
   .dropbtn img {
+    object-fit: cover;
+    border: 1px solid rgb(42, 42, 51);
+    box-shadow: rgb(0 0 0 / 30%) 0px 3px 6px 0px;
     background-color: white;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     padding-right: -6px;
   }
 

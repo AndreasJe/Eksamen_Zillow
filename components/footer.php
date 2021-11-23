@@ -1086,6 +1086,129 @@
     </div>
 </div>
 
+<!-- Forgot Password Modal -->
+
+<div id="forgot" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center flex-column">
+                <span id="sr-message" aria-live="off" class="VisuallyHidden-c11n-8-53-1__sc-t8tewe-0 hObLRM"></span>
+                <h2 font-family="serif"
+                    class="Text-c11n-8-53-1__sc-aiai24-0 StyledHeading-c11n-8-53-1__sc-ktujwe-0 fDFlcw">Forgot your
+                    password?</h2>
+                <p class="Text-c11n-8-53-1__sc-aiai24-0 StyledParagraph-c11n-8-53-1__sc-18ze78a-0 jCBryf">Enter your
+                    email address and we'll send you a link to set your password.</p>
+            </div>
+            <div class="pt-5 modal-body">
+
+                <form onsubmit="return false">
+                    <label for="new_email mb-1">Email</label>
+                    <input name="new_email" type="text" placeholder="Enter email">
+
+
+                    <button class="w-100 mt-3" onclick="forgotPassword()"> Send </button>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <p>Know your password?</p><a class="" href="#login" data-bs-dismiss="modal"> &nbsp;Sign in.</a>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- Sing in / Sign up Modal -->
+
+
+
+<div id="login" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="pt-4 modal-header justify-content-center ">
+                <div class="sc-kgoBCf bneXgu"><span id="sr-message" aria-live="off"
+                        class="VisuallyHidden-c11n-8-53-1__sc-t8tewe-0 hObLRM"></span>
+                    <h2 font-family="serif"
+                        class="Text-c11n-8-53-1__sc-aiai24-0 StyledHeading-c11n-8-53-1__sc-ktujwe-0 fDFlcw">Welcome
+                        to
+                        Zillow</h2>
+                    <p class="Text-c11n-8-53-1__sc-aiai24-0 StyledParagraph-c11n-8-53-1__sc-18ze78a-0 jCBryf"></p>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <ul class=" nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="signin-tab" data-bs-toggle="tab" data-bs-target="#signin"
+                            type="button" role="tab" aria-controls="signin" aria-selected="true">Sign in</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup"
+                            type="button" role="tab" aria-controls="signup" aria-selected="false">Create
+                            account</button>
+                    </li>
+                    </u>
+                    <div class="pt-4 tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+
+                            <form id="form_sign_in" onsubmit="return false">
+                                <label for="email">Email</label>
+                                <input name="email" type="text" placeholder="Enter email">
+
+                                <label for="password">Password</label>
+                                <input name="password" type="password" placeholder="Enter Password">
+
+                                <button class="w-100 mt-3 mb-3" onclick="login()"> Sign in </button>
+                                <a class="modal-link" href="#forgot" class="envokeModal" data-bs-toggle="modal">Forgot
+                                    password?</a>
+                            </form>
+
+
+                        </div>
+                        <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+
+
+
+                            <form id="form_sign_up" onsubmit="return false">
+                                <label for="user_email">Email</label>
+                                <input name="user_email" type="text" placeholder="Enter email">
+
+                                <label for="user_password">Password</label>
+                                <input name="user_password" type="password" placeholder="Create password">
+                                <em class="password_req"> At least 8 characters<br>
+
+                                    Mix of letters and numbers<br>
+
+                                    At least 1 special character<br>
+
+                                    At least 1 lowercase letter and 1 uppercase letter</em>
+
+                                <button class="w-100 mt-3 mb-3" onclick="signup()"> Submit </button>
+
+                            </form>
+                            <div class="modal-footer modal_info justify-content-center d-flex">
+                                <em>By submitting, I accept Zillow's &nbsp</em><a class="emA" href="#">terms of
+                                    use.</a>
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
 <script>
 /* SCRIPT FOR USER NAV DROPDOWN */
 function userNav1() {
@@ -1131,10 +1254,10 @@ function openTab(evt, tabName) {
     }
     tablinks = document.getElementsByClassName("tablink");
     for (i = 0; i < x.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active-tab", "");
+        tablinks[i].className = tablinks[i].className.replace("active-tab", "");
     }
     document.getElementById(tabName).style.display = "flex";
-    evt.currentTarget.className += " active-tab";
+    evt.currentTarget.className += "active-tab";
 }
 
 
@@ -1150,11 +1273,37 @@ function sendVerification() {
     before_foot.style.display = "none";
     after_foot.style.display = "flex";
 }
+
+async function login() {
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("apis/api-login", {
+        method: "POST",
+        body: new FormData(form)
+    })
+
+    if (conn.ok) {
+        location.href = "account-settings"
+    }
+}
+
+async function signup() {
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("apis/api-signup", {
+        method: "POST",
+        body: new FormData(form)
+    })
+
+    if (conn.ok) {
+        location.href = "account-settings"
+    }
+}
 </script>
 
-</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+</script>
 </script>
 </body>
 

@@ -1,6 +1,4 @@
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
     header.dark .ic.menu .line {
         background-color: blue;
@@ -50,9 +48,10 @@
 
 session_start();
 if (!isset($_SESSION['user_name'])) {
-    header('Location: login');
+    header('Location: index');
     exit();
 }
+$_title = 'Account Settings';
 
 include __DIR__ . "/components/header.php";
 ?>
@@ -110,7 +109,7 @@ include __DIR__ . "/components/header.php";
                     </em>
                 </div>
                 <div class="right">
-                    <a href="modal">Edit</a>
+                    <a href="edit-user-img">Edit</a>
                 </div>
 
             </div>
@@ -188,64 +187,6 @@ include __DIR__ . "/components/header.php";
 
 
 
-<!-- Modal Template-->
-
-<div id="signin" class="modal_custom">
-    <div class="modal__content">
-        <div class="modal_wrapper">
-
-            <div class="sc-kgoBCf bneXgu"><span id="sr-message" aria-live="off"
-                    class="VisuallyHidden-c11n-8-53-1__sc-t8tewe-0 hObLRM"></span>
-                <h2 font-family="serif"
-                    class="Text-c11n-8-53-1__sc-aiai24-0 StyledHeading-c11n-8-53-1__sc-ktujwe-0 fDFlcw">Welcome
-                    to
-                    Zillow</h2>
-                <p class="Text-c11n-8-53-1__sc-aiai24-0 StyledParagraph-c11n-8-53-1__sc-18ze78a-0 jCBryf"></p>
-            </div>
-
-            <div class="tab-bar">
-                <button class="tablink active-tab" onclick="openTab(event,'Signin')">Sign in</button>
-                <button class="tablink" onclick="openTab(event,'Signup')">New Account</button>
-            </div>
-            <div id="forms">
-
-                <div id="Signin" class="tab">
-
-                    <label for="email">Email</label>
-                    <input name="email" type="text" placeholder="Enter email">
-
-                    <label for="password">Password</label>
-                    <input name="password" type="password" placeholder="Enter Password">
-
-                    <button> Sign in </button>
-                    <a class="modal-link" href="">Forgot password?</a>
-
-                </div>
-
-                <div id="Signup" class="tab" style="display:none">
-
-                    <label for="email">Email</label>
-                    <input name="email" type="text" placeholder="Enter email">
-
-                    <label for="password">Password</label>
-                    <input name="password" type="password" placeholder="Create password">
-                    <em class="password_req"> At least 8 characters<br>
-
-                        Mix of letters and numbers<br>
-
-                        At least 1 special character<br>
-
-                        At least 1 lowercase letter and 1 uppercase letter</em>
-
-                    <button> Submit </button>
-                    <div class="modal_info">
-                        <em>By submitting, I accept Zillow's &nbsp</em><a class="emA" href="#">terms of use.</a>
-                    </div>
-                </div>
-            </div><a href="#" class="modal__close">×</a>
-        </div>
-    </div>
-</div>
 
 <!-- Modal for Edit Name -->
 <div id="editName" class="modal fade">
@@ -451,5 +392,7 @@ include __DIR__ . "/components/header.php";
         </div>
     </div>
 </div>
+
+
 <?php
 include __DIR__ . "/components/footer.php"; ?>

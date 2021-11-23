@@ -1,6 +1,6 @@
+<!-- Page-specific CSS (Mainly nav settings) -->
+
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
     header.dark .ic.menu .line {
         background-color: blue;
@@ -45,11 +45,13 @@
     </style>
 </head>
 
+<!-- Session start etc. -->
+
 <?php
 
 session_start();
 if (!isset($_SESSION['user_name'])) {
-    header('Location: login');
+    header('Location: index');
     exit();
 }
 
@@ -59,19 +61,24 @@ include __DIR__ . "/components/header.php";
 
 
 
-<main>
+<main class="justify-content-center d-flex">
 
 
     <div id="photo_container d-flex flex-column">
 
-        <h1>Edit Photo</h1>
-        <p>Add an updated photo of yourself to help fill out your profile.</p>
-        <form runat="server">
+        <h1 class="pb-1">Edit Photo</h1>
+        <p class="pb-4">Add an updated photo osf yourself to help fill out your profile.</p>
+        <form class="" onsubmit="return false" runat="server">
 
-            <input accept="image/*" type='file' id="imgInp" />
-            <button onclick="upload()">Upload</button>
-            <img id="preview" src="#" alt="your image" />
+            <input class="w-100 mb-3" name="image" accept="image/*" type='file' id="imgInp" />
 
+            <div class="p-5 rounded d-flex justify-content-center preview-container ">
+                <img class="rounded-circle" id="preview" src="../img/user/img_<?php echo $_SESSION['user_id'] ?>"
+                    alt="your image" />
+            </div>
+            <button class="mt-3" onclick="updatePhoto()">Submit</button>
+
+            <div class="justify-content-center d-flex p-5"><em id="feedback"></em></div>
 
         </form>
 
@@ -87,6 +94,22 @@ imgInp.onchange = evt => {
     const [file] = imgInp.files
     if (file) {
         preview.src = URL.createObjectURL(file)
+    }
+}
+
+
+
+async function updatePhoto() {
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("apis/api-upload-profilepic", {
+        method: "POST",
+        body: new FormData(form)
+    })
+    if (conn.ok) {
+
+        const feed = document.getElementById("feedback");
+        feed.innerHTML = "Your photo has been uploaded <br> Reload the page to see the change"
     }
 }
 </script>
