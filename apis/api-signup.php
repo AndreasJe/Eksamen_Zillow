@@ -38,6 +38,7 @@ $password = $_POST['user_password'];
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 $verification_key = bin2hex(random_bytes(16));
 $forgot_pass_key = bin2hex(random_bytes(16));
+$verified = 0;
 
 try {
   // Insert data in the D
@@ -50,7 +51,7 @@ try {
   $q->bindValue(":user_password", $hashed_password);
   $q->bindValue(":verification_key", $verification_key);
   $q->bindValue(":forgot_pass_key", $forgot_pass_key);
-  $q->bindValue(":verified", false);
+  $q->bindValue(":verified", $verified);
   $q->execute();
 
   $user_id = $db->lastInsertId();

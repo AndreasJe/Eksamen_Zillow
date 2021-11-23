@@ -19,7 +19,7 @@
     <header class="dark">
         <a href="index"><img class="logo2" src=" ../img/permanent/z-white.svg" alt="" /></a>
 
-        <?php if (!isset($_SESSION['user_name'])) : ?>
+        <?php if (!isset($_SESSION['user_id'])) : ?>
         <a class="mobile-signin envokeModal" href="#login" data-bs-toggle="modal">Sign In</a>
         <?php else :  ?>
         <li class="user-nav2">
@@ -103,7 +103,7 @@
                         </div>
                     </div>
                 </li>
-                <?php if (!isset($_SESSION['user_name'])) { ?>
+                <?php if (!isset($_SESSION['user_id'])) { ?>
                 <li class="top-level-link">
                     <a href=" #login" class="envokeModal" data-bs-toggle="modal"><span>Sign in</span></a>
                 </li>
@@ -111,7 +111,7 @@
 
                 <?php } ?>
 
-                <?php if (isset($_SESSION['user_name'])) : ?>
+                <?php if (isset($_SESSION['user_id'])) : ?>
                 <li class="user-nav top-level-link">
                     <div class="dropdown">
                         <button onclick="userNav1()" class="dropbtn">

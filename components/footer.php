@@ -1262,7 +1262,7 @@ function openTab(evt, tabName) {
 
 
 // Script that handles the changes in the verification modal.
-function sendVerification() {
+function verificationConfirm() {
     const before = document.getElementById("before");
     const after = document.getElementById("after");
     const before_foot = document.getElementById("before_foot");

@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . "globals.php");
+require_once(__DIR__ . "/globals.php");
 
 //Initial validation of the parameter
 if (!isset($_GET['key'])) {
@@ -22,11 +22,10 @@ try {
 try {
     //Binding of variables
     $key = $_GET['key'];
-    $verified = "1";
 
     $q = $db->prepare('UPDATE users SET verified = :verified WHERE verification_key = :vkey');
     $q->bindValue(':vkey', $key);
-    $q->bindValue(':verified', $verified);
+    $q->bindValue(':verified', true);
     $q->execute();
     echo "Your user has now been verified!";
 } catch (PDOException $ex) {

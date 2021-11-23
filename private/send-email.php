@@ -43,8 +43,8 @@ try {
     $mail->Port       = 587;                                   // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('PeterMadsen@single.dk', 'MOBO');
-    $mail->addAddress($_to_email, $_POST['name']);     // Add a recipient
+    $mail->setFrom('keatest0@gmail.com', 'Zillow 2.0');
+    $mail->addAddress($_to_email, 'User');     // Add a recipient
     // $mail->addAddress('ellen@example.com');               // Name is optional
     // $mail->addReplyTo('DUMMY_EMAIL_HERE_XXXXXXXXXXXXXXXXXX', 'Information');
     // $mail->addCC('cc@example.com');

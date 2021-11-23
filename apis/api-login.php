@@ -43,12 +43,17 @@ try {
             $_SESSION['user_password'] = $row['user_password'];
             $_SESSION['user_name'] = $row['user_name'];
             $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['forgot_pass_key'] = $row['forgot_pass_key'];
+            $_SESSION['verification_key'] = $row['verification_key'];
             http_response_code(200);
+            echo "Welcome! You are now logged in";
         } else {
+            http_response_code(400);
             echo "ERROR: Password is not valid";
         }
         // If $row is empty, the user doesn't exist.
     } else {
+        http_response_code(400);
         echo "ERROR: This user does not exist";
     }
 } catch (Exception $ex) {

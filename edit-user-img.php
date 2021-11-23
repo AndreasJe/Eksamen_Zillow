@@ -50,7 +50,7 @@
 <?php
 
 session_start();
-if (!isset($_SESSION['user_name'])) {
+if (!isset($_SESSION['user_id'])) {
     header('Location: index');
     exit();
 }
@@ -76,7 +76,11 @@ include __DIR__ . "/components/header.php";
                 <img class="rounded-circle" id="preview" src="../img/user/img_<?php echo $_SESSION['user_id'] ?>"
                     alt="your image" />
             </div>
-            <button class="mt-3" onclick="updatePhoto()">Submit</button>
+            <div class="flex-row">
+                <button class="mt-3" onclick="updatePhoto()">Submit</button>
+                <button onclick="javascript:location.href='account-settings'" type="button" class=" btn-secondary"
+                    onclick="href">Cancel</button>
+            </div>
 
             <div class="justify-content-center d-flex p-5"><em id="feedback"></em></div>
 

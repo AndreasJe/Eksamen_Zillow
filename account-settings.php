@@ -47,7 +47,7 @@
 <?php
 
 session_start();
-if (!isset($_SESSION['user_name'])) {
+if (!isset($_SESSION['user_id'])) {
     header('Location: index');
     exit();
 }
@@ -244,12 +244,12 @@ include __DIR__ . "/components/header.php";
             <div class="modal-header justify-content-center">
                 <h5 class="modal-title">Edit Email</h5>
             </div>
-            <div class="modal-body">
-                <div class="mb-5">
-                    <p>Your current email is gud.er.gud@gmail.com.</p>
-                </div>
+            <form action="">
+                <div class="modal-body">
+                    <div class="mb-5">
+                        <p>Your current email is <?= $_SESSION['user_email'] ?></p>
+                    </div>
 
-                <form action="">
                     <div class="pb-2">
                         <label class="pb-1" for="new-email"> New email:</label>
                         <input class="pb-1" type="email" name="new-email">
@@ -258,12 +258,12 @@ include __DIR__ . "/components/header.php";
                         <label class="pb-1" for="confirm-email"> Confirm email:</label>
                         <input class="pb-1" type="email" name="confirm-email">
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Apply</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Apply</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -311,13 +311,15 @@ include __DIR__ . "/components/header.php";
                 </div>
                 <p>Open the email and select the link provided to verify your account.
                     Didn’t receive an email? </p>
-                <p><a href="">Resend</a></p>
+                <p><a onclick="sendVerify()">Resend</a></p>
 
             </div>
             <div class="modal-footer" id="before_foot">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="sendVerification()">Send verification
-                    email</button>
+                <form onsubmit="return false" method="POST">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="sendVerify()">Send verification
+                        email</button>
+                </form>
             </div>
             <div class="modal-footer" id="after_foot">
                 <button type="button" class="btn btn-secondary text-end" data-bs-dismiss="modal">Cancel</button>
@@ -334,8 +336,8 @@ include __DIR__ . "/components/header.php";
                 <h5 class="modal-title text-center">Create a password for your Zillow account.
                 </h5>
             </div>
-            <div class="modal-body">
-                <form action="">
+            <form onsubmit="return false">
+                <div class="modal-body">
                     <div>
 
                         <label class="pb-1" for="new-email"> Password</label>
@@ -354,12 +356,12 @@ include __DIR__ . "/components/header.php";
                         <label for="confirm-email">Confirm password</label>
                         <input type="email" name="confirm-email">
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Create Password</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Create Password</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -395,4 +397,20 @@ include __DIR__ . "/components/header.php";
 
 
 <?php
-include __DIR__ . "/components/footer.php"; ?>
+include __DIR__ . "/components/footer.php";
+?>
+
+<script>
+async function sendVerify() {
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("bridges/verify-mail", {
+        method: "POST",
+        body: new FormData(form)
+    })
+
+    if (conn.ok) {
+        verificationConfirm();
+    }
+}
+</script>
