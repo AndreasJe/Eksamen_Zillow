@@ -349,8 +349,8 @@ include __DIR__ . "/components/header.php";
                 <div class="modal-body">
                     <div>
 
-                        <label class="pb-1" for="new_email"> Password</label>
-                        <input type="email" name="new_email">
+                        <label class="pb-1" for="new_password"> Password</label>
+                        <input type="email" name="new_password">
                         <div>
                             <em class="password_req p-3"> At least 8 characters<br>
 
@@ -363,18 +363,18 @@ include __DIR__ . "/components/header.php";
                     </div>
                     <div>
                         <label for="confirm_email">Confirm password</label>
-                        <input type="email" name="confirm_email">
+                        <input type="email" name="new_password">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Create Password</button>
+                    <button type="button" class="btn btn-primary" onclick="changePass()">Create Password</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<!-- Modal for Change password -->
+<!-- Modal for 2FA activation  -->
 <div id="twofa" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -383,23 +383,24 @@ include __DIR__ . "/components/header.php";
 
                 </h5>
             </div>
-            <div class="modal-body">
-                <form action="">
+            <form onsubmit="return false">
+                <div class="modal-body">
                     <div>
                         <p>Enter the phone number you want to use and we’ll send you text message with your
                             verification code. SMS rates may apply.</p>
                     </div>
                     <div>
-                        <label for="phone-number">Phone Number</label>
-                        <input type="email" name="phone-number">
-                        <em class="password_req p-3"> Your phone needs to have a danish number</em>
+                        <label for="phone_number">Phone Number</label>
+                        <input type="text" name="phone_number">
+                        <em class="password_req p-3"> You need to use a danish number</em>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Create Password</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" name="submit" onclick="enableTwofa()">Apply</button>
+
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -451,6 +452,30 @@ async function changeEmail() {
     const form = event.target.form
     console.log(form)
     let conn = await fetch("apis/api-edit-email", {
+        method: "POST",
+        body: new FormData(form)
+    })
+    if (conn.ok) {
+        location.href = "account-settings"
+    }
+}
+
+async function changePass() {
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("apis/api-edit-password", {
+        method: "POST",
+        body: new FormData(form)
+    })
+    if (conn.ok) {
+        location.href = "account-settings"
+    }
+}
+
+async function enableTwofa() {
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("apis/api-edit-phone", {
         method: "POST",
         body: new FormData(form)
     })

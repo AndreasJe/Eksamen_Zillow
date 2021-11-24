@@ -44,6 +44,7 @@ try {
             $_SESSION['user_name'] = $row['user_name'];
             $_SESSION['first_name'] = $row['first_name'];
             $_SESSION['last_name'] = $row['last_name'];
+            $_SESSION['user_phone'] = $row['user_phone'];
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['forgot_pass_key'] = $row['forgot_pass_key'];
             $_SESSION['verification_key'] = $row['verification_key'];

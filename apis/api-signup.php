@@ -13,7 +13,7 @@ if (!filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL)) {
   $error = "We need a valid email to verify your user. Please enter your email correctly in the form";
 }
 
-// Validate username
+// Validate password
 if (!isset($_POST['user_password'])) {
   send_400('Password is required');
   $error = "We need your password to create a user for you!";

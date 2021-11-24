@@ -56,7 +56,7 @@ if (!empty($_POST['first_name']) && !empty($_POST['last_name'])) {
 
         $_SESSION['first_name'] = $_POST['first_name'];
         $_SESSION['last_name'] = $_POST['last_name'];
-        header("Location: account-settings");
+        exit();
     } catch (PDOException $ex) {
         echo $ex;
         echo 'No dice! There must have been an error ';
