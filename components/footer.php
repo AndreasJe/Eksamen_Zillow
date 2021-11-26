@@ -1103,7 +1103,7 @@
 
                 <form onsubmit="return false">
                     <label for="new_email mb-1">Email</label>
-                    <input name="new_email" type="text" placeholder="Enter email">
+                    <input name="new_email" type="text" placeholder="Enter email" data-min="2" data-max="50">
 
 
                     <button class="w-100 mt-3" onclick="forgotPassword()"> Send </button>
@@ -1154,15 +1154,21 @@
 
                             <form id="form_sign_in" onsubmit="return false">
                                 <label for="email">Email</label>
-                                <input name="email" type="text" placeholder="Enter email">
+                                <input name="email" type="text" placeholder="Enter email" data-min="5" data-max="30">
 
                                 <label for="password">Password</label>
-                                <input name="password" type="password" placeholder="Enter Password">
+                                <input name="password" type="password" placeholder="Enter Password" data-min="2"
+                                    data-max="50">
 
                                 <button class="w-100 mt-3 mb-3" onclick="login()"> Sign in </button>
                                 <a class="modal-link" href="#forgot" class="envokeModal" data-bs-toggle="modal">Forgot
                                     password?</a>
                             </form>
+                            <div>
+                                <p id="feedback1" class="text-center d-block">
+
+                                </p>
+                            </div>
 
 
                         </div>
@@ -1187,6 +1193,13 @@
                                 <button class="w-100 mt-3 mb-3" onclick="signup()"> Submit </button>
 
                             </form>
+
+                            <div>
+                                <p id="feedback2" class="text-center d-block">
+
+                                </p>
+                            </div>
+
                             <div class="modal-footer modal_info justify-content-center d-flex">
                                 <em>By submitting, I accept Zillow's &nbsp</em><a class="emA" href="#">terms of
                                     use.</a>
@@ -1200,6 +1213,8 @@
     </div>
 
 </div>
+
+
 
 
 
@@ -1274,19 +1289,37 @@ function verificationConfirm() {
     after_foot.style.display = "flex";
 }
 
+function phoneConfirm() {
+    const before = document.getElementById("phone-validation-header");
+    const after = document.getElementById("phone-validation-header1");
+    const before_foot = document.getElementById("phone-validation-footer");
+    const after_foot = document.getElementById("phone-validation-footer1");
+
+    before.style.display = "none";
+    after.style.display = "block";
+    before_foot.style.display = "none";
+    after_foot.style.display = "flex";
+}
+
 //Scripts for fetching Signup/Signin apis in modal
 async function login() {
-    const form = event.target.form
-    console.log(form)
-    let conn = await fetch("apis/api-login", {
-        method: "POST",
-        body: new FormData(form)
-    })
+    try {
+        const form = event.target.form
+        console.log(form)
+        let conn = await fetch("apis/api-login", {
+            method: "POST",
+            body: new FormData(form)
+        })
+    } catch (ex) {
+        console.error(ex);
+        const feedback_login = document.getElementById("feedback1");
+        feedback_login.innerHTML = ex.message;
 
-    if (conn.ok) {
+    } finally {
         location.href = "account-settings"
     }
 }
+
 
 async function signup() {
     const form = event.target.form

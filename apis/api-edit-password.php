@@ -37,7 +37,7 @@ if ($newpass == $confirmpass) {
 
         exit();
     } catch (PDOException $ex) {
-        echo $ex;
+        echo json_encode($ex);
         echo 'No dice! ';
     }
 } else {

@@ -59,16 +59,28 @@ main {
   display: block;
 }
 
-#after {
-  display: none;
-}
-
 #before_foot {
   display: flex;
 }
 
+#after,
 #after_foot {
   display: none;
+}
+
+#phone-validation-header {
+  display: block;
+}
+
+#phone-validation-header1 {
+  display: none;
+}
+#phone-validation-footer1 {
+  display: none;
+}
+
+#phone-validation-footer {
+  display: flex;
 }
 
 .verification_icon {

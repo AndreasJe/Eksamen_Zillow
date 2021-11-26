@@ -60,6 +60,6 @@ try {
         echo "ERROR: This user does not exist";
     }
 } catch (Exception $ex) {
-    _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
+    echo json_encode($ex);
     echo "Speak to an adult";
 }

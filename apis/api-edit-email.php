@@ -39,6 +39,20 @@ if ($newEmail == $confirmEmail) {
         $q->execute();
         $row = $q->fetch();
         echo 'Email has been changed: ' . $q->rowCount();
+
+        if ($q->rowCount() > 0) {
+            //Binding a new verification key since we have a new email to confirm
+            $verification_key = bin2hex(random_bytes(16));
+            $id = $_SESSION['user_id'];
+
+            $q2 = $db->prepare('UPDATE users SET verification_key = :vkey, verified = :verified WHERE user_id = :id');
+            $q2->bindValue(':id', $id);
+            $q2->bindValue(':vkey', $verification_key);
+            $q2->bindValue(':verified', false);
+            $q2->execute();
+            echo "New verification key has been assigned";
+        }
+
         $_SESSION['user_email'] = $_POST['new_email'];
     } catch (PDOException $ex) {
         echo $ex;

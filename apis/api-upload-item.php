@@ -55,8 +55,8 @@ try {
 
     // Success
 } catch (Exception $ex) {
+    echo json_encode($ex);
     http_response_code(500);
-    echo 'OOPS! i did it again' . __LINE__;
     exit();
 }
 

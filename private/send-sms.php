@@ -1,36 +1,26 @@
 <?php
 
-function callAPI($method, $url, $data)
-{
-    $curl = curl_init();
-    switch ($method) {
-        case "POST":
-            curl_setopt($curl, CURLOPT_POST, 1);
-            if ($data)
-                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-            break;
-        case "PUT":
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
-            if ($data)
-                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-            break;
-        default:
-            if ($data)
-                $url = sprintf("%s?%s", $url, http_build_query($data));
-    }
-    // OPTIONS:
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-        'APIKEY: 111111111111111111111',
-        'Content-Type: application/json',
-    ));
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    // EXECUTE:
-    $result = curl_exec($curl);
-    if (!$result) {
-        die("Connection Failure");
-    }
-    curl_close($curl);
-    return $result;
-}
+// Procedual
+
+// set post fields
+$post = [
+    'email' => 'gud.er.gud@gmail.com',
+    'password' => '22486050',
+    'phone'   => '22486050',
+    'to_phone'   => $to_phone,
+    'message'   => $sms_content,
+    'api_key'   => '6622fdaa-95c4-4573-837e-95f07972c63e',
+];
+
+$ch = curl_init('https://fatsms.com/send-sms');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+// execute!
+$response = curl_exec($ch);
+
+// close the connection, release resources used
+curl_close($ch);
+
+// do anything you want with your response
+var_dump($response);

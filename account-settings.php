@@ -384,7 +384,7 @@ include __DIR__ . "/components/header.php";
                 </h5>
             </div>
             <form onsubmit="return false">
-                <div class="modal-body">
+                <div id="phone-validation-header" class="modal-body">
                     <div>
                         <p>Enter the phone number you want to use and we’ll send you text message with your
                             verification code. SMS rates may apply.</p>
@@ -395,9 +395,24 @@ include __DIR__ . "/components/header.php";
                         <em class="password_req p-3"> You need to use a danish number</em>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div id="phone-validation-footer" class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" name="submit" onclick="enableTwofa()">Apply</button>
+                    <button type="button" class="btn btn-primary" name="submit" onclick="verifyPhone()">Apply</button>
+
+                </div>
+                <div id="phone-validation-header1" class="modal-body">
+                    <div>
+                        <p>We have sent you a text with a 5 digit code. <br>Insert it below to verify your number</p>
+                    </div>
+                    <div>
+                        <label for="phone_number">Authentication Code</label>
+                        <input type="text" name="2fa_key">
+                        <em class="password_req p-3"> It might take a few minutes</em>
+                    </div>
+                </div>
+                <div id="phone-validation-footer1" class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" name="submit" onclick="enableTwofa()">Verify</button>
 
                 </div>
             </form>
@@ -471,11 +486,22 @@ async function changePass() {
         location.href = "account-settings"
     }
 }
+async function verifyPhone() {
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("apis/api-verify-phone", {
+        method: "POST",
+        body: new FormData(form)
+    })
+    if (conn.ok) {
+        phoneConfirm()
+    }
+}
 
 async function enableTwofa() {
     const form = event.target.form
     console.log(form)
-    let conn = await fetch("apis/api-edit-phone", {
+    let conn = await fetch("apis/api-authenticator", {
         method: "POST",
         body: new FormData(form)
     })
