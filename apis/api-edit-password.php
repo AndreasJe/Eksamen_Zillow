@@ -4,16 +4,16 @@ require_once(__DIR__ . "/globals.php");
 
 // Validate password
 if (!isset($_POST['new_password'])) {
-    send_400('Password is required');
     $error = "We need your password to create a user for you!";
+    echo $error;
 }
 if (strlen($_POST['new_password']) < 2) {
-    send_400('Password has to be a minimum of 2 characters');
     $error = "Password has to be a minimum of " . _PASSWORD_MIN_LEN . " characters";
+    echo $error;
 }
 if (strlen($_POST['new_password']) > 22) {
-    send_400('Password cant exceed 22 characters');
     $error = "Password cant exceed " . _PASSWORD_MAX_LEN . " characters";
+    echo $error;
 }
 
 try {
@@ -25,7 +25,7 @@ try {
 if ($newpass == $confirmpass) {
     echo 'No dice! ';
     try {
-        $id = $_SESSION['user_id'];
+        $id = 184;
         $newpass = $_POST['new_password'];
         $newpasshashed = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
         $confirmpass = $_POST['confirm_password'];

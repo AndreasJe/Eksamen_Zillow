@@ -6,13 +6,13 @@ require_once(__DIR__ . "/globals.php");
 
 // Validate email
 if (!isset($_POST['email'])) {
-    send_400('email is required');
     $error = "We need your email to create a user for you! Please enter your email in the form";
+    http_response_code(400);
     exit();
 }
 if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    send_400('email is invalid');
     $error = "We need a valid email to verify your user. Please enter your email correctly in the form";
+    http_response_code(400);
     exit();
 }
 

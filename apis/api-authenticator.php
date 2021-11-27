@@ -23,7 +23,7 @@ try {
 
 try {
     //Binding of variables
-    $id = 184;
+    $id = $_SESSION['user_id'];
     $phone = $_POST['phone_number'];
     $key = $_POST['2fa_key'];
 
@@ -32,7 +32,6 @@ try {
     $q->bindValue(':authentication_code', $key);
     $q->execute();
     $row = $q->fetch();
-    echo 'Users with this code: ' . $q->rowCount();
 
     // When found we bind a new 2FA code and the phone number
     if ($q->rowCount() > 0) {
@@ -43,7 +42,10 @@ try {
         $q2->bindValue(':authentication_code', $new_authentication_code);
         $q2->bindValue(':user_phone', $phone);
         $q2->execute();
-        echo "New authentication_code has been assigned";
+        // Success
+        header('Content-Type: application/json');
+        $response = ["info" => "Code is valid", "Users found" => $q->rowCount(), "Authentication_code" => "New authentication_code has been assigned"];
+        echo json_encode($response);
     }
 } catch (PDOException $ex) {
     echo json_encode($ex);

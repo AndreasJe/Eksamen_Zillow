@@ -171,12 +171,12 @@ include __DIR__ . "/components/header.php";
                     </h4>
                     <em>
                         This will shut down your account, but retain your information. You won't be able to sign in
-                        again until your account is reactivated.
+                        again.
 
                     </em>
                 </div>
                 <div class="right">
-                    <a class="styledknap" href="modal">Deactivate account</a>
+                    <a href="#deleteUser" class="envokeModal styledknap" data-bs-toggle="modal">Deactivate account</a>
                 </div>
 
             </div>
@@ -204,11 +204,11 @@ include __DIR__ . "/components/header.php";
                 <div class="modal-body d-flex flex-row justify-content-evenly">
                     <div class="d-flex flex-column justify-content-start ">
                         <label class="pb-1" for="first_name">First name</label>
-                        <input type="text" name="first_name" required>
+                        <input type="text" name="first_name" data-min="2" data-max="22" required>
                     </div>
                     <div class="d-flex flex-column justify-content-end ">
                         <label class="pb-1" for="last_name">Last name</label>
-                        <input type="text" name="last_name" required>
+                        <input type="text" name="last_name" data-min="2" data-max="22" required>
                     </div>
 
                 </div>
@@ -253,7 +253,7 @@ include __DIR__ . "/components/header.php";
             <div class="modal-header justify-content-center">
                 <h5 class="modal-title">Edit Email</h5>
             </div>
-            <form action="">
+            <form onsubmit="return false">
                 <div class="modal-body">
                     <div class="mb-5">
                         <p>Your current email is <?= $_SESSION['user_email'] ?></p>
@@ -261,11 +261,11 @@ include __DIR__ . "/components/header.php";
 
                     <div class="pb-2">
                         <label class="pb-1" for="new_email"> New email:</label>
-                        <input class="pb-1" type="email" name="new_email">
+                        <input class="pb-1" type="email" data-min="5" data-max="50" name="new_email">
                     </div>
                     <div>
                         <label class="pb-1" for="confirm_email"> Confirm email:</label>
-                        <input class="pb-1" type="email" name="confirm_email">
+                        <input class="pb-1" type="email" data-min="5" data-max="50" name="confirm_email">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -339,40 +339,38 @@ include __DIR__ . "/components/header.php";
 
 <!-- Modal for Change password -->
 <div id="chgPass" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header justify-content-center ">
-                <h5 class="modal-title text-center">Create a password for your Zillow account.
-                </h5>
-            </div>
-            <form onsubmit="return false">
-                <div class="modal-body">
-                    <div>
-
-                        <label class="pb-1" for="new_password"> Password</label>
-                        <input type="email" name="new_password">
-                        <div>
-                            <em class="password_req p-3"> At least 8 characters<br>
-
-                                Mix of letters and numbers<br>
-
-                                At least 1 special character<br>
-
-                                At least 1 lowercase letter and 1 uppercase letter</em>
-                        </div>
-                    </div>
-                    <div>
-                        <label for="confirm_email">Confirm password</label>
-                        <input type="email" name="new_password">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="changePass()">Create Password</button>
-                </div>
-            </form>
-        </div>
+    <div class="modal-header justify-content-center ">
+        <h5 class="modal-title text-center">Create a password for your Zillow account.
+        </h5>
     </div>
+    <form onsubmit="return false">
+        <div class="modal-body">
+            <div>
+
+                <label class="pb-1" for="new_password"> Password</label>
+                <input type="password" name="new_password" data-min="2" data-max="22">
+                <div>
+                    <em class="password_req p-3"> At least 8 characters<br>
+
+                        Mix of letters and numbers<br>
+
+                        At least 1 special character<br>
+
+                        At least 1 lowercase letter and 1 uppercase letter</em>
+                </div>
+            </div>
+            <div>
+                <label for="confirm_email">Confirm password</label>
+                <input type="password" name="new_password" data-min="2" data-max="22">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="changePass()">Create Password</button>
+        </div>
+    </form>
+</div>
+</div>
 </div>
 <!-- Modal for 2FA activation  -->
 <div id="twofa" class="modal fade">
@@ -391,7 +389,7 @@ include __DIR__ . "/components/header.php";
                     </div>
                     <div>
                         <label for="phone_number">Phone Number</label>
-                        <input type="text" name="phone_number">
+                        <input type="text" name="phone_number" data-min="8" data-max="8">
                         <em class="password_req p-3"> You need to use a danish number</em>
                     </div>
                 </div>
@@ -405,8 +403,8 @@ include __DIR__ . "/components/header.php";
                         <p>We have sent you a text with a 5 digit code. <br>Insert it below to verify your number</p>
                     </div>
                     <div>
-                        <label for="phone_number">Authentication Code</label>
-                        <input type="text" name="2fa_key">
+                        <label for="2fa_key">Authentication Code</label>
+                        <input type="text" name="2fa_key" data-min="5" data-max="5">
                         <em class="password_req p-3"> It might take a few minutes</em>
                     </div>
                 </div>
@@ -414,6 +412,29 @@ include __DIR__ . "/components/header.php";
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" name="submit" onclick="enableTwofa()">Verify</button>
 
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal for account deletion -->
+<div id="deleteUser" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <h5 class="modal-title">Deactivate Account</h5>
+            </div>
+            <form onsubmit="return false">
+                <div class="modal-body">
+                    <div class="m-5">
+                        <p>Are you sure, you want to deactivate your account? We wont be able to recover it for you
+                            afterwards.</p>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="deleteUser()">Apply</button>
                 </div>
             </form>
         </div>
@@ -507,6 +528,18 @@ async function enableTwofa() {
     })
     if (conn.ok) {
         location.href = "account-settings"
+    }
+}
+
+async function deleteUser() {
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("apis/api-delete-user", {
+        method: "POST",
+        body: new FormData(form)
+    })
+    if (conn.ok) {
+        location.href = "index"
     }
 }
 </script>

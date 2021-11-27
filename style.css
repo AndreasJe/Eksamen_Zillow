@@ -55,32 +55,20 @@ main {
 
 /* Modals for settings */
 
-#before {
-  display: block;
-}
-
+#forgot-before,
+#before,
+#phone-validation-header,
+#phone-validation-footer,
 #before_foot {
   display: flex;
 }
 
 #after,
-#after_foot {
-  display: none;
-}
-
-#phone-validation-header {
-  display: block;
-}
-
-#phone-validation-header1 {
-  display: none;
-}
+#after_foot,
+#forgot-after,
+#phone-validation-header1,
 #phone-validation-footer1 {
   display: none;
-}
-
-#phone-validation-footer {
-  display: flex;
 }
 
 .verification_icon {
@@ -334,7 +322,9 @@ form button {
   width: 450px;
   height: max-content;
   max-height: 900px;
-  min-height: 550px;
+  min-height: 460px;
+  align-content: center;
+  justify-content: center;
   max-width: 90%;
   background: #fff;
   padding: 16px 16px 0px;

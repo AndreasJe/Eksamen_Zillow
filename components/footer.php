@@ -1090,7 +1090,7 @@
 
 <div id="forgot" class="modal fade">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div id="forgot-before" class="modal-content">
             <div class="modal-header justify-content-center flex-column">
                 <span id="sr-message" aria-live="off" class="VisuallyHidden-c11n-8-53-1__sc-t8tewe-0 hObLRM"></span>
                 <h2 font-family="serif"
@@ -1102,22 +1102,84 @@
             <div class="pt-5 modal-body">
 
                 <form onsubmit="return false">
-                    <label for="new_email mb-1">Email</label>
-                    <input name="new_email" type="text" placeholder="Enter email" data-min="2" data-max="50">
+                    <label for="user_email mb-1">Email</label>
+                    <input name="user_email" type="text" placeholder="Enter email">
 
 
                     <button class="w-100 mt-3" onclick="forgotPassword()"> Send </button>
                 </form>
             </div>
-            <div class="modal-footer justify-content-center">
-                <p>Know your password?</p><a class="" href="#login" data-bs-dismiss="modal"> &nbsp;Sign in.</a>
+        </div>
+
+        <div id="forgot-after" class="modal-content">
+
+            <div class="modal-header justify-content-center flex-column">
+                <span id="sr-message" aria-live="off" class="VisuallyHidden-c11n-8-53-1__sc-t8tewe-0 hObLRM"></span>
+                <h2 font-family="serif"
+                    class="Text-c11n-8-53-1__sc-aiai24-0 StyledHeading-c11n-8-53-1__sc-ktujwe-0 fDFlcw">Email sent</h2>
+                <p class="Text-c11n-8-53-1__sc-aiai24-0 StyledParagraph-c11n-8-53-1__sc-18ze78a-0 jCBryf"> In a few
+                    seconds, you'll receive a email with a link. <br>Follow the link to configure your new password</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
             </div>
+
+
         </div>
+
+
     </div>
-
-
 </div>
+
+<!-- Reset Password Modal -->
+
+<div id="reset" class="modal fade">
+    <div class="modal-dialog">
+        <div id="forgot-before" class="modal-content">
+            <div class="modal-header justify-content-center flex-column">
+                <span id="sr-message" aria-live="off" class="VisuallyHidden-c11n-8-53-1__sc-t8tewe-0 hObLRM"></span>
+                <h2 font-family="serif"
+                    class="Text-c11n-8-53-1__sc-aiai24-0 StyledHeading-c11n-8-53-1__sc-ktujwe-0 fDFlcw">Forgot your
+                    password?</h2>
+                <p class="Text-c11n-8-53-1__sc-aiai24-0 StyledParagraph-c11n-8-53-1__sc-18ze78a-0 jCBryf">Enter your
+                    email address and we'll send you a link to set your password.</p>
+            </div>
+            <div class="pt-5 modal-body">
+
+                <form onsubmit="return false">
+                    <label for="new_password mb-1">Password</label>
+                    <input name="new_password" type="text" placeholder="Enter email">
+                    <label for="confirm_password mb-1">Confirm Password</label>
+                    <input name="confirm_password" type="text" placeholder="Enter email">
+
+
+                    <button class="w-100 mt-3" onclick="resetPassword()"> Send </button>
+                </form>
+            </div>
+        </div>
+
+        <div id="forgot-after" class="modal-content">
+
+            <div class="modal-header justify-content-center flex-column">
+                <span id="sr-message" aria-live="off" class="VisuallyHidden-c11n-8-53-1__sc-t8tewe-0 hObLRM"></span>
+                <h2 font-family="serif"
+                    class="Text-c11n-8-53-1__sc-aiai24-0 StyledHeading-c11n-8-53-1__sc-ktujwe-0 fDFlcw">Email sent</h2>
+                <p class="Text-c11n-8-53-1__sc-aiai24-0 StyledParagraph-c11n-8-53-1__sc-18ze78a-0 jCBryf"> In a few
+                    seconds, you'll receive a email with a link. <br>Follow the link to configure your new password</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
 
 <!-- Sing in / Sign up Modal -->
 
@@ -1154,11 +1216,10 @@
 
                             <form id="form_sign_in" onsubmit="return false">
                                 <label for="email">Email</label>
-                                <input name="email" type="text" placeholder="Enter email" data-min="5" data-max="30">
+                                <input name="email" type="text" placeholder="Enter email">
 
                                 <label for="password">Password</label>
-                                <input name="password" type="password" placeholder="Enter Password" data-min="2"
-                                    data-max="50">
+                                <input name="password" type="password" placeholder="Enter Password">
 
                                 <button class="w-100 mt-3 mb-3" onclick="login()"> Sign in </button>
                                 <a class="modal-link" href="#forgot" class="envokeModal" data-bs-toggle="modal">Forgot
@@ -1296,7 +1357,7 @@ function phoneConfirm() {
     const after_foot = document.getElementById("phone-validation-footer1");
 
     before.style.display = "none";
-    after.style.display = "block";
+    after.style.display = "flex";
     before_foot.style.display = "none";
     after_foot.style.display = "flex";
 }
@@ -1331,6 +1392,39 @@ async function signup() {
 
     if (conn.ok) {
         location.href = "account-settings"
+    }
+}
+async function forgotPassword() {
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("apis/api-forgotten-pass", {
+        method: "POST",
+        body: new FormData(form)
+    })
+
+    if (conn.ok) {
+        forgotConfirm()
+    }
+}
+
+function forgotConfirm() {
+    const before = document.getElementById("forgot-before");
+    const after = document.getElementById("forgot-after");
+
+    before.style.display = "none";
+    after.style.display = "flex";
+}
+
+function resetPass() {
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("apis/api-reset-password?key=<?php echo $_GET['key'] ?>", {
+        method: "POST",
+        body: new FormData(form)
+    })
+
+    if (conn.ok) {
+        location.href = "index"
     }
 }
 </script>
