@@ -8,6 +8,12 @@ define('_ITEM_MAX_LEN', 22);
 define('_PASSWORD_MIN_LEN', 2);
 define('_PASSWORD_MAX_LEN', 22);
 
+define('_GENERICTEXT_MIN_LEN', 5);
+define('_GENERICTEXT_MAX_LEN', 50);
+
+define('_TEXT_MIN_LEN', 2);
+define('_TEXT_MAX_LEN', 22);
+
 
 // ##############################
 function _res($status = 200, $message = [])

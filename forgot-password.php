@@ -46,6 +46,10 @@
 
 
 session_start();
+if (!isset($_GET['key'])) {
+    header('Location: index');
+    exit();
+}
 $_title = 'Reset Password';
 
 include __DIR__ . "/components/header.php";
@@ -80,8 +84,8 @@ include __DIR__ . "/components/header.php";
                         </div>
 
                         <div class="d-flex flex-column m-5 mt-0 mb-3">
-                            <label for="confirm_email">Confirm password</label>
-                            <input type="password" name="new_password" data-min="2" data-max="22">
+                            <label for="confirm_password">Confirm password</label>
+                            <input type="password" name="confirm_password" data-min="2" data-max="22">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -95,6 +99,22 @@ include __DIR__ . "/components/header.php";
 </main>
 
 
+<!-- Script needs to standalone, since it uses the variable internally. Otherwise it will throw off all other scripts. -->
+
+<script>
+async function resetPass() {
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("apis/api-reset-password?key=<?php echo $_GET['key'] ?>", {
+        method: "POST",
+        body: new FormData(form)
+    })
+
+    if (conn.ok) {
+        location.href = "index"
+    }
+}
+</script>
 
 
 <?php

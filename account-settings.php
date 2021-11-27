@@ -69,11 +69,6 @@ include __DIR__ . "/components/header.php";
         </p>
     </div>
 
-    <div>
-        <h2>session</h2>
-        <p> <?= Print_r($_SESSION); ?> </p>
-    </div>
-
     <div class="profile-wrapper">
         <h1 class="header">Profile</h1>
 
@@ -398,7 +393,7 @@ include __DIR__ . "/components/header.php";
                     <button type="button" class="btn btn-primary" name="submit" onclick="verifyPhone()">Apply</button>
 
                 </div>
-                <div id="phone-validation-header1" class="modal-body">
+                <div id="phone-validation-header_after" class="modal-body">
                     <div>
                         <p>We have sent you a text with a 5 digit code. <br>Insert it below to verify your number</p>
                     </div>
@@ -408,7 +403,7 @@ include __DIR__ . "/components/header.php";
                         <em class="password_req p-3"> It might take a few minutes</em>
                     </div>
                 </div>
-                <div id="phone-validation-footer1" class="modal-footer">
+                <div id="phone-validation-footer_after" class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" name="submit" onclick="enableTwofa()">Verify</button>
 

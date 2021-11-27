@@ -1215,18 +1215,20 @@
                         <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
 
                             <form id="form_sign_in" onsubmit="return false">
-                                <label for="email">Email</label>
-                                <input name="email" type="text" placeholder="Enter email">
+                                <label for="user_email">Email</label>
+                                <input name="user_email" required type="email" data="str" placeholder="Enter email"
+                                    data-min="2" data-max="50">
 
-                                <label for="password">Password</label>
-                                <input name="password" type="password" placeholder="Enter Password">
+                                <label for="user_password">Password</label>
+                                <input name="user_password" required type="password" data="str"
+                                    placeholder="Enter Password" data-min="5" data-max="30">
 
                                 <button class="w-100 mt-3 mb-3" onclick="login()"> Sign in </button>
                                 <a class="modal-link" href="#forgot" class="envokeModal" data-bs-toggle="modal">Forgot
                                     password?</a>
                             </form>
                             <div>
-                                <p id="feedback1" class="text-center d-block">
+                                <p id="feedback_login" class="text-center d-block">
 
                                 </p>
                             </div>
@@ -1239,10 +1241,12 @@
 
                             <form id="form_sign_up" onsubmit="return false">
                                 <label for="user_email">Email</label>
-                                <input name="user_email" type="text" placeholder="Enter email">
+                                <input name="user_email" required type="email" data="str" placeholder="Enter email"
+                                    data-min="5" data-max="30">
 
                                 <label for="user_password">Password</label>
-                                <input name="user_password" type="password" placeholder="Create password">
+                                <input name="user_password" required type="password" data="str"
+                                    placeholder="Create password" data-min="8" data-max="30">
                                 <em class="password_req"> At least 8 characters<br>
 
                                     Mix of letters and numbers<br>
@@ -1256,7 +1260,7 @@
                             </form>
 
                             <div>
-                                <p id="feedback2" class="text-center d-block">
+                                <p id="feedback_signup" class="text-center d-block">
 
                                 </p>
                             </div>
@@ -1352,9 +1356,9 @@ function verificationConfirm() {
 
 function phoneConfirm() {
     const before = document.getElementById("phone-validation-header");
-    const after = document.getElementById("phone-validation-header1");
+    const after = document.getElementById("phone-validation-header_after");
     const before_foot = document.getElementById("phone-validation-footer");
-    const after_foot = document.getElementById("phone-validation-footer1");
+    const after_foot = document.getElementById("phone-validation-footer_after");
 
     before.style.display = "none";
     after.style.display = "flex";
@@ -1373,25 +1377,26 @@ async function login() {
         })
     } catch (ex) {
         console.error(ex);
-        const feedback_login = document.getElementById("feedback1");
+        const feedback_login = document.getElementById("feedback_login");
         feedback_login.innerHTML = ex.message;
 
-    } finally {
-        location.href = "account-settings"
     }
 }
 
 
 async function signup() {
-    const form = event.target.form
-    console.log(form)
-    let conn = await fetch("apis/api-signup", {
-        method: "POST",
-        body: new FormData(form)
-    })
+    try {
+        const form = event.target.form
+        console.log(form)
+        let conn = await fetch("apis/api-signup", {
+            method: "POST",
+            body: new FormData(form)
+        })
+    } catch (ex) {
 
-    if (conn.ok) {
-        location.href = "account-settings"
+        console.error(ex);
+        const feedback_login = document.getElementById("feedback_signup");
+        feedback_login.innerHTML = ex.message;
     }
 }
 async function forgotPassword() {
@@ -1407,32 +1412,18 @@ async function forgotPassword() {
     }
 }
 
-function forgotConfirm() {
+async function forgotConfirm() {
     const before = document.getElementById("forgot-before");
     const after = document.getElementById("forgot-after");
 
     before.style.display = "none";
     after.style.display = "flex";
 }
-
-function resetPass() {
-    const form = event.target.form
-    console.log(form)
-    let conn = await fetch("apis/api-reset-password?key=<?php echo $_GET['key'] ?>", {
-        method: "POST",
-        body: new FormData(form)
-    })
-
-    if (conn.ok) {
-        location.href = "index"
-    }
-}
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
-<script src="components/validator.js"></script>
 
 </body>
 

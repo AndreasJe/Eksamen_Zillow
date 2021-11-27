@@ -5,30 +5,25 @@ require_once(__DIR__ . "../globals.php");
 
 // Validate email
 if (!isset($_POST['user_email'])) {
-  $error = "We need your email to create a user for you! Please enter your email in the form";
-  echo $error;
+  send_400('We need your email to create a user for you! Please enter your email in the form');
   exit();
 }
 if (!filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL)) {
-  $error = "We need a valid email to verify your user. Please enter your email correctly in the form";
-  echo $error;
+  send_400('Please enter a valid email');
   exit();
 }
 
 // Validate password
 if (!isset($_POST['user_password'])) {
-  $error = "We need your password to create a user for you!";
-  echo $error;
+  send_400('We need your password to create a user for you!');
   exit();
 }
-if (strlen($_POST['user_password']) < 2) {
-  $error = "Password has to be a minimum of " . _PASSWORD_MIN_LEN . " characters";
-  echo $error;
+if (strlen($_POST['user_password']) < 8) {
+  send_400('Password has to be a minimum of 8 characters');
   exit();
 }
 if (strlen($_POST['user_password']) > 22) {
-  $error = "Password cant exceed " . _PASSWORD_MAX_LEN . " characters";
-  echo $error;
+  send_400('Password cant exceed ' . _PASSWORD_MAX_LEN . ' characters');
   exit();
 }
 
@@ -36,7 +31,8 @@ if (strlen($_POST['user_password']) > 22) {
 try {
   $db = _db();
 } catch (Exception $ex) {
-  _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
+  send_500('System under maintainance');
+  echo json_encode($ex);
 }
 
 
@@ -79,11 +75,36 @@ try {
   header('Content-Type: application/json');
   $response = ["info" => "user created", "user_id" => intval($user_id), "Verification" => "Verification Email has been sent"];
   echo json_encode($response);
-
-  exit();
 } catch (Exception $ex) {
   http_response_code(500);
-  $error = 'Something went wrong';
   echo json_encode($ex);
+  exit();
+}
+
+// function to manage responding in case of an error
+function send_400($error_message)
+{
+  header('Content-Type: application/json');
+  http_response_code(400);
+  $response = ["info" => $error_message];
+  echo json_encode($response);
+  exit();
+}
+
+function send_500($error_message)
+{
+  header('Content-Type: application/json');
+  http_response_code(500);
+  $response = ["info" => $error_message];
+  echo json_encode($response);
+  exit();
+}
+
+function send_200($error_message)
+{
+  header('Content-Type: application/json');
+  http_response_code(200);
+  $response = ["info" => $error_message];
+  echo json_encode($response);
   exit();
 }
