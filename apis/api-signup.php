@@ -79,11 +79,8 @@ try {
   header('Content-Type: application/json');
   $response = ["info" => "user created", "user_id" => intval($user_id), "Verification" => "Verification Email has been sent"];
   echo json_encode($response);
-
-  exit();
 } catch (Exception $ex) {
   http_response_code(500);
-  $error = 'Something went wrong';
   echo json_encode($ex);
   exit();
 }

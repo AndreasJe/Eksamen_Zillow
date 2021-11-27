@@ -1,9 +1,10 @@
 <?php
 require_once("globals.php");
+session_start();
 
 //Initial validation of the parameter
 if (!isset($_GET['key'])) {
-    echo 'Verification_Key is not present in Database - Create new user or contact your administrator';
+    echo 'key is not present';
     exit();
 }
 if (strlen($_GET['key']) != 32) {
@@ -11,11 +12,11 @@ if (strlen($_GET['key']) != 32) {
     exit();
 }
 if (!isset($_POST['new_password'])) {
-    echo "Password is needed";
+    echo "new_password is needed";
     exit();
 }
 if (!isset($_POST['confirm_password'])) {
-    echo "ConfirmPassword is needed";
+    echo "confirm_password is needed";
     exit();
 }
 
@@ -42,7 +43,24 @@ try {
         $q->bindValue(':pass_key', $pass_key);
         $q->bindValue(':new_password', $newpasshashed);
         $q->execute();
-        echo "Number of useres updated: " . $q->rowCount();
+        echo "Number of users updated: " . $q->rowCount();
+
+
+        if ($q->rowCount() > 0) {
+            //Binding a new verification key after use
+            $new_verification_key = bin2hex(random_bytes(16));
+
+            $q2 = $db->prepare('UPDATE users SET forgot_pass_key = :new_pass_key WHERE forgot_pass_key = :pass_key');
+            $q->bindValue(':pass_key', $pass_key);
+            $q2->bindValue(':new_pass_key', $new_verification_key);
+            $q2->execute();
+            echo "New verification key has been assigned";
+            exit();
+        } else {
+
+            echo "Signing new key failed";
+            exit();
+        }
     } else {
         echo "ERROR: Password does not match.";
         exit();

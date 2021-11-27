@@ -61,8 +61,44 @@ include __DIR__ . "/components/header.php";
 
         <section id="productGrid">
 
+            <!-- Getting products from Sheet. -->
+            <?php
+            $data = json_decode(file_get_contents("apis/shop.txt"));
+            foreach ($data as $item) {
+                echo "
+                <div class='product'>
+                    <div class='pic-container'>
+                
+                        <img src='/img/products/partners/{$item->item_img}' alt='house'>
+                        <div class='fav-btn'>
+                            <label for='1' class='custom-checkbox'>
+                                <input type='checkbox' id='1' />
+                                <i class='glyphicon glyphicon-heart-empty'></i>
+                                <i class='glyphicon glyphicon-heart'></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class='btm-container'>
+                        <div class='price-container'>
+                            <h1>{$item->item_price}</h1>
+                        </div>
+                        <div class='description-container mt-1 mb-2'>
+                            <p>{$item->item_features}</p>
+                        </div>
+                        <div class='address-container'>
+                            <address>{$item->item_location}</address>
+                        </div>
+                        <div class='seller-container'>
+                            <em>{$item->item_author}</em>
+                        </div>
+                    </div>
+                </div>";
+            }
+            ?>
 
 
+
+            <!-- Styled product template. -->
             <div class="product">
                 <div class="pic-container">
                     <img src="/img/permanent/house.jpg" alt="house">
@@ -87,19 +123,16 @@ include __DIR__ . "/components/header.php";
                     <div class="seller-container">
                         <em>Interactive Brokers</em>
                     </div>
-
-
-
                 </div>
-
-
             </div>
 
         </section>
     </div>
 
 
+</main>
 
 
-    <?php
-    include __DIR__ . "/components/footer.php"; ?>
+
+<?php
+include __DIR__ . "/components/footer.php"; ?>

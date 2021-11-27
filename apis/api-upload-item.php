@@ -3,6 +3,13 @@ session_start();
 require_once('globals.php');
 
 
+define('_ITEM_MIN_LEN', 2);
+define('_ITEM_MAX_LEN', 22);
+
+
+define('_PASSWORD_MIN_LEN', 2);
+define('_PASSWORD_MAX_LEN', 22);
+
 // Validate First Name
 if (!isset($_POST['first_name'])) {
     http_response_code(400);
@@ -52,6 +59,30 @@ try {
     $q->bindValue(':item_name', $_POST['item_name']);
     $q->execute();
     echo $item_id;
+
+
+
+    /*
+item_id
+item_name
+item_price
+item_image
+item_location
+item_features
+item_author
+upload_agreement
+item_log
+
+*/
+
+
+
+
+
+
+
+
+
 
     // Success
 } catch (Exception $ex) {

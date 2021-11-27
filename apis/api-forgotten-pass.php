@@ -27,6 +27,7 @@ try {
     echo 'Number of users found: ' . $q->rowCount();
     $verification_key = $row['forgot_pass_key'];
 
+    //Validating the verification key
 
     if (!isset($row['forgot_pass_key'])) {
         echo 'Verification_Key is not present in Database - Create new user or contact your administrator';
@@ -37,6 +38,7 @@ try {
         exit();
     }
 
+    //Sending email with link
 
     $_to_email =  $_POST['user_email'];
     $_message = file_get_contents('../emails/ForgotPassword_Template.html');

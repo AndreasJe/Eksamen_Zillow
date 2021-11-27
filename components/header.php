@@ -11,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <script src="components/validator.js"></script>
 
 </head>
 
@@ -77,7 +78,7 @@
                                 <div class="col-md-5 col-lg-5 col-sm-5">
                                     <h2 class="sub-menu-head">Homes for Sale</h2>
                                     <ul class="sub-menu-lists">
-                                        <li><a href="uploadproduct">Sell your home</a></li>
+                                        <li><a href="upload-product">Sell your home</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -103,13 +104,14 @@
                         </div>
                     </div>
                 </li>
-                <?php if (!isset($_SESSION['user_id'])) { ?>
                 <li class="top-level-link">
+                    <?php if (!isset($_SESSION['user_id'])) { ?>
                     <a href=" #login" class="envokeModal" data-bs-toggle="modal"><span>Sign in</span></a>
-                </li>
-                <?php } else {  ?>
 
-                <?php } ?>
+                    <?php } else {  ?>
+                    <a class="invisible">signin</a>
+                    <?php } ?>
+                </li>
 
                 <?php if (isset($_SESSION['user_id'])) : ?>
                 <li class="user-nav top-level-link">
@@ -145,6 +147,14 @@
 
             </ul>
         </nav>
+        <?php $lang = 'en' ?>
+
+        <div class="language-link">
+            <a class="language-link-item" href="index.php?lang=en">English</a> | <a <?php if ($lang == 'en') { ?>
+                style="color: #ff9900;" <?php } ?> class="language-link-item" href="index.php?lang=de"
+                <?php if ($lang == 'de') { ?> style="color: #ff9900;" <?php } ?>>Deutsche</a>
+        </div>
+
 
         <div class="head_container">
             <div class="head_contentBox">
