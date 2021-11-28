@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Vært: 127.0.0.1
--- Genereringstid: 28. 11 2021 kl. 15:37:35
+-- Genereringstid: 28. 11 2021 kl. 16:23:56
 -- Serverversion: 10.4.21-MariaDB
 -- PHP-version: 8.0.11
 
@@ -43,18 +43,18 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`item_id`, `item_name`, `item_price`, `item_location`, `item_features`, `item_log`, `item_author`, `item_author_id`) VALUES
-('06d26ff3c2157a80bce56be67320cc3b', 'Hus', '$45,356', '1441 Thomas Dr, Lebanon, MO 65536', 'Be prepared for a jaw-drop! This adorable home has more space that you would ever expect', '2021-11-28 08:05:19.000000', 'Andreas Jensen', '184'),
-('5b063dda3ce6ae94506b4a19baf6bf59', 'House 3', '$546,409', 'Damgadevej, 4000 Roskilde', 'Flot og nydeligt. Ofte rengjort, men overvejende tilrøget', '2021-11-28 07:35:59.000000', 'John Doe', '184'),
+('06d26ff3c2157a80bce56be67320cc3b', 'House 5', '$45,356', '1441 Thomas Dr, Lebanon, MO 65536', 'Be prepared for a jaw-drop! This adorable home has more space that you would ever expect', '2021-11-28 08:05:19.000000', 'Andreas Jensen', '184'),
+('5b063dda3ce6ae94506b4a19baf6bf59', 'House 9', '$546,409', '0 Tuscumbia Rd, Lebanon, MO 65536', ' There are endless options with this property- use for livestock, hay, development or build your dre', '2021-11-28 07:35:59.000000', 'John Doe', '184'),
 ('6a7a2ddafc95b45a62404238e6d47e3f', 'House 1', '$420,690', '4725 Bronx Blvd #B, Bronx, NY 10470', 'This Gorgeous Single Home Is Nestled On A Beautiful Tree Lined Street', '2021-11-28 07:22:09.000000', 'Arthur', '184'),
-('8beed7296556d53e1f8f5e8759f60a82', 'House 3', '$420,690', '4725 Bronx Blvd #B, Bronx, NY 10470', 'This Gorgeous Single Home Is Nestled On A Beautiful Tree Lined Street', '2021-11-28 07:23:16.000000', 'Don Ø', '184'),
-('90634ec445c31ffec7d3d2be88e6e419', 'House 1', '$420,690', '4725 Bronx Blvd #B, Bronx, NY 10470', 'This Gorgeous Single Home Is Nestled On A Beautiful Tree Lined Street', '2021-11-28 07:29:27.000000', 'Arthuro Bungami', '184'),
-('938da942273019062db0c68f7fd12d6b', 'House 3', '$546,409', 'Damgadevej, 4000 Roskilde', 'Flot og nydeligt. Ofte rengjort, men overvejende tilrøget', '2021-11-28 07:35:10.000000', 'Sofie Rødthår', '184'),
-('a7c2ce85a706601034d9178268816e0d', 'House 1', '$420,690', '4725 Bronx Blvd #B, Bronx, NY 10470', 'This Gorgeous Single Home Is Nestled On A Beautiful Tree Lined Street', '2021-11-28 07:22:06.000000', 'Karsten Villerslev', '184'),
-('adac2eb0be4f87150568209452e068bf', 'House 3', '$546,409', 'Damgadevej, 4000 Roskilde', 'Flot og nydeligt. Ofte rengjort, men overvejende tilrøget', '2021-11-28 07:35:50.000000', 'Poul Hansen', '184'),
-('bbaa4bd5f1d86e3db7188456670a2984', 'Hus', '$45,356', '1441 Thomas Dr, Lebanon, MO 65536', 'Be prepared for a jaw-drop! This adorable home has more space that you would ever expect', '2021-11-28 08:03:06.000000', 'Katrine Parkinson', '184'),
-('c532a7707a31d5a6b81303e34e97d3e2', 'Hus', '$45,356', '1441 Thomas Dr, Lebanon, MO 65536', 'Be prepared for a jaw-drop! This adorable home has more space that you would ever expect', '2021-11-28 08:04:47.000000', 'Damgaard Petersen', '184'),
-('cb54a4ec70ee362e7ce5d4cf1bace02c', 'House 2', '$620,620', '4725 Bronx Blvd #B, Bronx, NY 10470', 'This Gorgeous Single Home Is Nestled On A Beautiful Tree Lined Street Featuring Tons Of Space', '2021-11-28 07:23:53.000000', 'Ben Dover', '184'),
-('ed64f0dd5b291ef12177325b6d70229d', 'Hus', '$45,356', '1441 Thomas Dr, Lebanon, MO 65536', 'Be prepared for a jaw-drop! This adorable home has more space that you would ever expect', '2021-11-28 08:05:19.000000', 'Andreas Jensen', '184');
+('8beed7296556d53e1f8f5e8759f60a82', 'House 2', '$420,690', '4725 Bronx Blvd #B, Bronx, NY 10470', 'This Gorgeous Single Home Is Nestled On A Beautiful Tree Lined Street', '2021-11-28 07:23:16.000000', 'Don Ø', '184'),
+('90634ec445c31ffec7d3d2be88e6e419', 'House 3', '$420,690', '4725 Bronx Blvd #B, Bronx, NY 10470', 'This Gorgeous Single Home Is Nestled On A Beautiful Tree Lined Street', '2021-11-28 07:29:27.000000', 'Arthuro Bungami', '184'),
+('938da942273019062db0c68f7fd12d6b', 'House 10', '$546,409', '0 Tuscumbia Rd, Lebanon, MO 65536', 'Great future investment potential in residential development! Come take a look today!', '2021-11-28 07:35:10.000000', 'Sofie Rødthår', '184'),
+('a7c2ce85a706601034d9178268816e0d', 'House 4', '$420,690', '4725 Bronx Blvd #B, Bronx, NY 10470', 'This Gorgeous Single Home Is Nestled On A Beautiful Tree Lined Street', '2021-11-28 07:22:06.000000', 'Karsten Villerslev', '184'),
+('adac2eb0be4f87150568209452e068bf', 'House 11', '$546,409', '0 Tuscumbia Rd, Lebanon, MO 65536', 'Acreage like this in the city limits is hard to find! Two sides of road frontage and great pasture l', '2021-11-28 07:35:50.000000', 'Poul Hansen', '184'),
+('bbaa4bd5f1d86e3db7188456670a2984', 'House 6', '$45,356', '1441 Thomas Dr, Lebanon, MO 65536', 'Be prepared for a jaw-drop! This adorable home has more space that you would ever expect', '2021-11-28 08:03:06.000000', 'Katrine Parkinson', '184'),
+('c532a7707a31d5a6b81303e34e97d3e2', 'House 7', '$45,356', '1441 Thomas Dr, Lebanon, MO 65536', 'Be prepared for a jaw-drop! This adorable home has more space that you would ever expect', '2021-11-28 08:04:47.000000', 'Damgaard Petersen', '184'),
+('cb54a4ec70ee362e7ce5d4cf1bace02c', 'House 12', '$620,620', '4725 Bronx Blvd #B, Bronx, NY 10470', 'This Gorgeous Single Home Is Nestled On A Beautiful Tree Lined Street Featuring Tons Of Space', '2021-11-28 07:23:53.000000', 'Ben Dover', '184'),
+('ed64f0dd5b291ef12177325b6d70229d', 'House 8', '$45,356', '1441 Thomas Dr, Lebanon, MO 65536', 'Be prepared for a jaw-drop! This adorable home has more space that you would ever expect', '2021-11-28 08:05:19.000000', 'Andreas Jensen', '184');
 
 -- --------------------------------------------------------
 
