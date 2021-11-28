@@ -53,7 +53,7 @@
 
     #chkbox {
         content: "";
-        border: 1 px solid #A7A6AB;
+        border: 1px solid #A7A6AB;
         background-color: #fff;
         margin: 10px;
     }
@@ -94,9 +94,8 @@
 
 
 </head>
+
 <?php
-
-
 session_start();
 $_title = 'List your home';
 
@@ -152,7 +151,7 @@ include __DIR__ . "/components/header.php";
 
         <section class="d-flex flex-row">
             <input id="chkbox" type="checkbox" name="upload_agreement" onclick="agreeTerms()">
-            <label for="chkbox" class="terms" for="upload_agreement"> I will be posting my property 'for sale by owner'
+            <label class="terms" for="chkbox"> I will be posting my property 'for sale by owner'
                 on
                 a fake zillow.com service and its all fake, so no worries. We have
                 other affiliated websites and that I will solely be responsible for maintaining and updating the posting

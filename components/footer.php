@@ -1216,7 +1216,7 @@
 
                             <form id="form_sign_in" onsubmit="return false">
                                 <label for="user_email">Email</label>
-                                <input name="user_email" required type="email" data="str" placeholder="Enter email"
+                                <input name="user_email" required type="email" data="email" placeholder="Enter email"
                                     data-min="2" data-max="50">
 
                                 <label for="user_password">Password</label>
@@ -1241,7 +1241,7 @@
 
                             <form id="form_sign_up" onsubmit="return false">
                                 <label for="user_email">Email</label>
-                                <input name="user_email" required type="email" data="str" placeholder="Enter email"
+                                <input name="user_email" required type="email" data="email" placeholder="Enter email"
                                     data-min="5" data-max="30">
 
                                 <label for="user_password">Password</label>
