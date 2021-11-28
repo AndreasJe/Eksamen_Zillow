@@ -160,7 +160,8 @@ include __DIR__ . "/components/header.php";
                 relationship with Zillow as part of this posting and that Zillow is not providing me with any real
                 estate brokerage services as part of this posting; and (v) I will comply with the </label>
         </section>
-        <button id="uploadButton" type="button" class="btn btn-primary disabled" onclick="uploadItem()">Post for sale
+        <button id="uploadButton" type="button" class="mx-3 btn btn-primary disabled" onclick="uploadItem()">Post for
+            sale
             by
             owner</button>
     </form>

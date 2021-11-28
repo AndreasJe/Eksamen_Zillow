@@ -1,3 +1,9 @@
+<?php
+require_once __DIR__ . ('/dictionary.php');
+$lan = $_GET['lan'] ?? 'en';
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,11 +47,17 @@
                 </button>
                 <div id="myDropdown2" class="dropdown-content2">
                     <a href="account-settings"><span
-                            class="Text-c11n-8-53-1__sc-aiai24-0 pfs__sc-16r5mxa-0 cDxHF"><span>Account
-                                Settings</span></span> </a>
-                    <a href="products"><span class="Text-c11n-8-53-1__sc-aiai24-0 pfs__sc-16r5mxa-0 cDxHF"><span>Saved
-                                Homes</span></span></a>
-                    <a style="border-top:1px solid black" href="../bridges/logout">Sign out</a>
+                            class="Text-c11n-8-53-1__sc-aiai24-0 pfs__sc-16r5mxa-0 cDxHF"><span>
+                                <?= $text['user_nav1'][$lan] ?>
+                            </span></span> </a>
+                    <a href="products"><span class="Text-c11n-8-53-1__sc-aiai24-0 pfs__sc-16r5mxa-0 cDxHF"><span>
+
+                                <?= $text['user_nav2'][$lan] ?>
+                            </span></span></a>
+                    <a style="border-top:1px solid black" href="../bridges/logout">
+
+                        <?= $text['user_nav3'][$lan] ?>
+                    </a>
                 </div>
             </div>
         </li>
@@ -62,23 +74,23 @@
             <a href="javascript:void(0);" class="ic close"></a>
             <ul class="main-nav">
                 <li class="top-level-link">
-                    <a href="index"><span>Home</span></a>
+                    <a href="index"><span><?= $text['nav1_link1'][$lan] ?></span></a>
                 </li>
 
                 <li class="top-level-link">
-                    <a class="mega-menu"><span>Products</span></a>
+                    <a class="mega-menu"><span><?= $text['nav2_link1'][$lan] ?></span></a>
                     <div class="sub-menu-block">
                         <div class="row">
                             <div class="col-md-5 col-lg-5 col-sm-5">
-                                <h2 class="sub-menu-head">Homes for Sale</h2>
+                                <h2 class="sub-menu-head"><?= $text['nav2_link2'][$lan] ?></h2>
                                 <ul class="sub-menu-lists">
-                                    <li><a href="products">Homes for sale</a></li>
-                                    <li><a href="products">View all homes</a></li>
+                                    <li><a href="products"><?= $text['nav2_link3'][$lan] ?></a></li>
+                                    <li><a href="products"><?= $text['nav2_link4'][$lan] ?></a></li>
                                 </ul>
                                 <div class="col-md-5 col-lg-5 col-sm-5">
-                                    <h2 class="sub-menu-head">Homes for Sale</h2>
+                                    <h2 class="sub-menu-head"><?= $text['nav2_link5'][$lan] ?></h2>
                                     <ul class="sub-menu-lists">
-                                        <li><a href="upload-product">Sell your home</a></li>
+                                        <li><a href="upload-product"><?= $text['nav2_link6'][$lan] ?></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -89,16 +101,16 @@
                     <a href="index"> <img class="logo" src=" ../img/permanent/zillow.svg" alt="logo"> </a>
                 </li>
                 <li class="top-level-link">
-                    <a class="mega-menu"><span>About</span></a>
+                    <a class="mega-menu"><span><?= $text['nav3_link2'][$lan] ?></span></a>
                     <div class="sub-menu-block">
                         <div class="row">
                             <div class="col-md-4 col-lg-4 col-sm-4">
-                                <h2 class="sub-menu-head">Users</h2>
+                                <h2 class="sub-menu-head"><?= $text['nav3_link1'][$lan] ?></h2>
                                 <ul class="sub-menu-lists">
-                                    <li><a>About</a></li>
-                                    <li><a>Mission</a></li>
-                                    <li><a>Community</a></li>
-                                    <li><a>Team</a></li>
+                                    <li><a><?= $text['nav3_link2'][$lan] ?></a></li>
+                                    <li><a><?= $text['nav3_link3'][$lan] ?></a></li>
+                                    <li><a><?= $text['nav3_link4'][$lan] ?></a></li>
+                                    <li><a><?= $text['nav3_link5'][$lan] ?></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -132,12 +144,16 @@
                         </button>
                         <div id="myDropdown" class="dropdown-content">
                             <a href="account-settings"><span
-                                    class="Text-c11n-8-53-1__sc-aiai24-0 pfs__sc-16r5mxa-0 cDxHF"><span>Account
-                                        Settings</span></span> </a>
+                                    class="Text-c11n-8-53-1__sc-aiai24-0 pfs__sc-16r5mxa-0 cDxHF"><span>
+                                        <?= $text['user_nav1'][$lan] ?>
+                                    </span></span> </a>
                             <a href="products"><span
-                                    class="Text-c11n-8-53-1__sc-aiai24-0 pfs__sc-16r5mxa-0 cDxHF"><span>Saved
-                                        Homes</span></span></a>
-                            <a style="border-top:1px solid black" href="../bridges/logout">Sign out</a>
+                                    class="Text-c11n-8-53-1__sc-aiai24-0 pfs__sc-16r5mxa-0 cDxHF"><span>
+                                        <?= $text['user_nav2'][$lan] ?>
+                                    </span></span></a>
+                            <a style="border-top:1px solid black" href="../bridges/logout">
+                                <?= $text['user_nav3'][$lan] ?>
+                            </a>
                         </div>
                     </div>
                 </li>
@@ -147,20 +163,19 @@
 
             </ul>
         </nav>
-        <?php $lang = 'en' ?>
-
         <div class="language-link">
-            <a class="language-link-item" href="index.php?lang=en">English</a> | <a <?php if ($lang == 'en') { ?>
-                style="color: #ff9900;" <?php } ?> class="language-link-item" href="index.php?lang=de"
-                <?php if ($lang == 'de') { ?> style="color: #ff9900;" <?php } ?>>Deutsche</a>
+            <a class="language-link-item" href="index.php?lan=en" <?php if ($lan == 'en') { ?> style="color: #ff9900;"
+                <?php } ?>>English</a> | <a class="language-link-item" href="index.php?lan=es"
+                <?php if ($lan == 'es') { ?> style="color: #ff9900;" <?php } ?>>Espaniol</a>
         </div>
+
 
 
         <div class="head_container">
             <div class="head_contentBox">
-                <h1>Change starts here</h1>
+                <h1><?= $text['search_title'][$lan] ?></h1>
                 <form class="search_form" submit="return false">
-                    <input type="text" placeholder="Address, neighborhood, city, ZIP" name="search" />
+                    <input type="text" placeholder="<?= $text['search_placeholder'][$lan] ?>" name="search" />
                     <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                             fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                             <path

@@ -1,13 +1,14 @@
 <?php
+require_once __DIR__ . ('/components/dictionary.php');
+$lan = $_GET['lan'] ?? 'en'; // en es dk
+$_title = $text['title'][$lan];
 session_start();
-$_title = 'Home';
 include __DIR__ . "/components/header.php";
 ?>
 
 <main>
     <p class="quote">
-        Whether you’re buying, selling or renting,<br />
-        we can help you move forward.
+        <?= $text['copy'][$lan] ?>
     </p>
     <section class="cards">
         <article>
@@ -15,12 +16,16 @@ include __DIR__ . "/components/header.php";
                 <img src=" ../img/permanent/Buy_a_home.webp" alt="" />
             </div>
             <div class="right">
-                <h2>Buy a Home</h2>
+                <h2>
+                    <?= $text['buy_header'][$lan] ?>
+                </h2>
                 <p>
-                    Find your place with an immersive photo experience and the most
-                    listings, including things you won’t find anywhere else.
+                    <?= $text['buy_content'][$lan] ?>
                 </p>
-                <button onclick="window.location.href='products'"></buttononclick>Search homes</button>
+                <button onclick="window.location.href='products'"></buttononclick>
+
+                    <?= $text['buy_button'][$lan] ?>
+                </button>
             </div>
         </article>
         <article>
@@ -28,12 +33,15 @@ include __DIR__ . "/components/header.php";
                 <img src=" ../img/permanent/Sell_a_home.webp" alt="" />
             </div>
             <div class="right">
-                <h2>Sell a Home</h2>
+                <h2>
+                    <?= $text['sell_header'][$lan] ?>
+                </h2>
                 <p>
-                    Whether you get a cash offer or choose to
-                    sell traditionally, we can help you navigate a successful sale.
+                    <?= $text['sell_content'][$lan] ?>
                 </p>
-                <button onclick="window.location.href='upload-product'">See your options</button>
+                <button onclick="window.location.href='upload-product'">
+                    <?= $text['sell_button'][$lan] ?>
+                </button>
             </div>
         </article>
         <article>
@@ -41,12 +49,16 @@ include __DIR__ . "/components/header.php";
                 <img src=" ../img/permanent/Rent_a_home.webp" alt="" />
             </div>
             <div class="right">
-                <h2>Rent a Home</h2>
+                <h2>
+                    <?= $text['rent_header'][$lan] ?>
+                </h2>
                 <p>
-                    We’re creating a seamless online experience – from shopping on the
-                    largest rental network, to applying, to paying rent.
+                    <?= $text['rent_content'][$lan] ?>
                 </p>
-                <button onclick="window.location.href='products'">Find rentals</button>
+                <button onclick="window.location.href='products'">
+
+                    <?= $text['rent_button'][$lan] ?>
+                </button>
             </div>
         </article>
     </section>

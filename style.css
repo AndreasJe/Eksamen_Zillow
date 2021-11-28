@@ -10,6 +10,21 @@ p {
   margin: 0;
 }
 
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700 !important;
+}
+
 /* Body Styles */
 body {
   box-sizing: border-box;
@@ -422,7 +437,7 @@ form button {
   flex-basis: 350px;
   position: relative;
   max-width: 350px;
-  min-height: 260px !important;
+  min-height: 400px !important;
   width: 350px;
   padding: 5px;
   cursor: pointer;
@@ -431,6 +446,7 @@ form button {
 
 .product .pic-container {
   width: 100%;
+  max-height: 220px;
   height: 60%;
   box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
   z-index: 1;
@@ -466,6 +482,7 @@ form button {
   font-weight: 300;
   line-height: 16px;
   text-align: left;
+  min-height: 30px;
 }
 
 .address-container {
@@ -775,6 +792,7 @@ ul.main-nav > li ul.sub-menu-lists > li > a {
   margin-left: -50%;
   margin-top: -100px;
   width: 100%;
+  font-weight: 700;
   z-index: 1;
 }
 
@@ -1514,6 +1532,10 @@ footer {
     display: flex;
     flex-direction: column;
     margin: 1rem;
+    min-height: 535px;
+  }
+  .cards article p {
+    min-height: 125px;
   }
   .cards {
     width: 85%;

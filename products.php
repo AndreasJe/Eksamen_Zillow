@@ -64,6 +64,8 @@ include __DIR__ . "/components/header.php";
             <!-- Getting products from Sheet. -->
             <?php
             $data = json_decode(file_get_contents("apis/shop.txt"));
+
+
             foreach ($data as $item) {
                 echo "
                 <div class='product'>
@@ -88,43 +90,50 @@ include __DIR__ . "/components/header.php";
                         <div class='address-container'>
                             <address>{$item->item_location}</address>
                         </div>
-                        <div class='seller-container'>
-                            <em>{$item->item_author}</em>
+                        <div class='badge bg-info seller-container'>
+                            <em>Listing from partner: {$item->item_author}</em>
                         </div>
                     </div>
                 </div>";
             }
+
+
+            // Showing products from database. 
+            include __DIR__ . "/apis/api-collect-items.php";
+
+            foreach ($items as $item) {
+                echo "
+                <div class='product'>
+                    <div class='pic-container'>
+                
+                        <img src='/img/products/user-listed/img_product_{$item->item_id}' alt='house'>
+                        <div class='fav-btn'>
+                            <label for='1' class='custom-checkbox'>
+                                <input type='checkbox' id='1' />
+                                <i class='glyphicon glyphicon-heart-empty'></i>
+                                <i class='glyphicon glyphicon-heart'></i>
+                            </label>
+                        </div>
+                    </div>
+                    <div class='btm-container'>
+                        <div class='price-container'>
+                            <h1>{$item->item_price}</h1>
+                        </div>
+                        <div class='description-container mt-1 mb-2'>
+                            <p>{$item->item_features}</p>
+                        </div>
+                        <div class='address-container'>
+                            <address>{$item->item_location}</address>
+                        </div>
+                        <div class='badge bg-primary seller-container'>
+                            <em>Listing by {$item->item_author}</em>
+                        </div>
+                    </div>
+                </div>";
+            }
+
             ?>
 
-
-
-            <!-- Styled product template. -->
-            <div class="product">
-                <div class="pic-container">
-                    <img src="/img/permanent/house.jpg" alt="house">
-                    <div class="fav-btn">
-                        <label for="1" class="custom-checkbox">
-                            <input type="checkbox" id="1" />
-                            <i class="glyphicon glyphicon-heart-empty"></i>
-                            <i class="glyphicon glyphicon-heart"></i>
-                        </label>
-                    </div>
-                </div>
-                <div class="btm-container">
-                    <div class="price-container">
-                        <h1>$420,69</h1>
-                    </div>
-                    <div class="description-container">
-                        <p>3 bedrooms, 2 garages and a slave in the basement</p>
-                    </div>
-                    <div class="address-container">
-                        <address>Andedamvej 23, 4000 Roskilde</address>
-                    </div>
-                    <div class="seller-container">
-                        <em>Interactive Brokers</em>
-                    </div>
-                </div>
-            </div>
 
         </section>
     </div>
