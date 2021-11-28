@@ -41,6 +41,11 @@ main {
   padding: 72px 0;
 }
 
+.language-link {
+  position: absolute;
+  top: 30px;
+  left: 20px;
+}
 /* Image*/
 #preview {
   width: 100%;

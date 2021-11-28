@@ -47,7 +47,7 @@ try {
     // If row is not empty - Continue. If empty do else )
     if (!empty($row)) {
         // Verify password input string with hashed password in database row.
-        if (password_verify($_POST['password'], $row['user_password'])) {
+        if (password_verify($_POST['user_password'], $row['user_password'])) {
 
             //Start SESSION and assign values from database
             session_start();

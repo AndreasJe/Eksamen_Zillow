@@ -1221,7 +1221,7 @@
 
                                 <label for="user_password">Password</label>
                                 <input name="user_password" required type="password" data="str"
-                                    placeholder="Enter Password" data-min="5" data-max="30">
+                                    placeholder="Enter Password" data-min="2" data-max="30">
 
                                 <button class="w-100 mt-3 mb-3" onclick="login()"> Sign in </button>
                                 <a class="modal-link" href="#forgot" class="envokeModal" data-bs-toggle="modal">Forgot
@@ -1368,22 +1368,18 @@ function phoneConfirm() {
 
 //Scripts for fetching Signup/Signin apis in modal
 async function login() {
-    try {
-        const form = event.target.form
-        console.log(form)
-        let conn = await fetch("apis/api-login", {
-            method: "POST",
-            body: new FormData(form)
-        })
-    } catch (ex) {
-        console.error(ex);
-        const feedback_login = document.getElementById("feedback_login");
-        feedback_login.innerHTML = ex.message;
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("apis/api-login", {
+        method: "POST",
+        body: new FormData(form)
+    })
 
+    if (conn.ok) {
+        location.href = "index"
     }
+
 }
-
-
 async function signup() {
     try {
         const form = event.target.form
