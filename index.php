@@ -1,3 +1,4 @@
+<!-- Title, language, session_start and header defined -->
 <?php
 require_once __DIR__ . ('/components/dictionary.php');
 $lan = $_GET['lan'] ?? 'en'; // en es dk
@@ -6,6 +7,14 @@ session_start();
 include __DIR__ . "/components/header.php";
 ?>
 
+<!-- Individual Language link to simplify process. -->
+<div class="language-link">
+    <a class="language-link-item" href="index.php?lan=en" <?php if ($lan == 'en') { ?> style="color: #ff9900;"
+        <?php } ?>>English</a> | <a class="language-link-item" href="index.php?lan=es" <?php if ($lan == 'es') { ?>
+        style="color: #ff9900;" <?php } ?>>Espaniol</a>
+</div>
+
+<!-- Page Content -->
 <main>
     <p class="quote">
         <?= $text['copy'][$lan] ?>
@@ -22,8 +31,7 @@ include __DIR__ . "/components/header.php";
                 <p>
                     <?= $text['buy_content'][$lan] ?>
                 </p>
-                <button onclick="window.location.href='products'"></buttononclick>
-
+                <button onclick="window.location.href='products'">
                     <?= $text['buy_button'][$lan] ?>
                 </button>
             </div>
@@ -39,7 +47,7 @@ include __DIR__ . "/components/header.php";
                 <p>
                     <?= $text['sell_content'][$lan] ?>
                 </p>
-                <button onclick="window.location.href='upload-product'">
+                <button onclick="window.location.href='upload-product.php'">
                     <?= $text['sell_button'][$lan] ?>
                 </button>
             </div>
@@ -65,7 +73,6 @@ include __DIR__ . "/components/header.php";
 </main>
 
 
-
-
+<!-- Footer Content -->
 <?php
 include __DIR__ . "/components/footer.php"; ?>

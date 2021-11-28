@@ -77,21 +77,25 @@ main {
   border: 1px solid #a7a6ab;
 }
 
-/* Modals for settings */
+/* Settings for Modals  */
+#forgot .modal-dialog .modal-content,
+#login .modal-dialog .modal-content {
+  height: 560px;
+}
 
 #forgot-before,
 #before,
 #phone-validation-header,
 #phone-validation-footer,
 #before_foot {
-  display: flex;
+  display: block;
 }
 
 #after,
 #after_foot,
 #forgot-after,
-#phone-validation-header1,
-#phone-validation-footer1 {
+#phone-validation-header_after,
+#phone-validation-footer_after {
   display: none;
 }
 
@@ -247,10 +251,6 @@ form button {
   z-index: 999999999999 !important;
 }
 
-#forgot .modal__content {
-  min-height: 400px;
-}
-
 /* Modal for signin */
 
 .tab {
@@ -346,7 +346,6 @@ form button {
   width: 450px;
   height: max-content;
   max-height: 900px;
-  min-height: 460px;
   align-content: center;
   justify-content: center;
   max-width: 90%;
@@ -432,6 +431,32 @@ form button {
   justify-content: center;
 }
 
+.listing-header {
+  position: absolute;
+  left: 15%;
+  top: 17.7%;
+  max-width: 1200px;
+}
+
+#button-edit-product {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  background-color: white;
+  border-radius: 5px;
+  width: 50px;
+  height: 25px;
+}
+
+#button-delete-product {
+  position: absolute;
+  top: 5%;
+  right: 22%;
+  background-color: white;
+  border-radius: 5px;
+  width: 50px;
+  height: 25px;
+}
 .product {
   flex: 1 16%;
   flex-basis: 350px;
@@ -1025,7 +1050,9 @@ footer {
 
 @media only screen and (max-width: 768px) {
   /* Hiding specific sections on mobile: */
-
+  .listing-header {
+    display: none;
+  }
   .footer_nav {
     display: none;
   }
@@ -1528,6 +1555,9 @@ footer {
 }
 
 @media only screen and (min-width: 1069px) {
+  .listing-header {
+    left: 20%;
+  }
   .cards article {
     display: flex;
     flex-direction: column;
@@ -1563,10 +1593,19 @@ footer {
 }
 
 @media only screen and (min-width: 2000px) {
+  .listing-header {
+    left: 25%;
+  }
   .cards {
     max-width: 1300px;
     display: flex;
     flex-direction: row;
     margin: auto;
+  }
+}
+
+@media only screen and (min-width: 2500px) {
+  .listing-header {
+    left: 30%;
   }
 }

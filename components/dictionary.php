@@ -1,10 +1,14 @@
 <?php
 
 $text = [
-    //Title
+    //Titles
     'title' => [
         'en' => 'Home',
         'es' => 'Hogar'
+    ],
+    'title2' => [
+        'en' => 'List your home',
+        'es' => 'Lista tu casa'
     ],
     //Search
     'search_title' => [

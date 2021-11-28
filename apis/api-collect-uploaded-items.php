@@ -5,14 +5,17 @@ require_once(__DIR__ . "/globals.php");
 try {
     $db = _db();
 } catch (Exception $ex) {
-    _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
+    send_500('System under maintainance');
+    exit();
 }
 
 // Getting all objects from items column
 try {
-    $q = $db->prepare('SELECT * FROM items ');
+    $id = $_SESSION['user_id'];
+    $q = $db->prepare('SELECT * FROM items WHERE item_author_id = :item_author_id');
+    $q->bindValue(':item_author_id', $id);
     $q->execute();
     $items = $q->fetchAll(PDO::FETCH_OBJ);
 } catch (Exception $ex) {
-    _res(500, ['info' => 'Items were not loaded', 'error' => __LINE__]);
+    send_500('System under maintainance');
 }

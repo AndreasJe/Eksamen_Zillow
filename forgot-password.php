@@ -1,3 +1,5 @@
+<!-- Page specific CSS -->
+
 <head>
     <style>
     header.dark .ic.menu .line {
@@ -42,21 +44,30 @@
     }
     </style>
 </head>
+
+<!-- Title, language, session_start and header defined -->
 <?php
-
-
 session_start();
 if (!isset($_GET['key'])) {
     header('Location: index');
     exit();
 }
-$_title = 'Reset Password';
 
+require_once __DIR__ . ('/components/dictionary.php');
+$lan = $_GET['lan'] ?? 'en'; // en es dk
+$_title = $text['title2'][$lan];
 include __DIR__ . "/components/header.php";
 ?>
 
-<main>
+<!-- Individual Language link to simplify process. -->
+<div class="language-link">
+    <a class="language-link-item" href="forgot-password.php?lan=en" <?php if ($lan == 'en') { ?> style="color: #ff9900;"
+        <?php } ?>>English</a> | <a class="language-link-item" href="forgot-password.php?lan=es"
+        <?php if ($lan == 'es') { ?> style="color: #ff9900;" <?php } ?>>Espaniol</a>
+</div>
 
+<!-- Page Content -->
+<main>
     <div class="reset-container">
 
         <div class="modal-dialog">
@@ -71,7 +82,7 @@ include __DIR__ . "/components/header.php";
                         <div class="d-flex flex-column m-5 mt-0 mb-0">
 
                             <label class="mt-3 pb-1" for="new_password"> Password</label>
-                            <input type="password" name="new_password" data-min="2" data-max="22">
+                            <input type="password" name="new_password" data-min="8" data-max="22" data-validate="str">
                             <div>
                                 <em class="password_req p-3"> At least 8 characters<br>
 
@@ -85,7 +96,8 @@ include __DIR__ . "/components/header.php";
 
                         <div class="d-flex flex-column m-5 mt-0 mb-3">
                             <label for="confirm_password">Confirm password</label>
-                            <input type="password" name="confirm_password" data-min="2" data-max="22">
+                            <input type="password" name="confirm_password" data-min="8" data-max="22"
+                                data-validate="str">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -93,6 +105,11 @@ include __DIR__ . "/components/header.php";
                         <button type="button" class="btn btn-primary" onclick="resetPass()">Create Password</button>
                     </div>
                 </form>
+                <div>
+                    <p id="feedback_forgot" class="text-center d-block">
+
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -109,14 +126,22 @@ async function resetPass() {
         method: "POST",
         body: new FormData(form)
     })
-
+    let response = await conn.json();
+    console.log(response);
     if (conn.ok) {
-        location.href = "index"
+        _one("#feedback_forgot").innerHTML = " ";
+        _one("#feedback_forgot").classList.add("badge", "bg-success");
+        _one("#feedback_forgot").innerHTML = "Your phone number has been confirmed and registered in the database";
+    } else {
+        _one("#feedback_forgot").innerHTML = " ";
+        _one("#feedback_forgot").classList.add("badge", "bg-danger");
+        _one("#feedback_forgot").innerHTML = JSON.stringify(response);
     }
 }
 </script>
 
 
+<!-- Footer Content -->
 <?php
 include __DIR__ . "/components/footer.php";
 ?>

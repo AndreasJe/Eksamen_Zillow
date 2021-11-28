@@ -334,38 +334,45 @@ include __DIR__ . "/components/header.php";
 
 <!-- Modal for Change password -->
 <div id="chgPass" class="modal fade">
-    <div class="modal-header justify-content-center ">
-        <h5 class="modal-title text-center">Create a password for your Zillow account.
-        </h5>
-    </div>
-    <form onsubmit="return false">
-        <div class="modal-body">
-            <div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center ">
+                <h5 class="modal-title text-center">Create a password for your Zillow account.
+                </h5>
+            </div>
+            <form onsubmit="validate(changePass);return false">
+                <div class="modal-body">
+                    <div>
 
-                <label class="pb-1" for="new_password"> Password</label>
-                <input type="password" name="new_password" data-min="2" data-max="22">
-                <div>
-                    <em class="password_req p-3"> At least 8 characters<br>
+                        <label class="pb-1" for="new_password"> Password</label>
+                        <input type="password" name="new_password" data-validate="str" data-min="2" data-max="22">
+                        <div>
+                            <em class="password_req p-3"> At least 8 characters<br>
 
-                        Mix of letters and numbers<br>
+                                Mix of letters and numbers<br>
 
-                        At least 1 special character<br>
+                                At least 1 special character<br>
 
-                        At least 1 lowercase letter and 1 uppercase letter</em>
+                                At least 1 lowercase letter and 1 uppercase letter</em>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="confirm_password">Confirm password</label>
+                        <input type="password" name="confirm_password" data-validate="str" data-min="2" data-max="22">
+                    </div>
+                    <div>
+                        <p id="feedback_pass" class="p-3 mt-4 text-center d-block">
+
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <label for="confirm_email">Confirm password</label>
-                <input type="password" name="new_password" data-min="2" data-max="22">
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="changePass()">Create Password</button>
+                </div>
+            </form>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" onclick="changePass()">Create Password</button>
-        </div>
-    </form>
-</div>
-</div>
+    </div>
 </div>
 <!-- Modal for 2FA activation  -->
 <div id="twofa" class="modal fade">
@@ -376,16 +383,21 @@ include __DIR__ . "/components/header.php";
 
                 </h5>
             </div>
-            <form onsubmit="return false">
+            <form onsubmit="validate(verifyPhone);return false">
                 <div id="phone-validation-header" class="modal-body">
                     <div>
                         <p>Enter the phone number you want to use and we’ll send you text message with your
                             verification code. SMS rates may apply.</p>
                     </div>
-                    <div>
+                    <div class="pt-3 d-flex flex-column">
                         <label for="phone_number">Phone Number</label>
-                        <input type="text" name="phone_number" data-min="8" data-max="8">
+                        <input type="text" name="phone_number" data-validate="str" required data-min="8" data-max="8">
                         <em class="password_req p-3"> You need to use a danish number</em>
+                    </div>
+                    <div>
+                        <p id="#feedback_phone" class="text-center d-block">
+
+                        </p>
                     </div>
                 </div>
                 <div id="phone-validation-footer" class="modal-footer">
@@ -395,15 +407,24 @@ include __DIR__ . "/components/header.php";
                 </div>
                 <div id="phone-validation-header_after" class="modal-body">
                     <div>
-                        <p>We have sent you a text with a 5 digit code. <br>Insert it below to verify your number</p>
+                        <p>We have sent you a text with a 5 digit code. <br>Insert it below to verify your
+                            number</p>
                     </div>
-                    <div>
+                    <div class="pt-3 d-flex flex-column">
                         <label for="2fa_key">Authentication Code</label>
                         <input type="text" name="2fa_key" data-min="5" data-max="5">
-                        <em class="password_req p-3"> It might take a few minutes</em>
+                        <em class="password_req p-3 text-center"> It might take a minute or two for the text to get
+                            sent</em>
+
+                    </div>
+                    <div>
+                        <p id="feedback_2fa" class="p-3 mt-3 text-center d-block">
+
+                        </p>
                     </div>
                 </div>
-                <div id="phone-validation-footer_after" class="modal-footer">
+
+                <div id="phone-validation-footer_after" class="pt-2 modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" name="submit" onclick="enableTwofa()">Verify</button>
 
@@ -498,10 +519,20 @@ async function changePass() {
         method: "POST",
         body: new FormData(form)
     })
+    let response = await conn.json();
+    console.log(response);
     if (conn.ok) {
-        location.href = "account-settings"
+        _one("#feedback_pass").innerHTML = " ";
+        _one("#feedback_pass").classList.remove("bg-danger");
+        _one("#feedback_pass").classList.add("badge", "bg-success");
+        _one("#feedback_pass").innerHTML = "Your password has been changed";
+    } else {
+        _one("#feedback_pass").innerHTML = " ";
+        _one("#feedback_pass").classList.add("badge", "bg-danger");
+        _one("#feedback_pass").innerHTML = JSON.stringify(response);
     }
 }
+
 async function verifyPhone() {
     const form = event.target.form
     console.log(form)
@@ -511,6 +542,10 @@ async function verifyPhone() {
     })
     if (conn.ok) {
         phoneConfirm()
+    } else {
+        _one("#feedback_phone").innerHTML = " ";
+        _one("#feedback_phone").classList.add("badge", "bg-danger");
+        _one("#feedback_phone").innerHTML = JSON.stringify(response);
     }
 }
 
@@ -521,8 +556,17 @@ async function enableTwofa() {
         method: "POST",
         body: new FormData(form)
     })
+    let response = await conn.json();
+    console.log(response);
     if (conn.ok) {
-        location.href = "account-settings"
+        _one("#feedback_2fa").innerHTML = " ";
+        _one("#feedback_2fa").classList.remove("bg-danger");
+        _one("#feedback_2fa").classList.add("badge", "bg-success");
+        _one("#feedback_2fa").innerHTML = "Your phone has been verified and registered";
+    } else {
+        _one("#feedback_2fa").innerHTML = " ";
+        _one("#feedback_2fa").classList.add("badge", "bg-danger");
+        _one("#feedback_2fa").innerHTML = JSON.stringify(response);
     }
 }
 

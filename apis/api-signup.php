@@ -28,6 +28,7 @@ if (strlen($_POST['user_password']) > 22) {
 }
 
 
+//Initial validation of database
 try {
   $db = _db();
 } catch (Exception $ex) {
@@ -35,10 +36,8 @@ try {
   echo json_encode($ex);
 }
 
-
-
+//Executing Content
 try {
-
   $password = $_POST['user_password'];
   $hashed_password = password_hash($password, PASSWORD_DEFAULT);
   $verification_key = bin2hex(random_bytes(16));
@@ -46,7 +45,7 @@ try {
   $authentication_code = bin2hex(random_bytes(5));
   $email = $_POST['user_email'];
 
-  // Insert data in the D
+  // Insert data in the Database
   $q = $db->prepare('INSERT INTO users VALUES(:user_id, :user_name, :user_email, :user_password, :verification_key, :forgot_pass_key, :verified, :user_phone ,:first_name, :last_name, :authentication_code)');
   $q->bindValue(":user_id",  null);
   $q->bindValue(":user_name",  null);
@@ -66,14 +65,11 @@ try {
   // Email settings for "Welcome mail"
   $_to_email =  $_POST['user_email'];
   $_message = file_get_contents('../emails/Welcome.html');
-
   $_subject = "Welcome home";
-
   require_once("../private/send-email.php");
 
-  // Success
   header('Content-Type: application/json');
-  $response = ["info" => "user created", "user_id" => intval($user_id), "Verification" => "Verification Email has been sent"];
+  $response = ["Info" => "user created", "user_id" => intval($user_id), "Verification" => "Verification Email has been sent"];
   echo json_encode($response);
 } catch (Exception $ex) {
   http_response_code(500);
@@ -81,30 +77,32 @@ try {
   exit();
 }
 
-// function to manage responding in case of an error
-function send_400($error_message)
-{
-  header('Content-Type: application/json');
-  http_response_code(400);
-  $response = ["info" => $error_message];
-  echo json_encode($response);
-  exit();
-}
-
+//Response 500 means server error
 function send_500($error_message)
 {
   header('Content-Type: application/json');
   http_response_code(500);
-  $response = ["info" => $error_message];
+  $response = ["Error" => $error_message];
   echo json_encode($response);
   exit();
 }
 
+//Response 400 means Client error
+function send_400($error_message)
+{
+  header('Content-Type: application/json');
+  http_response_code(400);
+  $response = ["Error" => $error_message];
+  echo json_encode($response);
+  exit();
+}
+
+//Response 400 means OK error
 function send_200($error_message)
 {
   header('Content-Type: application/json');
   http_response_code(200);
-  $response = ["info" => $error_message];
+  $response = ["Info" => $error_message];
   echo json_encode($response);
   exit();
 }

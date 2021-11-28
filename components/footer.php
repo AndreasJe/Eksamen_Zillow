@@ -1108,19 +1108,17 @@
                     email address and we'll send you a link to set your password.</p>
             </div>
             <div class="pt-5 modal-body">
-
                 <form onsubmit="return false">
                     <label for="user_email mb-1">Email</label>
-                    <input name="user_email" type="text" placeholder="Enter email">
+                    <input name="user_email" type="text" required data-min="5" data-max="50" data-validate="email"
+                        placeholder="Enter email">
 
 
                     <button class="w-100 mt-3" onclick="forgotPassword()"> Send </button>
                 </form>
             </div>
         </div>
-
         <div id="forgot-after" class="modal-content">
-
             <div class="modal-header justify-content-center flex-column">
                 <span id="sr-message" aria-live="off" class="VisuallyHidden-c11n-8-53-1__sc-t8tewe-0 hObLRM"></span>
                 <h2 font-family="serif"
@@ -1139,59 +1137,8 @@
 
     </div>
 </div>
-
-<!-- Reset Password Modal -->
-
-<div id="reset" class="modal fade">
-    <div class="modal-dialog">
-        <div id="forgot-before" class="modal-content">
-            <div class="modal-header justify-content-center flex-column">
-                <span id="sr-message" aria-live="off" class="VisuallyHidden-c11n-8-53-1__sc-t8tewe-0 hObLRM"></span>
-                <h2 font-family="serif"
-                    class="Text-c11n-8-53-1__sc-aiai24-0 StyledHeading-c11n-8-53-1__sc-ktujwe-0 fDFlcw">Forgot your
-                    password?</h2>
-                <p class="Text-c11n-8-53-1__sc-aiai24-0 StyledParagraph-c11n-8-53-1__sc-18ze78a-0 jCBryf">Enter your
-                    email address and we'll send you a link to set your password.</p>
-            </div>
-            <div class="pt-5 modal-body">
-
-                <form onsubmit="return false">
-                    <label for="new_password mb-1">Password</label>
-                    <input name="new_password" type="text" placeholder="Enter email">
-                    <label for="confirm_password mb-1">Confirm Password</label>
-                    <input name="confirm_password" type="text" placeholder="Enter email">
-
-
-                    <button class="w-100 mt-3" onclick="resetPassword()"> Send </button>
-                </form>
-            </div>
-        </div>
-
-        <div id="forgot-after" class="modal-content">
-
-            <div class="modal-header justify-content-center flex-column">
-                <span id="sr-message" aria-live="off" class="VisuallyHidden-c11n-8-53-1__sc-t8tewe-0 hObLRM"></span>
-                <h2 font-family="serif"
-                    class="Text-c11n-8-53-1__sc-aiai24-0 StyledHeading-c11n-8-53-1__sc-ktujwe-0 fDFlcw">Email sent</h2>
-                <p class="Text-c11n-8-53-1__sc-aiai24-0 StyledParagraph-c11n-8-53-1__sc-18ze78a-0 jCBryf"> In a few
-                    seconds, you'll receive a email with a link. <br>Follow the link to configure your new password</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-</div>
-
 
 <!-- Sing in / Sign up Modal -->
-
-
 
 <div id="login" class="modal fade">
     <div class="modal-dialog">
@@ -1206,7 +1153,6 @@
                     <p class="Text-c11n-8-53-1__sc-aiai24-0 StyledParagraph-c11n-8-53-1__sc-18ze78a-0 jCBryf"></p>
                 </div>
             </div>
-
             <div class="modal-body">
                 <ul class=" nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -1222,75 +1168,62 @@
                     <div class="pt-4 tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
 
-                            <form id="form_sign_in" onsubmit="return false">
-                                <label for="user_email">Email</label>
-                                <input name="user_email" required type="email" data="email" placeholder="Enter email"
+                            <form id="form_sign_in" onsubmit="validate(login);return false">
+                                <label for="user_email2">Email</label>
+                                <input name="user_email2" type="email" data-validate="email" placeholder="Enter email"
                                     data-min="2" data-max="50">
 
-                                <label for="user_password">Password</label>
-                                <input name="user_password" required type="password" data="str"
+                                <label for="user_password2">Password</label>
+                                <input name="user_password2" required type="password" data-validate="str"
                                     placeholder="Enter Password" data-min="2" data-max="30">
 
-                                <button class="w-100 mt-3 mb-3" onclick="login()"> Sign in </button>
+                                <button class="w-100 mt-3 mb-3" onclick="login()"> Sign in
+                                </button>
                                 <a class="modal-link" href="#forgot" class="envokeModal" data-bs-toggle="modal">Forgot
                                     password?</a>
                             </form>
                             <div>
-                                <p id="feedback_login" class="text-center d-block">
+                                <p id="feedback_login" class="p-2 mt-4 text-center d-block ">
 
                                 </p>
                             </div>
-
-
                         </div>
                         <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
-
-
-
-                            <form id="form_sign_up" onsubmit="return false">
+                            <form id="form_sign_up" onsubmit="validate(signup);return false">
                                 <label for="user_email">Email</label>
-                                <input name="user_email" required type="email" data="email" placeholder="Enter email"
+                                <input name="user_email" type="email" data-validate="email" placeholder="Enter email"
                                     data-min="5" data-max="30">
-
                                 <label for="user_password">Password</label>
-                                <input name="user_password" required type="password" data="str"
+                                <input name="user_password" required type="password" data-validate="str"
                                     placeholder="Create password" data-min="8" data-max="30">
                                 <em class="password_req"> At least 8 characters<br>
-
                                     Mix of letters and numbers<br>
-
                                     At least 1 special character<br>
-
                                     At least 1 lowercase letter and 1 uppercase letter</em>
-
                                 <button class="w-100 mt-3 mb-3" onclick="signup()"> Submit </button>
-
                             </form>
-
                             <div>
                                 <p id="feedback_signup" class="text-center d-block">
-
                                 </p>
                             </div>
-
                             <div class="modal-footer modal_info justify-content-center d-flex">
                                 <em>By submitting, I accept Zillow's &nbsp</em><a class="emA" href="#">terms of
                                     use.</a>
                             </div>
                         </div>
-
                     </div>
             </div>
         </div>
-
     </div>
-
 </div>
 
-
-
+<!-- All external scripts -->
 <script src="app.js"></script>
 
+<!-- Validator Script -->
+<script src="components/validator.js"></script>
+
+<!-- Bootstrap Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>

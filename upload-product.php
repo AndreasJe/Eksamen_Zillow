@@ -1,3 +1,5 @@
+<!-- Page specific CSS -->
+
 <head>
     <style>
     header.dark .ic.menu .line {
@@ -95,21 +97,30 @@
 
 </head>
 
+<!-- Title, language, session_start and header defined -->
 <?php
+require_once __DIR__ . ('/components/dictionary.php');
+$lan = $_GET['lan'] ?? 'en'; // en es dk
+$_title = $text['title2'][$lan];
 session_start();
-$_title = 'List your home';
-
 include __DIR__ . "/components/header.php";
+
 ?>
 
-<main class="justify-content-center d-flex flex-column">
+<!-- Individual Language link to simplify process. -->
+<div class="language-link">
+    <a class="language-link-item" href="upload-product.php?lan=en" <?php if ($lan == 'en') { ?> style="color: #ff9900;"
+        <?php } ?>>English</a> | <a class="language-link-item" href="upload-product.php?lan=es"
+        <?php if ($lan == 'es') { ?> style="color: #ff9900;" <?php } ?>>Espaniol</a>
+</div>
 
+<!-- Page Content -->
+<main class="justify-content-center d-flex flex-column">
     <section>
         <h1>List your home</h1>
         <p>Post once and your home will be listed on both Zillow and Trulia, reaching buyers on the largest real estate
             network on the Web. Plus, home shoppers receive emails about new homes on the market – including yours.</p>
     </section>
-
     <div class="seperator"></div>
     <form class="" onsubmit="return false" runat="server">
         <section>
@@ -123,7 +134,6 @@ include __DIR__ . "/components/header.php";
             <input type="text" placeholder="$" name="item_price" data-max="30" data-min="3">
         </section>
         <section>
-
             <h2>Select a photo</h2>
             <input class="w-100 mb-3" name="item_image" accept="image/*" type='file' id="imgInp" />
 
@@ -133,7 +143,6 @@ include __DIR__ . "/components/header.php";
             </div>
         </section>
         <div class="seperator"></div>
-
         <section class="d-flex justify-content-center flex-column">
             <h1>Home facts</h1>
             <div class="subsectionUpload">
@@ -146,9 +155,7 @@ include __DIR__ . "/components/header.php";
                 <input type="text" name="item_features" data-max="100" data-min="40">
             </div>
         </section>
-
         <div class="seperator"></div>
-
         <section class="d-flex flex-row">
             <input id="chkbox" type="checkbox" name="upload_agreement" onclick="agreeTerms()">
             <label class="terms" for="chkbox"> I will be posting my property 'for sale by owner'
@@ -165,17 +172,17 @@ include __DIR__ . "/components/header.php";
             by
             owner</button>
     </form>
-
-
 </main>
 
-
-
+<!-- Footer Content -->
 <?php
 include __DIR__ . "/components/footer.php";
 ?>
-<!-- Script needs to standalone, since it uses the variable internally. Otherwise it will throw off all other scripts. -->
 
+<!-- Scripts that needs to be standalone, since it uses the variable internally. 
+Otherwise it will throw off all other scripts for some reason. -->
+
+<!-- Script to display preview of selected photo -->
 <script>
 imgInp.onchange = evt => {
     const [file] = imgInp.files
@@ -184,11 +191,13 @@ imgInp.onchange = evt => {
     }
 }
 
+// Toggles the Bootstrap class "Disabled" on the form submit button 
 function agreeTerms() {
     let button = document.getElementById("uploadButton");
     button.classList.toggle("disabled");
 }
 
+// Script that refers to API. TODO: USER FEEDBACK
 async function uploadItem() {
     const form = event.target.form
     console.log(form)

@@ -3,7 +3,6 @@ require_once __DIR__ . ('/dictionary.php');
 $lan = $_GET['lan'] ?? 'en';
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,24 +16,24 @@ $lan = $_GET['lan'] ?? 'en';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <script src="components/validator.js"></script>
-
 </head>
 
 <body>
 
     <header class="dark">
+        <!-- MobileNav Logo -->
         <a href="index"><img class="logo2" src=" ../img/permanent/z-white.svg" alt="" /></a>
 
+
+
+        <!-- Mobile User-Navigation -->
         <?php if (!isset($_SESSION['user_id'])) : ?>
         <a class="mobile-signin envokeModal" href="#login" data-bs-toggle="modal">Sign In</a>
         <?php else :  ?>
         <li class="user-nav2">
             <div class="dropdown2">
+                <!-- Image check for User-navigation -->
                 <button onclick="userNav2()" class="dropbtn2">
-
-
-
                     <?php
                         $filename =  'img/user/img_' . $_SESSION['user_id'];
                         if (file_exists($filename)) : ?>
@@ -50,7 +49,7 @@ $lan = $_GET['lan'] ?? 'en';
                             class="Text-c11n-8-53-1__sc-aiai24-0 pfs__sc-16r5mxa-0 cDxHF"><span>
                                 <?= $text['user_nav1'][$lan] ?>
                             </span></span> </a>
-                    <a href="products"><span class="Text-c11n-8-53-1__sc-aiai24-0 pfs__sc-16r5mxa-0 cDxHF"><span>
+                    <a href="mylistings"><span class="Text-c11n-8-53-1__sc-aiai24-0 pfs__sc-16r5mxa-0 cDxHF"><span>
 
                                 <?= $text['user_nav2'][$lan] ?>
                             </span></span></a>
@@ -64,7 +63,7 @@ $lan = $_GET['lan'] ?? 'en';
         <?php endif; ?>
 
 
-
+        <!-- HeadIMG_container -->
         <nav role="navigation">
             <a href="javascript:void(0);" class="ic menu" tabindex="1">
                 <span class="line"></span>
@@ -78,6 +77,7 @@ $lan = $_GET['lan'] ?? 'en';
                 </li>
 
                 <li class="top-level-link">
+                    <!-- SubNAV section -->
                     <a class="mega-menu"><span><?= $text['nav2_link1'][$lan] ?></span></a>
                     <div class="sub-menu-block">
                         <div class="row">
@@ -97,10 +97,12 @@ $lan = $_GET['lan'] ?? 'en';
                         </div>
                     </div>
                 </li>
+                <!-- TopNAV Logo -->
                 <li class="logo_container" class="top-level-link">
                     <a href="index"> <img class="logo" src=" ../img/permanent/zillow.svg" alt="logo"> </a>
                 </li>
                 <li class="top-level-link">
+                    <!-- SubNAV section -->
                     <a class="mega-menu"><span><?= $text['nav3_link2'][$lan] ?></span></a>
                     <div class="sub-menu-block">
                         <div class="row">
@@ -116,6 +118,8 @@ $lan = $_GET['lan'] ?? 'en';
                         </div>
                     </div>
                 </li>
+
+                <!-- Signin button on mobile nav. -->
                 <li class="top-level-link">
                     <?php if (!isset($_SESSION['user_id'])) { ?>
                     <a href=" #login" class="envokeModal" data-bs-toggle="modal"><span>Sign in</span></a>
@@ -125,11 +129,12 @@ $lan = $_GET['lan'] ?? 'en';
                     <?php } ?>
                 </li>
 
+                <!-- User Navigation -->
                 <?php if (isset($_SESSION['user_id'])) : ?>
                 <li class="user-nav top-level-link">
                     <div class="dropdown">
                         <button onclick="userNav1()" class="dropbtn">
-
+                            <!-- Checks if custom profile picture is uploaded-->
                             <?php
                                 if (file_exists($filename)) : ?>
                             <img class="user_img rounded-circle dropbtn2"
@@ -147,7 +152,7 @@ $lan = $_GET['lan'] ?? 'en';
                                     class="Text-c11n-8-53-1__sc-aiai24-0 pfs__sc-16r5mxa-0 cDxHF"><span>
                                         <?= $text['user_nav1'][$lan] ?>
                                     </span></span> </a>
-                            <a href="products"><span
+                            <a href="mylistings"><span
                                     class="Text-c11n-8-53-1__sc-aiai24-0 pfs__sc-16r5mxa-0 cDxHF"><span>
                                         <?= $text['user_nav2'][$lan] ?>
                                     </span></span></a>
@@ -163,14 +168,9 @@ $lan = $_GET['lan'] ?? 'en';
 
             </ul>
         </nav>
-        <div class="language-link">
-            <a class="language-link-item" href="index.php?lan=en" <?php if ($lan == 'en') { ?> style="color: #ff9900;"
-                <?php } ?>>English</a> | <a class="language-link-item" href="index.php?lan=es"
-                <?php if ($lan == 'es') { ?> style="color: #ff9900;" <?php } ?>>Espaniol</a>
-        </div>
 
 
-
+        <!-- HeadIMG_container -->
         <div class="head_container">
             <div class="head_contentBox">
                 <h1><?= $text['search_title'][$lan] ?></h1>

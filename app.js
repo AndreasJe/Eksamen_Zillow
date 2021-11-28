@@ -32,6 +32,7 @@ window.onclick = function (event) {
     }
   }
 };
+
 //Scripts for Signup/Signin tabs in modal
 function openTab(evt, tabName) {
   var i, x, tablinks;
@@ -67,7 +68,7 @@ function phoneConfirm() {
   const after_foot = document.getElementById("phone-validation-footer_after");
 
   before.style.display = "none";
-  after.style.display = "flex";
+  after.style.display = "block";
   before_foot.style.display = "none";
   after_foot.style.display = "flex";
 }
@@ -80,23 +81,31 @@ async function login() {
     method: "POST",
     body: new FormData(form),
   });
-
+  let response = await conn.json();
+  console.log(response);
   if (conn.ok) {
     location.href = "index";
+  } else {
+    _one("#feedback_login").innerHTML = " ";
+    _one("#feedback_login").classList.add("badge", "bg-danger");
+    _one("#feedback_login").innerHTML = JSON.stringify(response);
   }
 }
 async function signup() {
-  try {
-    const form = event.target.form;
-    console.log(form);
-    let conn = await fetch("apis/api-signup", {
-      method: "POST",
-      body: new FormData(form),
-    });
-  } catch (ex) {
-    console.error(ex);
-    const feedback_login = document.getElementById("feedback_signup");
-    feedback_login.innerHTML = ex.message;
+  const form = event.target.form;
+  console.log(form);
+  let conn = await fetch("apis/api-signup", {
+    method: "POST",
+    body: new FormData(form),
+  });
+  let response = await conn.json();
+  console.log(response);
+  if (conn.ok) {
+    location.href = "index";
+  } else {
+    _one("#feedback_signup").innerHTML = " ";
+    _one("#feedback_signup").classList.add("badge", "bg-danger");
+    _one("#feedback_signup").innerHTML = JSON.stringify(response);
   }
 }
 async function forgotPassword() {

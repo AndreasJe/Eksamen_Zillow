@@ -1,15 +1,18 @@
 <?php
 session_start();
-require_once('globals.php');
+require_once(__DIR__ . "/globals.php");
 
+//Initial validation of database
 try {
     $db = _db();
 } catch (Exception $ex) {
     _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
 }
 
+//Binding values to item and moving image to appropiate folder.
 try {
     $item_id = bin2hex(random_bytes(16));
+    $user_id = $_SESSION['user_id'];
     $user = $_SESSION['first_name'] . " " . $_SESSION['last_name'];
     $created_date = date("Y-m-d H:i:s");
     $q = $db->prepare('INSERT INTO items VALUES(:item_id, :item_name, :item_price, :item_location, :item_features, :item_log ,:item_author)');
@@ -20,6 +23,8 @@ try {
     $q->bindValue(':item_features', $_POST['item_features']);
     $q->bindValue(':item_log', $created_date);
     $q->bindValue(':item_author', $user);
+    $q->bindValue(':item_author_id', $user_id);
+
     $q->execute();
     move_uploaded_file($_FILES['item_image']['tmp_name'], "../img/products/user-listed/img_product_" . $item_id);
 } catch (PDOException $ex) {

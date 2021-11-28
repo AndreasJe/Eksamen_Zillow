@@ -11,8 +11,6 @@ if (strlen($_GET['key']) != 32) {
     exit();
 }
 
-
-
 try {
     $db = _db();
 } catch (Exception $ex) {
@@ -23,6 +21,7 @@ try {
     //Binding of variables
     $key = $_GET['key'];
 
+    //Updating the verification_key within the user's table.
     $q = $db->prepare('UPDATE users SET verified = :verified WHERE verification_key = :vkey');
     $q->bindValue(':vkey', $key);
     $q->bindValue(':verified', true);
@@ -30,8 +29,8 @@ try {
     echo $q->rowCount() . 'users has been verified ';
 
 
+    //Binding a new verification key if changes are made
     if ($q->rowCount() > 0) {
-        //Binding a new verification key after use
         $new_verification_key = bin2hex(random_bytes(16));
         $id = $_SESSION['user_id'];
 
