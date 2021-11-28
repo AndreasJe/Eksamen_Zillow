@@ -9,7 +9,6 @@
     }
 
     main {
-        background-color: rgb(249, 249, 251);
         padding: 54px 0;
     }
 

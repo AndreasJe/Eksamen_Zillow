@@ -1357,6 +1357,15 @@ footer {
     opacity: 0;
     text-indent: 2rem;
     padding: 0.4rem;
+    -webkit-transition-property: opacity;
+    -moz-transition-property: opacity;
+    -o-transition-property: opacity;
+    transition-property: opacity;
+    -webkit-transition-duration: 0.4s;
+    -moz-transition-duration: 0.4s;
+    -o-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    opacity: 0;
 
     /*CSS animation applied for sub menu : Slide from Top */
     -webkit-transition: all 0.4s ease 0s;
@@ -1375,6 +1384,7 @@ footer {
     background-color: #fff;
     visibility: visible;
     opacity: 1;
+    padding: 0% 15%;
     -webkit-transform: rotateX(0deg);
     -moz-transform: rotateX(0deg);
     -ms-transform: rotateX(0deg);

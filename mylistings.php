@@ -9,7 +9,6 @@
     }
 
     main {
-        background-color: rgb(249, 249, 251);
         padding: 54px 0;
     }
 
@@ -146,8 +145,7 @@ include __DIR__ . "/components/header.php";
                                 <i class='glyphicon glyphicon-heart-empty'></i>
                                 <i class='glyphicon glyphicon-heart'></i>
                             </label>
-                        </div>
-                    </div>
+                        </div></div>
                     <div class='btm-container'>
                         <div class='price-container'>
                             <h1>Listing: {$item->item_name}</h1>
