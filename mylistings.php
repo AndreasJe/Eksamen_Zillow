@@ -150,7 +150,7 @@ include __DIR__ . "/components/header.php";
                     </div>
                     <div class='btm-container'>
                         <div class='price-container'>
-                            <h1>{$item->item_price}</h1>
+                            <h1>Listing: {$item->item_name}</h1>
                         </div>
                         <div class='description-container mt-1 mb-2'>
                             <p>{$item->item_features}</p>
