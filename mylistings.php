@@ -215,11 +215,97 @@ include __DIR__ . "/components/header.php";
 </div>"
 ?>
 
+<a href="#editItem" class="envokeModal styledknap" data-bs-toggle="modal">Deactivate account</a>
+<!-- styled_modal template -->
+
+<div id="editItem" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <h5 class="modal-title">Edit name</h5>
+            </div>
+            <form onsubmit="return false">
+                <div class="modal-body d-flex flex-column justify-content-evenly">
+                    <div class="d-flex flex-column ">
+                        <label class="pb-1" for="item_name">Change name of listing</label>
+                        <input type="text" name="item_name" data-min="2" data-validate="str" data-max="22" required>
+                    </div>
+                    <div class="d-flex flex-column ">
+                        <label class="pb-1" for="item_price">Change listing price</label>
+                        <input type="text" name="item_price" data-min="2" data-validate="str" data-max="22" required>
+                    </div>
+                    <div class="d-flex flex-column ">
+                        <label for="message-text" class="col-form-label">Features:</label>
+                        <textarea class="form-control" id="message-text" data-validate="str" data-min="50"
+                            data-max="100" required></textarea>
+                    </div>
+                    <div class="d-flex flex-column ">
+                        <label class="pb-1" for="item_location">Change Location</label>
+                        <input type="text" name="item_location" data-min="10" data-validate="str" data-max="52"
+                            required>
+                    </div>
+                    <div class="d-flex flex-column ">
+                        <label class="pb-1" for="item_author">Change Author</label>
+                        <input type="text" name="item_author" data-min="2" data-validate="str" data-max="22" required>
+                    </div>
+
+                    <div class="d-flex flex-column ">
+
+                        <h2>Select a photo</h2>
+                        <input class="w-100 mb-3" name="item_image" accept="image/*" type='file' id="imgInp" />
+
+                        <em>Image preview:</em>
+                        <div class=" rounded d-flex justify-content-center preview-container w-50">
+                            <img id="preview" src="img/products/user-listed/img_product_default.png" alt="your image" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="">Apply</button>
+                </div>
+            </form>
+            <div>
+                <em class="text-center" id="nameChange"> </em>
+            </div>
+        </div>
+    </div>
+</div>
 
 
+<!-- Scripts that needs to be standalone, since it uses the variable internally. 
+Otherwise it will throw off all other scripts for some reason. -->
 
+<!-- Script to display preview of selected photo -->
+<script>
+imgInp.onchange = evt => {
+    const [file] = imgInp.files
+    if (file) {
+        preview.src = URL.createObjectURL(file)
+    }
+}
+
+// Toggles the Bootstrap class "Disabled" on the form submit button 
+function agreeTerms() {
+    let button = document.getElementById("uploadButton");
+    button.classList.toggle("disabled");
+}
+
+// Script that refers to API. TODO: USER FEEDBACK
+async function uploadItem() {
+    const form = event.target.form
+    console.log(form)
+    let conn = await fetch("apis/api-upload-item", {
+        method: "POST",
+        body: new FormData(form)
+    })
+    if (conn.ok) {
+        console.log("Product has been uploaded")
+    }
+}
 
 
 
 <?php
-include __DIR__ . "/components/footer.php"; ?>
+    include __DIR__ . "/components/footer.php"; ?>

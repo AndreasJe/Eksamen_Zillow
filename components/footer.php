@@ -1096,8 +1096,8 @@
 
 <!-- Forgot Password Modal -->
 
-<div id="forgot" class="modal fade">
-    <div class="modal-dialog">
+<div id="forgot" class="modal ">
+    <div class="modal-dialog modal-dialog-centered">
         <div id="forgot-before" class="modal-content">
             <div class="modal-header justify-content-center flex-column">
                 <span id="sr-message" aria-live="off" class="VisuallyHidden-c11n-8-53-1__sc-t8tewe-0 hObLRM"></span>
@@ -1141,7 +1141,7 @@
 <!-- Sing in / Sign up Modal -->
 
 <div id="login" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="pt-4 modal-header justify-content-center ">
                 <div class="sc-kgoBCf bneXgu"><span id="sr-message" aria-live="off"

@@ -190,7 +190,7 @@ include __DIR__ . "/components/header.php";
 
 <!-- Modal for Edit Name -->
 <div id="editName" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header justify-content-center">
                 <h5 class="modal-title">Edit name</h5>
@@ -221,7 +221,7 @@ include __DIR__ . "/components/header.php";
 
 <!-- Modal for Edit Screen Name -->
 <div id="screenName" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <form onsubmit="return false">
             <div class="modal-content">
                 <div class="modal-header justify-content-center">
@@ -243,7 +243,7 @@ include __DIR__ . "/components/header.php";
 
 <!-- Modal for Email change -->
 <div id="newEmail" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header justify-content-center">
                 <h5 class="modal-title">Edit Email</h5>
@@ -274,7 +274,7 @@ include __DIR__ . "/components/header.php";
 
 <!-- Modal for Email Verification -->
 <div id="verEmail" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header justify-content-center">
                 <h5 class="modal-title">Verify your email</h5>
@@ -334,7 +334,7 @@ include __DIR__ . "/components/header.php";
 
 <!-- Modal for Change password -->
 <div id="chgPass" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header justify-content-center ">
                 <h5 class="modal-title text-center">Create a password for your Zillow account.
@@ -376,7 +376,7 @@ include __DIR__ . "/components/header.php";
 </div>
 <!-- Modal for 2FA activation  -->
 <div id="twofa" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header justify-content-center ">
                 <h5 class="modal-title text-center">Setup 2-step verification
@@ -435,7 +435,7 @@ include __DIR__ . "/components/header.php";
 </div>
 <!-- Modal for account deletion -->
 <div id="deleteUser" class="modal fade">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header justify-content-center">
                 <h5 class="modal-title">Deactivate Account</h5>

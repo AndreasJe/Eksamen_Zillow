@@ -78,6 +78,10 @@ main {
 }
 
 /* Settings for Modals  */
+textarea {
+  background-color: rgb(246, 246, 250);
+}
+
 #forgot .modal-dialog .modal-content,
 #login .modal-dialog .modal-content {
   height: 560px;
@@ -101,10 +105,6 @@ main {
 
 .verification_icon {
   fill: #0d6efd;
-}
-
-.modal {
-  top: 35% !important;
 }
 
 .modal-body p {
