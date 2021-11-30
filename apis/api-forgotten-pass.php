@@ -11,7 +11,6 @@ if (!isset($_POST['user_email'])) {
 try {
     $db = _db();
 } catch (Exception $ex) {
-    echo json_encode($ex);
     send_500('System under maintainance - DB connection failed');
 }
 

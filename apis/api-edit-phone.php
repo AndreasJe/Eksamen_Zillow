@@ -23,7 +23,6 @@ try {
     $db = _db();
 } catch (Exception $ex) {
     _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
-
     exit();
 }
 
