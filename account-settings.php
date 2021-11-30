@@ -437,12 +437,12 @@ include __DIR__ . "/components/header.php";
 include __DIR__ . "/components/footer.php";
 ?>
 
-<!-- Scripts for changing modals & fetching apis -->
+<!-- Scripts for fetching apis & changing modals -->
 <script>
 async function sendVerify() {
     const form = event.target.form
     console.log(form)
-    let conn = await fetch("bridges/verify-mail", {
+    let conn = await fetch("email/verify-mail", {
         method: "POST",
         body: new FormData(form)
     })
