@@ -4,8 +4,6 @@
 
 // set post fields
 $post = [
-    'email' => 'gud.er.gud@gmail.com',
-    'password' => '22486050',
     'phone'   => '22486050',
     'to_phone'   => $to_phone,
     'message'   => $sms_content,

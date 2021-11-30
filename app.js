@@ -61,6 +61,7 @@ function verificationConfirm() {
   after_foot.style.display = "flex";
 }
 
+// Changing Modal content on "Verify Phone"
 function phoneConfirm() {
   const before = document.getElementById("phone-validation-header");
   const after = document.getElementById("phone-validation-header_after");
@@ -91,6 +92,7 @@ async function login() {
     _one("#feedback_login").innerHTML = JSON.stringify(response);
   }
 }
+
 async function signup() {
   const form = event.target.form;
   console.log(form);
@@ -108,6 +110,8 @@ async function signup() {
     _one("#feedback_signup").innerHTML = JSON.stringify(response);
   }
 }
+
+// ForgotPassword inital verification
 async function forgotPassword() {
   const form = event.target.form;
   console.log(form);
@@ -121,10 +125,37 @@ async function forgotPassword() {
   }
 }
 
+// Changing Modal content on "Forgot Password"
 async function forgotConfirm() {
   const before = document.getElementById("forgot-before");
   const after = document.getElementById("forgot-after");
 
   before.style.display = "none";
   after.style.display = "flex";
+}
+
+// Uploading item feedback
+async function uploadItem() {
+  const form = event.target.form;
+  console.log(form);
+  let conn = await fetch("apis/api-upload-item", {
+    method: "POST",
+    body: new FormData(form),
+  });
+  let response = await conn.json();
+  console.log(response);
+  if (conn.ok) {
+    _one("#feedback_upload").innerHTML = " ";
+    _one("#feedback_upload").classList.remove("bg-danger");
+    _one("#feedback_upload").classList.add(
+      "badge",
+      "text-center",
+      "bg-success"
+    );
+    _one("#feedback_upload").innerHTML = JSON.stringify(response);
+  } else {
+    _one("#feedback_upload").innerHTML = " ";
+    _one("#feedback_upload").classList.add("badge", "text-center", "bg-danger");
+    _one("#feedback_upload").innerHTML = JSON.stringify(response);
+  }
 }

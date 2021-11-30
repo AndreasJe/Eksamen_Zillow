@@ -2,7 +2,7 @@
 require_once(__DIR__ . "/globals.php");
 session_start();
 
-//Initial validation of the parameter
+//Initial validation of the inputs
 if (empty($_POST['phone_number'])) {
     send_400('mmm... suspicious (No number has been found) ');
     exit();
@@ -24,7 +24,6 @@ try {
     exit();
 }
 
-
 //Looking for user with id, and fetching verification_key from row.
 try {
     $id = $_SESSION['user_id'];
@@ -33,12 +32,12 @@ try {
     $q->bindValue(':user_id', $id);
     $q->execute();
     $row = $q->fetch();
-    send_200('Success: We have found your user. Message is on the way!');
 
     $key = $row['authentication_code'];
     $to_phone = $_POST['phone_number'];
     $sms_content = " Hello user! Here is your authentication code: " . $key;
     require_once(__DIR__ . "/../private/send-sms.php");
+    send_200('Success: We have found your user. Message is on the way!');
     exit();
 } catch (Exception $ex) {
     echo $ex;

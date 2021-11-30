@@ -81,13 +81,13 @@ $lan = $_GET['lan'] ?? 'en';
                     <a class="mega-menu"><span><?= $text['nav2_link1'][$lan] ?></span></a>
                     <div class="sub-menu-block">
                         <div class="row">
-                            <div class="col-md-5 col-lg-5 col-sm-5">
+                            <div class="col-8">
                                 <h2 class="sub-menu-head"><?= $text['nav2_link2'][$lan] ?></h2>
                                 <ul class="sub-menu-lists">
                                     <li><a href="products"><?= $text['nav2_link3'][$lan] ?></a></li>
                                     <li><a href="products"><?= $text['nav2_link4'][$lan] ?></a></li>
                                 </ul>
-                                <div class="col-md-5 col-lg-5 col-sm-5">
+                                <div class="col-8">
                                     <h2 class="sub-menu-head"><?= $text['nav2_link5'][$lan] ?></h2>
                                     <ul class="sub-menu-lists">
                                         <li><a href="upload-product"><?= $text['nav2_link6'][$lan] ?></a></li>

@@ -55,14 +55,26 @@
     </style>
 </head>
 
-
+<!-- Title, language, session_start and header defined -->
 <?php
-
+require_once __DIR__ . ('/components/dictionary.php');
+$lan = $_GET['lan'] ?? 'en'; // en es dk
+$_title = $text['title5'][$lan];
 session_start();
-$_title = 'Listed Homes';
+if (!isset($_SESSION['user_id'])) {
+    header('Location: index');
+    exit();
+}
 include __DIR__ . "/components/header.php";
+
 ?>
 
+<!-- Individual Language link to simplify process. -->
+<div class="language-link">
+    <a class="language-link-item" href="mylistings.php?lan=en" <?php if ($lan == 'en') { ?> style="color: #ff9900;"
+        <?php } ?>>English</a> | <a class="language-link-item" href="mylistings.php?lan=es" <?php if ($lan == 'es') { ?>
+        style="color: #ff9900;" <?php } ?>>Espaniol</a>
+</div>
 
 <main>
 
@@ -132,8 +144,8 @@ include __DIR__ . "/components/header.php";
 
             // Showing products from database. 
             include __DIR__ . "/apis/api-collect-uploaded-items.php";
-
             foreach ($items as $item) {
+                $trim_digits = preg_replace('/\d+/', '', $item->item_id);
                 echo "
                 <div class='product'>
                     <div class='pic-container'>
@@ -162,10 +174,10 @@ include __DIR__ . "/components/header.php";
                     </div>
 
                     <div id='button-edit-product'>           
-                    <a class='m-0 modal-link' href='#{$item->item_id}' class='envokeModal' data-bs-toggle='modal'>Edit</a>
+                    <a class='m-0 modal-link' href='#{$trim_digits}' class='envokeModal' data-bs-toggle='modal'>Edit</a>
                     </div>
                     <div id='button-delete-product'>           
-                    <a class='m-0 modal-link' href='apis/api-delete-item?item_id={$item->item_id}' class='envokeModal' data-bs-toggle='modal'>Delete</a>
+                    <a class='m-0 modal-link' href='apis/api-delete-item.php?item_id={$item->item_id}'>Delete</a>
                     </div>
                 </div>
                 ";
@@ -177,135 +189,74 @@ include __DIR__ . "/components/header.php";
     </div>
 
 
-</main>
 
 
-
-<!-- //Modal template -->
-<!-- Modal for Edit Name -->
-<?php
-"<div id='{$item->item_id}' class='modal fade'>
-    <div class='modal-dialog'>
-        <div class='modal-content'>
-            <div class='modal-header justify-content-center'>
-                <h5 class='modal-title'>Edit name</h5>
-            </div>
-            <form onsubmit='return false'>
-                <div class='modal-body d-flex flex-row justify-content-evenly'>
-                    <div class='d-flex flex-column justify-content-start '>
-                        <label class='pb-1' for='item_name'>First name</label>
-                        <input type='text' name='item_name' data-min='2' data-max='22' required>
-                    </div>
-                    <div class='d-flex flex-column justify-content-end '>
-                        <label class='pb-1' for='last_name'>Last name</label>
-                        <input type='text' name='last_name' data-min='2' data-max='22' required>
-                    </div>
-
+    <?php
+    // Making modal for each product. 
+    foreach ($items as $item) {
+        $trim_digits = preg_replace('/\d+/', '', $item->item_id);
+        $specificItem =  $item->item_id;
+        echo " <div id='{$trim_digits}' class='modal fade'>
+        <div class='modal-fullscreen-sm-down modal-dialog modal-dialog-centered modal-dialog-scrollable'>
+            <div class='modal-content'>
+                <div class='modal-header justify-content-center'>
+                    <h5 class='modal-title'>Edit name</h5>
                 </div>
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancel</button>
-                    <button type='button' class='btn btn-primary' onclick='updateName()'>Apply</button>
-                </div>
-            </form>
-            <div>
-                <em class='text-center' id='nameChange'> </em>
-            </div>
-        </div>
-    </div>
-</div>"
-?>
-
-<a href="#editItem" class="envokeModal styledknap" data-bs-toggle="modal">Deactivate account</a>
-<!-- styled_modal template -->
-
-<div id="editItem" class="modal fade">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header justify-content-center">
-                <h5 class="modal-title">Edit name</h5>
-            </div>
-            <form onsubmit="return false">
-                <div class="modal-body d-flex flex-column justify-content-evenly">
-                    <div class="d-flex flex-column ">
-                        <label class="pb-1" for="item_name">Change name of listing</label>
-                        <input type="text" name="item_name" data-min="2" data-validate="str" data-max="22" required>
-                    </div>
-                    <div class="d-flex flex-column ">
-                        <label class="pb-1" for="item_price">Change listing price</label>
-                        <input type="text" name="item_price" data-min="2" data-validate="str" data-max="22" required>
-                    </div>
-                    <div class="d-flex flex-column ">
-                        <label for="message-text" class="col-form-label">Features:</label>
-                        <textarea class="form-control" id="message-text" data-validate="str" data-min="50"
-                            data-max="100" required></textarea>
-                    </div>
-                    <div class="d-flex flex-column ">
-                        <label class="pb-1" for="item_location">Change Location</label>
-                        <input type="text" name="item_location" data-min="10" data-validate="str" data-max="52"
-                            required>
-                    </div>
-                    <div class="d-flex flex-column ">
-                        <label class="pb-1" for="item_author">Change Author</label>
-                        <input type="text" name="item_author" data-min="2" data-validate="str" data-max="22" required>
-                    </div>
-
-                    <div class="d-flex flex-column ">
-
-                        <h2>Select a photo</h2>
-                        <input class="w-100 mb-3" name="item_image" accept="image/*" type='file' id="imgInp" />
-
-                        <em>Image preview:</em>
-                        <div class=" rounded d-flex justify-content-center preview-container w-50">
-                            <img id="preview" src="img/products/user-listed/img_product_default.png" alt="your image" />
+                <form method='post' enctype='multipart/form-data' action='apis/api-edit-product.php?item_id={$item->item_id}' onsubmit='location.reload();' target='dummyframe'>
+                    <div class='modal-body d-flex flex-column justify-content-evenly'>
+                        <div class='d-flex flex-column '>
+                            <label class='pb-1' for='item_name'>Change name of listing</label>
+                            <input type='text' placeholder='{$item->item_name}' name='item_name' data-min='2' data-validate='str' data-max='22' required>
                         </div>
-                    </div>
+                        <div class='d-flex flex-column '>
+                            <label class='pb-1' for='item_price'>Change listing price</label>
+                            <input type='text'  placeholder='{$item->item_price}' name='item_price' data-min='2' data-validate='str' data-max='22'
+                                required>
+                        </div>
+                        <div class='d-flex flex-column '>
+                            <label for='message-text' class='col-form-label'>Change Features:</label>
+                            <textarea class='form-control' placeholder='{$item->item_features}' name='item_features' data-validate='str' data-min='10'
+                                data-max='100' required></textarea>
+                        </div>
+                        <div class='d-flex flex-column '>
+                            <label class='pb-1' for='item_location'>Change Location</label>
+                            <input type='text' placeholder='{$item->item_location}'  name='item_location' data-min='5' data-validate='str' data-max='52'
+                                required>
+                        </div>
+                        <div class='d-flex flex-column '>
+                            <label class='pb-1' for='item_author'>Change Author</label>
+                            <input type='text' placeholder='{$item->item_author}'  name='item_author' data-min='2' data-validate='str' data-max='22'
+                                required>
+                        </div>
 
+                        <div>
+                        <label class='pb-1' for='item_author'>Change Photo</label>
+                            <input class='Inp w-100 mb-3' name='item_image' accept='image/*' type='file'   />
+
+                            <em class='mb-1 d-block mx-auto'>Previous photo:</em>
+                            <div class=' rounded d-flex justify-content-center preview-container w-50'>
+                                <img id='preview' src='img/products/user-listed/img_product_{$item->item_id}' alt='your image' />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cancel</button>
+                        <button type='submit' class='btn btn-primary' >Apply</a>
+                    </div>
+                </form>
+                   <div>
+                    <p class='p-3 d-block mx-auto text-center' id='feedback_change'> </p>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="">Apply</button>
-                </div>
-            </form>
-            <div>
-                <em class="text-center" id="nameChange"> </em>
             </div>
         </div>
     </div>
-</div>
-
-
-<!-- Scripts that needs to be standalone, since it uses the variable internally. 
-Otherwise it will throw off all other scripts for some reason. -->
-
-<!-- Script to display preview of selected photo -->
-<script>
-imgInp.onchange = evt => {
-    const [file] = imgInp.files
-    if (file) {
-        preview.src = URL.createObjectURL(file)
+</div>";
     }
-}
+    ?>
+    <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
 
-// Toggles the Bootstrap class "Disabled" on the form submit button 
-function agreeTerms() {
-    let button = document.getElementById("uploadButton");
-    button.classList.toggle("disabled");
-}
-
-// Script that refers to API. TODO: USER FEEDBACK
-async function uploadItem() {
-    const form = event.target.form
-    console.log(form)
-    let conn = await fetch("apis/api-upload-item", {
-        method: "POST",
-        body: new FormData(form)
-    })
-    if (conn.ok) {
-        console.log("Product has been uploaded")
-    }
-}
-
-
-
-<?php
-    include __DIR__ . "/components/footer.php"; ?>
+    <!-- Footer Content -->
+    <?php
+    include __DIR__ . "/components/footer.php";
+    ?>

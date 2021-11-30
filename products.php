@@ -42,13 +42,22 @@
     </style>
 </head>
 
-
+<!-- Title, language, session_start and header defined -->
 <?php
-
+require_once __DIR__ . ('/components/dictionary.php');
+$lan = $_GET['lan'] ?? 'en'; // en es dk
+$_title = $text['title3'][$lan];
 session_start();
-$_title = 'View Products';
 include __DIR__ . "/components/header.php";
+
 ?>
+
+<!-- Individual Language link to simplify process. -->
+<div class="language-link">
+    <a class="language-link-item" href="products.php?lan=en" <?php if ($lan == 'en') { ?> style="color: #ff9900;"
+        <?php } ?>>English</a> | <a class="language-link-item" href="products.php?lan=es" <?php if ($lan == 'es') { ?>
+        style="color: #ff9900;" <?php } ?>>Espaniol</a>
+</div>
 
 
 <main>
@@ -116,7 +125,7 @@ include __DIR__ . "/components/header.php";
                     </div>
                     <div class='btm-container'>
                         <div class='price-container'>
-                            <h1>{$item->item_price}</h1>
+                            <h1>&#x24;{$item->item_price}</h1>
                         </div>
                         <div class='description-container mt-1 mb-2'>
                             <p>{$item->item_features}</p>

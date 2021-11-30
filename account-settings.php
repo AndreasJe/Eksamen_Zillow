@@ -44,17 +44,26 @@
 </head>
 
 
+<!-- Title, language, session_start and header defined -->
 <?php
-
+require_once __DIR__ . ('/components/dictionary.php');
+$lan = $_GET['lan'] ?? 'en'; // en es dk
+$_title = $text['title4'][$lan];
 session_start();
 if (!isset($_SESSION['user_id'])) {
     header('Location: index');
     exit();
 }
-$_title = 'Account Settings';
-
 include __DIR__ . "/components/header.php";
+
 ?>
+
+<!-- Individual Language link to simplify process. -->
+<div class="language-link">
+    <a class="language-link-item" href="account-settings.php?lan=en" <?php if ($lan == 'en') { ?>
+        style="color: #ff9900;" <?php } ?>>English</a> | <a class="language-link-item"
+        href="account-settings.php?lan=es" <?php if ($lan == 'es') { ?> style="color: #ff9900;" <?php } ?>>Espaniol</a>
+</div>
 
 
 
@@ -229,8 +238,6 @@ include __DIR__ . "/components/header.php";
                 </div>
                 <div class="modal-body">
                     <input type="text" placeholder="Screen name" name="user_name">
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -300,9 +307,7 @@ include __DIR__ . "/components/header.php";
                     </svg>
                 </div>
                 <p>To verify your email, select “Send verification email” and then check your inbox.
-
                 </p>
-
             </div>
             <div class="modal-body" id="after">
                 <div class="verification_icon  d-flex justify-content-center">
@@ -362,7 +367,6 @@ include __DIR__ . "/components/header.php";
                     </div>
                     <div>
                         <p id="feedback_pass" class="p-3 mt-4 text-center d-block">
-
                         </p>
                     </div>
                 </div>
@@ -380,7 +384,6 @@ include __DIR__ . "/components/header.php";
         <div class="modal-content">
             <div class="modal-header justify-content-center ">
                 <h5 class="modal-title text-center">Setup 2-step verification
-
                 </h5>
             </div>
             <form onsubmit="validate(verifyPhone);return false">
@@ -396,7 +399,6 @@ include __DIR__ . "/components/header.php";
                     </div>
                     <div>
                         <p id="#feedback_phone" class="text-center d-block">
-
                         </p>
                     </div>
                 </div>
@@ -415,19 +417,15 @@ include __DIR__ . "/components/header.php";
                         <input type="text" name="2fa_key" data-min="5" data-max="5">
                         <em class="password_req p-3 text-center"> It might take a minute or two for the text to get
                             sent</em>
-
                     </div>
                     <div>
                         <p id="feedback_2fa" class="p-3 mt-3 text-center d-block">
-
                         </p>
                     </div>
                 </div>
-
                 <div id="phone-validation-footer_after" class="pt-2 modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" name="submit" onclick="enableTwofa()">Verify</button>
-
                 </div>
             </form>
         </div>
@@ -445,8 +443,7 @@ include __DIR__ . "/components/header.php";
                     <div class="m-5">
                         <p>Are you sure, you want to deactivate your account? We wont be able to recover it for you
                             afterwards.</p>
-                    </div>
-
+                    </div>W
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

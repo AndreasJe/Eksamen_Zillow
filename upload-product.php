@@ -116,6 +116,8 @@ include __DIR__ . "/components/header.php";
 
 <!-- Page Content -->
 <main class="justify-content-center d-flex flex-column">
+
+
     <section>
         <h1>List your home</h1>
         <p>Post once and your home will be listed on both Zillow and Trulia, reaching buyers on the largest real estate
@@ -126,16 +128,17 @@ include __DIR__ . "/components/header.php";
         <section>
             <h2>Give your listing a name</h2>
             <p>Only you will see this</p>
-            <input type="text" name="item_name" data-max="30" data-min="3">
+            <input type="text" required name="item_name" data-validate="str" data-max="30" required data-min="3">
         </section>
         <div class="seperator"></div>
         <section>
             <h2>Set your price</h2>
-            <input type="text" placeholder="$" name="item_price" data-max="30" data-min="3">
+            <input type="text" required placeholder="$" name="item_price" data-validate="str" required data-max="30"
+                data-min="3">
         </section>
         <section>
             <h2>Select a photo</h2>
-            <input class="w-100 mb-3" name="item_image" accept="image/*" type='file' id="imgInp" />
+            <input class="w-100 mb-3" required name="item_image" accept="image/*" type='file' id="imgInp" />
 
             <em>Image preview:</em>
             <div class=" rounded d-flex justify-content-center preview-container w-50">
@@ -147,12 +150,12 @@ include __DIR__ . "/components/header.php";
             <h1>Home facts</h1>
             <div class="subsectionUpload">
                 <h2>Set your address</h2>
-                <input type="text" name="item_location">
+                <input type="text" data-validate="str" required name="item_location">
             </div>
             <div class="subsectionUpload">
                 <h2>Describe your home</h2>
                 <p>Short description of features. You are limited to use 100 characters</p>
-                <input type="text" name="item_features" data-max="100" data-min="40">
+                <input type="text" data-validate="str" required name="item_features" data-max="100" data-min="40">
             </div>
         </section>
         <div class="seperator"></div>
@@ -172,6 +175,13 @@ include __DIR__ . "/components/header.php";
             by
             owner</button>
     </form>
+    <section>
+        <div>
+            <p class=" p-3 d-block mx-auto text-center " id="feedback_upload">
+
+            </p>
+        </div>
+    </section>
 </main>
 
 <!-- Footer Content -->
@@ -195,18 +205,5 @@ imgInp.onchange = evt => {
 function agreeTerms() {
     let button = document.getElementById("uploadButton");
     button.classList.toggle("disabled");
-}
-
-// Script that refers to API. TODO: USER FEEDBACK
-async function uploadItem() {
-    const form = event.target.form
-    console.log(form)
-    let conn = await fetch("apis/api-upload-item", {
-        method: "POST",
-        body: new FormData(form)
-    })
-    if (conn.ok) {
-        console.log("Product has been uploaded")
-    }
 }
 </script>

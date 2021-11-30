@@ -3,16 +3,12 @@ session_start();
 require_once(__DIR__ . "/globals.php");
 
 //Initial validation of the inputs
-if (!isset($_POST['item_name'])) {
+if (empty($_POST['item_name'])) {
     send_400('item_name is missing ');
     exit();
 }
 if (!isset($_POST['item_price'])) {
     send_400('item_price is missing ');
-    exit();
-}
-if (!isset($_POST['item_location'])) {
-    send_400('item_location is missing ');
     exit();
 }
 if (!strlen($_POST['item_features']) > 0) {
@@ -24,6 +20,15 @@ if (!is_uploaded_file($_FILES['item_image']['tmp_name'])) {
     exit();
 }
 
+if (!isset($_POST['item_location'])) {
+    send_400('item_location is missing ');
+    exit();
+}
+if (!isset($_POST['item_author'])) {
+    send_400('item_author is missing ');
+    exit();
+}
+
 //Initial validation of database
 try {
     $db = _db();
@@ -32,29 +37,54 @@ try {
     send_500('System under maintainance - DB connection failed');
 }
 
+
+
 //Binding values to item and moving image to appropiate folder.
 try {
-    $item_id = bin2hex(random_bytes(16));
-    $user_id = $_SESSION['user_id'];
-    $user = $_SESSION['first_name'] . " " . $_SESSION['last_name'];
-    $created_date = date("Y-m-d H:i:s");
-    $q = $db->prepare('INSERT INTO items VALUES(:item_id, :item_name, :item_price, :item_location, :item_features, :item_log ,:item_author, :item_author_id )');
-    $q->bindValue(':item_id',  $item_id);
+    $id = $_GET['item_id'];
+
+
+    $db->beginTransaction();
+
+    // Changing item_name
+    $q = $db->prepare('UPDATE items SET item_name = :item_name WHERE item_id = :id');
+    $q->bindValue(':id', $id);
     $q->bindValue(':item_name', $_POST['item_name']);
-    $q->bindValue(':item_price', $_POST['item_price']);
-    $q->bindValue(':item_location', $_POST['item_location']);
-    $q->bindValue(':item_features', $_POST['item_features']);
-    $q->bindValue(':item_log', $created_date);
-    $q->bindValue(':item_author', $user);
-    $q->bindValue(':item_author_id', $user_id);
-
-    move_uploaded_file($_FILES['item_image']['tmp_name'], "../img/products/user-listed/img_product_" . $item_id);
-
     $q->execute();
-    send_200('Success: Item was uploaded !');
+
+    // Changing item_price
+    $q = $db->prepare('UPDATE items SET item_price = :item_price WHERE item_id = :id');
+    $q->bindValue(':id', $id);
+    $q->bindValue(':item_price', $_POST['item_price']);
+    $q->execute();
+
+    // Changing item_features
+    $q = $db->prepare('UPDATE items SET item_features = :item_features WHERE item_id = :id');
+    $q->bindValue(':id', $id);
+    $q->bindValue(':item_features', $_POST['item_features']);
+    $q->execute();
+
+    // Changing item_price
+    $q = $db->prepare('UPDATE items SET item_location = :item_location WHERE item_id = :id');
+    $q->bindValue(':id', $id);
+    $q->bindValue(':item_location', $_POST['item_location']);
+    $q->execute();
+
+    // Changing item_price
+    $q = $db->prepare('UPDATE items SET item_author = :item_author WHERE item_id = :id');
+    $q->bindValue(':id', $id);
+    $q->bindValue(':item_author', $_POST['item_author']);
+    $q->execute();
+
+    $db->commit();
+    move_uploaded_file($_FILES['item_image']['tmp_name'], "../img/products/user-listed/img_product_" . $id);
+    send_200('Item information has been changed');
+    exit();
 } catch (PDOException $ex) {
+
+    $db->rollBack();
     echo json_encode($ex);
-    send_500('System under maintainance - Query failed');
+    send_500('System under maintainance');
 }
 
 //Response 500 means server error

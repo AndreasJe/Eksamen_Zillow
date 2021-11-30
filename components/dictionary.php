@@ -10,6 +10,23 @@ $text = [
         'en' => 'List your home',
         'es' => 'Lista tu casa'
     ],
+    'title3' => [
+        'en' => 'Products',
+        'es' => 'Productos'
+    ],
+    'title4' => [
+        'en' => 'Listed Products',
+        'es' => 'Productos Listados
+        '
+    ],
+    'title4' => [
+        'en' => 'Account Settings',
+        'es' => 'Configuraciones de la cuenta'
+    ],
+    'title5' => [
+        'en' => 'My Listings',
+        'es' => 'Mis listados'
+    ],
     //Search
     'search_title' => [
         'en' => 'Change starts here',

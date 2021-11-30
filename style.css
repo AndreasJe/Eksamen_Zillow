@@ -79,7 +79,7 @@ main {
 
 /* Settings for Modals  */
 textarea {
-  background-color: rgb(246, 246, 250);
+  background-color: rgb(246, 246, 250) !important;
 }
 
 #forgot .modal-dialog .modal-content,
@@ -244,6 +244,30 @@ form button {
 #imgInp:active::before {
   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
+.Inp::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.Inp::before {
+  content: "Select a photo";
+  display: inline-block;
+  background: linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+.Inp:hover::before {
+  border-color: black;
+}
+.Inp:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
 
 /* Modal for forgot password */
 
@@ -348,7 +372,6 @@ form button {
   max-height: 900px;
   align-content: center;
   justify-content: center;
-  max-width: 90%;
   background: #fff;
   padding: 16px 16px 0px;
 }
@@ -446,6 +469,7 @@ form button {
   border-radius: 5px;
   width: 50px;
   height: 25px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 46%);
 }
 
 #button-delete-product {
@@ -456,6 +480,7 @@ form button {
   border-radius: 5px;
   width: 50px;
   height: 25px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 46%);
 }
 .product {
   flex: 1 16%;
@@ -923,15 +948,16 @@ main {
   flex-direction: column;
   margin: auto;
   width: 80%;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
   padding: 2rem;
   background-color: white;
   box-shadow: rgb(0 0 0 / 30%) 0px 3px 7px 0px;
   border-radius: 4px;
 }
 .cards article:hover {
-  transform: scale(1.05);
-  box-shadow: rgb(209 209 213) 0px 5px 15px;
+  transform: scale(1.03);
+  box-shadow: rgb(0 0 0 / 30%) 0px 3px 7px 0px;
 }
 
 .cards article:hover button {
@@ -1053,6 +1079,10 @@ footer {
   .listing-header {
     display: none;
   }
+  .language-link {
+    display: none;
+  }
+
   .footer_nav {
     display: none;
   }
