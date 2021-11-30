@@ -52,7 +52,7 @@ if (preg_match("/\s/", $_POST['new_password'])) {
 try {
     $db = _db();
 } catch (Exception $ex) {
-    send_500('System under maintainance');
+    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
 }
 
 

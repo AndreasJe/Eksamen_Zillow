@@ -7,18 +7,18 @@ if (!isset($_POST['user_email'])) {
     exit();
 }
 
-
-
+//Testing DB-Connection to distinguish the errors.
 try {
     $db = _db();
 } catch (Exception $ex) {
-    _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
+    echo json_encode($ex);
+    send_500('System under maintainance - DB connection failed');
 }
 
 
+//Handling Query and setting new verification_key and session data afterwards.
 try {
     $email = $_POST['user_email'];
-
 
     $q = $db->prepare('SELECT * FROM users WHERE user_email = :email');
     $q->bindValue(':email', $email);
@@ -30,11 +30,12 @@ try {
     //Validating the verification key
 
     if (!isset($row['forgot_pass_key'])) {
-        echo 'Verification_Key is not present in Database - Create new user or contact your administrator';
+        echo '';
+        send_400('Forgot_pass_key is not present in Database - Create new user or contact your administrator)');
         exit();
     }
     if (strlen($row['forgot_pass_key']) != 32) {
-        echo "mmm... suspicious (key is not 32 chars)";
+        send_400('mmm... suspicious (key is not 32 chars)');
         exit();
     }
 
@@ -49,7 +50,37 @@ try {
 
     exit();
 } catch (PDOException $ex) {
-    http_response_code(500);
-    $error = 'Something went wrong';
     echo json_encode($ex);
+    send_500('System under maintainance - Query failed');
+    exit();
+}
+
+//Response 500 means server error
+function send_500($error_message)
+{
+    header('Content-Type: application/json');
+    http_response_code(500);
+    $response = ["Error" => $error_message];
+    echo json_encode($response);
+    exit();
+}
+
+//Response 400 means Client error
+function send_400($error_message)
+{
+    header('Content-Type: application/json');
+    http_response_code(400);
+    $response = ["Error" => $error_message];
+    echo json_encode($response);
+    exit();
+}
+
+//Response 400 means OK error
+function send_200($error_message)
+{
+    header('Content-Type: application/json');
+    http_response_code(200);
+    $response = ["Info" => $error_message];
+    echo json_encode($response);
+    exit();
 }

@@ -5,7 +5,7 @@ require_once(__DIR__ . "/globals.php");
 try {
     $db = _db();
 } catch (Exception $ex) {
-    _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
+    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
 }
 
 // Getting all objects from items column

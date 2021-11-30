@@ -1,9 +1,8 @@
 <?php
-
-
+// Some php CONSTANTS that makes it easy to change validation values
+// Not used as they are a bit dedious to work with compared to the few digits they replace :)  
 define('_ITEM_MIN_LEN', 2);
 define('_ITEM_MAX_LEN', 22);
-
 
 define('_PASSWORD_MIN_LEN', 2);
 define('_PASSWORD_MAX_LEN', 22);
@@ -15,7 +14,7 @@ define('_TEXT_MIN_LEN', 2);
 define('_TEXT_MAX_LEN', 22);
 
 
-// ##############################
+// Error Handling by Database 
 function _res($status = 200, $message = [])
 {
   http_response_code($status);
@@ -25,7 +24,7 @@ function _res($status = 200, $message = [])
 }
 
 
-// ##############################
+// PDO connection as a function
 function _db()
 {
   $database_user_name = 'root';

@@ -2,7 +2,7 @@
 session_start();
 require_once(__DIR__ . "/globals.php");
 
-// Validate password
+//Initial validation of the passwords
 if (!isset($_POST['new_password'])) {
     send_400('We need your password to create a user for you!');
     exit();
@@ -28,10 +28,11 @@ if (strlen($_POST['confirm_password']) > 22) {
     exit();
 }
 
+//Initial validation of database
 try {
     $db = _db();
 } catch (Exception $ex) {
-    $error = "Password cant exceed 22 characters";
+    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
 }
 
 $id = $_SESSION['user_id'];
@@ -39,15 +40,15 @@ $newpass = $_POST['new_password'];
 $newpasshashed = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
 $confirmpass = $_POST['confirm_password'];
 
-
+//Changing password if there is a match - or else report error below
 if ($newpass == $confirmpass) {
     try {
         $q = $db->prepare('UPDATE users SET user_password = :new_password WHERE user_id = :id');
         $q->bindValue(':id', $id);
         $q->bindValue(':new_password', $newpasshashed);
         $q->execute();
-        send_200('New password has been assigned');
 
+        send_200('New password has been assigned');
         exit();
     } catch (PDOException $ex) {
         echo json_encode($ex);

@@ -16,7 +16,7 @@ if (strlen($_POST['2fa_key']) != 5) {
 try {
     $db = _db();
 } catch (Exception $ex) {
-    send_500('System under maintainance');
+    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
 }
 
 //Executing Content
@@ -30,7 +30,7 @@ try {
     $q->execute();
     $row = $q->fetch();
 
-    // When found we bind a new 2FA code and the phone number
+    // When found and verified - we bind the new phone number & a new 2FA code using a transaction
     if (!empty($row)) {
         try {
             $new_authentication_code = bin2hex(random_bytes(5));

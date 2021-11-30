@@ -29,7 +29,7 @@ try {
     $db = _db();
 } catch (Exception $ex) {
     echo json_encode($ex);
-    send_500('System under maintainance - DB connection failed');
+    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
 }
 
 //Binding values to item and moving image to appropiate folder.
@@ -47,9 +47,7 @@ try {
     $q->bindValue(':item_log', $created_date);
     $q->bindValue(':item_author', $user);
     $q->bindValue(':item_author_id', $user_id);
-
     move_uploaded_file($_FILES['item_image']['tmp_name'], "../img/products/user-listed/img_product_" . $item_id);
-
     $q->execute();
     send_200('Success: Item was uploaded !');
 } catch (PDOException $ex) {

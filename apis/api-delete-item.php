@@ -6,8 +6,7 @@ require_once(__DIR__ . "/globals.php");
 try {
     $db = _db();
 } catch (Exception $ex) {
-    echo json_encode($ex);
-    send_500('System under maintainance - DB connection failed');
+    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
 }
 //Variables defined and finding item by item_id 
 //Deleting previous image before implementing new one..
@@ -23,7 +22,7 @@ try {
     exit();
 } catch (PDOException $ex) {
     echo json_encode($ex);
-    send_500('System under maintainance - Query failed');
+    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
 }
 
 //Response 500 means server error

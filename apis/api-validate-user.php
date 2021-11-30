@@ -3,18 +3,20 @@ require_once(__DIR__ . "/globals.php");
 
 //Initial validation of the parameter
 if (!isset($_GET['key'])) {
-    echo "mmm... suspicious (key is missing)";
+    send_400('mmm... suspicious (key is missing)');
     exit();
 }
 if (strlen($_GET['key']) != 32) {
-    echo "mmm... suspicious (key is not 32 chars)";
+    send_400('mmm... suspicious (key is not 32 chars)');
     exit();
 }
 
+//Testing DB-Connection to distinguish the errors.
 try {
     $db = _db();
 } catch (Exception $ex) {
-    _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
+    echo json_encode($ex);
+    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
 }
 
 try {
@@ -42,5 +44,36 @@ try {
     }
 } catch (PDOException $ex) {
     echo json_encode($ex);
-    echo 'No dice! Try again or speak to an adult';
+    send_500('System under maintainance - Query failed');
+    exit();
+}
+
+//Response 500 means server error
+function send_500($error_message)
+{
+    header('Content-Type: application/json');
+    http_response_code(500);
+    $response = ["Error" => $error_message];
+    echo json_encode($response);
+    exit();
+}
+
+//Response 400 means Client error
+function send_400($error_message)
+{
+    header('Content-Type: application/json');
+    http_response_code(400);
+    $response = ["Error" => $error_message];
+    echo json_encode($response);
+    exit();
+}
+
+//Response 400 means OK error
+function send_200($error_message)
+{
+    header('Content-Type: application/json');
+    http_response_code(200);
+    $response = ["Info" => $error_message];
+    echo json_encode($response);
+    exit();
 }

@@ -8,21 +8,19 @@ require_once(__DIR__ . "/globals.php");
 // Validate User name
 
 if (!isset($_POST['new_email']) && !isset($_POST['new_email'])) {
-    _res(400, ['info' => 'Email required']);
+    send_400('Email required ');
     exit();
 }
 if (!filter_var($_POST['new_email'], FILTER_VALIDATE_EMAIL)) {
-    _res(400, ['email is invalid']);
+    send_400('Email is invalid ');
     exit();
 }
-
-
 
 //Testing DB-Connection to distinguish the errors.
 try {
     $db = _db();
 } catch (Exception $ex) {
-    _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
+    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
 }
 
 // Checking whether or not the new email has been confirmed
@@ -50,15 +48,45 @@ if ($newEmail == $confirmEmail) {
             $q2->bindValue(':vkey', $verification_key);
             $q2->bindValue(':verified', false);
             $q2->execute();
-            echo "New verification key has been assigned";
+            send_200('Success: Email has been changed, and verification_key and verified has been updated. ');
         }
 
         $_SESSION['user_email'] = $_POST['new_email'];
     } catch (PDOException $ex) {
-        echo $ex;
-        echo 'No dice! ';
+        echo json_encode($ex);
+        send_500('System under maintainance - Query failed');
         exit();
     }
 } else {
-    _res(400, ['Emails dont match']);
+    send_400('Emails dont match');
+}
+
+//Response 500 means server error
+function send_500($error_message)
+{
+    header('Content-Type: application/json');
+    http_response_code(500);
+    $response = ["Error" => $error_message];
+    echo json_encode($response);
+    exit();
+}
+
+//Response 400 means Client error
+function send_400($error_message)
+{
+    header('Content-Type: application/json');
+    http_response_code(400);
+    $response = ["Error" => $error_message];
+    echo json_encode($response);
+    exit();
+}
+
+//Response 400 means OK error
+function send_200($error_message)
+{
+    header('Content-Type: application/json');
+    http_response_code(200);
+    $response = ["Info" => $error_message];
+    echo json_encode($response);
+    exit();
 }

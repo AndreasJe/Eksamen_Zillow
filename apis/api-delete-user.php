@@ -1,11 +1,17 @@
 <?php
 require_once(__DIR__ . "/globals.php");
-
 session_start();
+if (!isset($_SESSION['user_id'])) {
+    send_400('You are missing session data (user_id). Please login and delete from the UI');
+    exit();
+}
+
+//Initial validation of database
 try {
     $db = _db();
 } catch (Exception $ex) {
-    _res(500, ['info' => 'system under maintainance', 'error' => __LINE__]);
+    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
+    exit();
 }
 
 
@@ -17,11 +23,11 @@ try {
     $q = $db->prepare('DELETE FROM users WHERE user_id = :id');
     $q->bindValue(':id', $id);
     $q->execute();
-    echo 'Number of users deleted: ' . $q->rowCount();
     !unlink($img_location);
     session_destroy();
+    send_200('Your user have now been deleted');
     exit();
 } catch (PDOException $ex) {
-    echo '{"info":"Speak to an adult!"}';
-    exit();
+    send_500('System under maintainance');
+    echo "Speak to an adult";
 }

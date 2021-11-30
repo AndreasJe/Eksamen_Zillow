@@ -32,7 +32,7 @@ if (strlen($_POST['user_password']) > 22) {
 try {
   $db = _db();
 } catch (Exception $ex) {
-  send_500('System under maintainance');
+  _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
   echo json_encode($ex);
 }
 

@@ -7,7 +7,6 @@ require_once(__DIR__ . "/globals.php");
 try {
     $db = _db();
 } catch (Exception $ex) {
-    echo json_encode($ex);
     send_500('System under maintainance - DB connection failed');
 }
 
@@ -15,9 +14,10 @@ try {
 
 //Binding values to item and moving image to appropiate folder.
 try {
+    //Getting item_id from URL.
     $id = $_GET['item_id'];
 
-
+    //Transaction initiated.
     $db->beginTransaction();
 
     // Changing item_name
@@ -50,9 +50,11 @@ try {
     $q->bindValue(':item_author', $_POST['item_author']);
     $q->execute();
 
+    //Transaction Commit, and move picture image afterwards
     $db->commit();
     move_uploaded_file($_FILES['item_image']['tmp_name'], "../img/products/user-listed/img_product_" . $id);
     send_200('Item information has been changed');
+    //Forcing a refresh - since we don't use an Ajax function
     header("Refresh:0");
 } catch (PDOException $ex) {
 
@@ -68,6 +70,7 @@ function send_500($error_message)
     http_response_code(500);
     $response = ["Error" => $error_message];
     echo json_encode($response);
+    //Forcing a refresh - since we don't use an Ajax function
     header("Refresh:0");
 }
 //Response 400 means OK error
@@ -77,5 +80,6 @@ function send_200($error_message)
     http_response_code(200);
     $response = ["Info" => $error_message];
     echo json_encode($response);
+    //Forcing a refresh - since we don't use an Ajax function
     header("Refresh:0");
 }

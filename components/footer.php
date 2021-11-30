@@ -1112,8 +1112,6 @@
                     <label for="user_email mb-1">Email</label>
                     <input name="user_email" type="text" required data-min="5" data-max="50" data-validate="email"
                         placeholder="Enter email">
-
-
                     <button class="w-100 mt-3" onclick="forgotPassword()"> Send </button>
                 </form>
             </div>
@@ -1128,13 +1126,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
             </div>
-
-
         </div>
-
-
     </div>
 </div>
 
@@ -1184,7 +1177,6 @@
                             </form>
                             <div>
                                 <p id="feedback_login" class="p-2 mt-4 text-center d-block ">
-
                                 </p>
                             </div>
                         </div>

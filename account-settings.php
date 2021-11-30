@@ -68,6 +68,7 @@ include __DIR__ . "/components/header.php";
 
 
 <main>
+    <!-- Wrapper for Go-Back link. -->
     <div class="btn-wrapper">
 
         <p> <span class="chevron"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -78,14 +79,11 @@ include __DIR__ . "/components/header.php";
         </p>
     </div>
 
+    <!-- Settings panel -->
     <div class="profile-wrapper">
         <h1 class="header">Profile</h1>
-
-
-
         <section class="personalInfo-link">
             <h2 class="subheader">Personal info</h2>
-
             <div class="info-block">
                 <div class="left">
                     <h4>Name</h4>
@@ -96,7 +94,6 @@ include __DIR__ . "/components/header.php";
                     <p> <?= $_SESSION['first_name'] ?> <?= $_SESSION['last_name'] ?></p>
                     <a href="#editName" class="envokeModal" data-bs-toggle="modal">Edit</a>
                 </div>
-
             </div>
             <div class="info-block">
                 <div class="left">
@@ -108,7 +105,6 @@ include __DIR__ . "/components/header.php";
                     <p> <?= $_SESSION['user_name'] ?></p>
                     <a href="#screenName" class="envokeModal" data-bs-toggle="modal">Edit</a>
                 </div>
-
             </div>
             <div class="info-block">
                 <div class="left">
@@ -120,12 +116,8 @@ include __DIR__ . "/components/header.php";
                 <div class="right">
                     <a href="edit-user-img">Edit</a>
                 </div>
-
             </div>
-
-
             <h2 class="subheader">Sign in & Security</h2>
-
             <div class="info-block">
                 <div class="left">
                     <h4>Email</h4>
@@ -136,7 +128,6 @@ include __DIR__ . "/components/header.php";
                     <a href="#verEmail" class="envokeModal" data-bs-toggle="modal">Verify</a>
                     <a href="#newEmail" class="envokeModal" data-bs-toggle="modal">Edit</a>
                 </div>
-
             </div>
             <div class="info-block">
                 <div class="left">
@@ -149,7 +140,6 @@ include __DIR__ . "/components/header.php";
                 <div class="right">
                     <a href="#chgPass" class="envokeModal styledknap" data-bs-toggle="modal">Change Password</a>
                 </div>
-
             </div>
             <div class="info-block">
                 <div class="left">
@@ -158,15 +148,12 @@ include __DIR__ . "/components/header.php";
                     <em>
                         Make your account extra secure. Along with your password, you'll need to enter a code that
                         we text to your phone each time you sign in.
-
                     </em>
                 </div>
                 <div class="right">
                     <a href="#twofa" class="envokeModal styledknap" data-bs-toggle="modal">Enable</a>
                 </div>
-
             </div>
-
             <h2 class="subheader">Manage account
             </h2>
             <div class="info-block">
@@ -176,26 +163,15 @@ include __DIR__ . "/components/header.php";
                     <em>
                         This will shut down your account, but retain your information. You won't be able to sign in
                         again.
-
                     </em>
                 </div>
                 <div class="right">
                     <a href="#deleteUser" class="envokeModal styledknap" data-bs-toggle="modal">Deactivate account</a>
                 </div>
-
             </div>
-
         </section>
-
     </div>
-
-
-
-
 </main>
-
-
-
 
 <!-- Modal for Edit Name -->
 <div id="editName" class="modal fade">
@@ -378,6 +354,7 @@ include __DIR__ . "/components/header.php";
         </div>
     </div>
 </div>
+
 <!-- Modal for 2FA activation  -->
 <div id="twofa" class="modal fade">
     <div class="modal-dialog modal-dialog-centered">
@@ -431,6 +408,7 @@ include __DIR__ . "/components/header.php";
         </div>
     </div>
 </div>
+
 <!-- Modal for account deletion -->
 <div id="deleteUser" class="modal fade">
     <div class="modal-dialog modal-dialog-centered">
@@ -459,6 +437,7 @@ include __DIR__ . "/components/header.php";
 include __DIR__ . "/components/footer.php";
 ?>
 
+<!-- Scripts for changing modals & fetching apis -->
 <script>
 async function sendVerify() {
     const form = event.target.form
