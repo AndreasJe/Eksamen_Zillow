@@ -60,9 +60,7 @@
         margin: 10px;
     }
 
-    input[type="text"] {
-        min-width: 300px;
-    }
+
 
     @media only screen and (max-width: 768px) {
 
@@ -90,6 +88,41 @@
         .dropbtn2:focus {
             background-color: rgb(249, 249, 251);
         }
+
+        #header_rep {
+            display: flex;
+            justify-content: center;
+            flex-direction: column-reverse;
+        }
+
+        #header_img img {
+            width: 70%;
+
+        }
+
+        input[type="text"] {
+            min-width: 70%;
+        }
+
+    }
+
+    @media only screen and (max-width: 1000px) {
+        #header_rep {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+    }
+
+
+    @media only screen and (min-width: 1000px) {
+        #header_rep {
+            display: flex;
+            flex-direction: row;
+        }
+
+        input[type="text"] {
+            min-width: 350px;
+        }
     }
     </style>
 
@@ -102,7 +135,6 @@
 require_once __DIR__ . ('/components/dictionary.php');
 $lan = $_GET['lan'] ?? 'en'; // en es dk
 $_title = $text['title2'][$lan];
-session_start();
 include __DIR__ . "/components/header.php";
 
 ?>
@@ -117,12 +149,27 @@ include __DIR__ . "/components/header.php";
 <!-- Page Content -->
 <main class="justify-content-center d-flex flex-column">
 
+    <section id="header_rep">
+        <div id="header_content" class="p-0 container col-lg-6">
+            <h1 class="mb-4">Sell your home yourself</h1>
+            <p class="mb-4">Post once and your home will be listed on both Zillow and Trulia, reaching buyers on the
+                largest
+                real estate
+                network on the Web. Plus, home shoppers receive emails about new homes on the market – including yours.
+            </p>
+            <p class="mb-4">Deciding to sell your home yourself is referred to as for-sale-by-owner (FSBO). The FSBO
+                process
+                is similar
+                to traditional selling, but without the help of a real estate agent. In this case, you’re responsible
+                for
+                the home prep, marketing, showings, and negotiations.</p>
 
-    <section>
-        <h1>List your home</h1>
-        <p>Post once and your home will be listed on both Zillow and Trulia, reaching buyers on the largest real estate
-            network on the Web. Plus, home shoppers receive emails about new homes on the market – including yours.</p>
+        </div>
+        <div id="header_img" class="justify-content-center d-flex col-lg-6">
+            <img src=" /img/permanent/sell.png" alt="Vector drawing">
+        </div>
     </section>
+
     <div class="seperator"></div>
     <form class="" onsubmit="return false" runat="server">
         <section>
@@ -170,10 +217,8 @@ include __DIR__ . "/components/header.php";
                 relationship with Zillow as part of this posting and that Zillow is not providing me with any real
                 estate brokerage services as part of this posting; and (v) I will comply with the </label>
         </section>
-        <button id="uploadButton" type="button" class="mx-3 btn btn-primary disabled" onclick="uploadItem()">Post for
-            sale
-            by
-            owner</button>
+        <button id="uploadButton" type="button" class="mx-3 btn btn-primary disabled" onclick="uploadItem()">Post your
+            home for sale</button>
     </form>
     <section>
         <div>

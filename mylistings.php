@@ -148,6 +148,22 @@ include __DIR__ . "/components/header.php";
                 $trim_digits = preg_replace('/\d+/', '', $item->item_id);
                 echo "
                 <div class='product'>
+                <div class='time-container'>
+                <p id='timeago_alt'>";
+
+                $time = new DateTime($item->item_log);
+                $now = new DateTime();
+                $interval = $time->diff($now, true);
+
+                if ($interval->y) echo $interval->y . ' years ago';
+                elseif ($interval->m) echo ' Last Changed: ' . $interval->m . ' months ago';
+                elseif ($interval->d) echo ' Last Changed: ' . $interval->d . ' days ago';
+                elseif ($interval->h) echo ' Last Changed: ' . $interval->h . ' hours ago';
+                elseif ($interval->i) echo ' Last Changed: ' . $interval->i . ' minutes ago';
+                else echo " Submitted: less than 1 minute ago";
+
+                echo "</p>
+                    </div>
                     <div class='pic-container'>
                 
                         <img src='/img/products/user-listed/img_product_{$item->item_id}' alt='house'>

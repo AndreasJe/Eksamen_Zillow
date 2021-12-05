@@ -3,7 +3,6 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
-
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{DOCUMENT_ROOT}/$1\.jpg -f [NC]
 RewriteRule ^uploads/([^/]+)/?$ /$1.jpg [L,NC]

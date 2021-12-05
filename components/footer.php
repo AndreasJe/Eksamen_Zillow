@@ -1161,7 +1161,7 @@
                     <div class="pt-4 tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
 
-                            <form id="form_sign_in" onsubmit="validate(login);return false">
+                            <form id="form_sign_in" onsubmit="return false">
                                 <label for="user_email2">Email</label>
                                 <input name="user_email2" type="email" data-validate="email" placeholder="Enter email"
                                     data-min="2" data-max="50">
@@ -1181,7 +1181,7 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
-                            <form id="form_sign_up" onsubmit="validate(signup);return false">
+                            <form id="form_sign_up" onsubmit="return false">
                                 <label for="user_email">Email</label>
                                 <input name="user_email" type="email" data-validate="email" placeholder="Enter email"
                                     data-min="5" data-max="30">

@@ -62,24 +62,3 @@ try {
     echo json_encode($ex);
     send_500('System under maintainance');
 }
-
-//Response 500 means server error
-function send_500($error_message)
-{
-    header('Content-Type: application/json');
-    http_response_code(500);
-    $response = ["Error" => $error_message];
-    echo json_encode($response);
-    //Forcing a refresh - since we don't use an Ajax function
-    header("Refresh:0");
-}
-//Response 400 means OK error
-function send_200($error_message)
-{
-    header('Content-Type: application/json');
-    http_response_code(200);
-    $response = ["Info" => $error_message];
-    echo json_encode($response);
-    //Forcing a refresh - since we don't use an Ajax function
-    header("Refresh:0");
-}

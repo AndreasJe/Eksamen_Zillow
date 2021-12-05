@@ -6,7 +6,8 @@ require_once(__DIR__ . "/globals.php");
 try {
     $db = _db();
 } catch (Exception $ex) {
-    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
+    send_500('Database failed - System under maintainance');
+    echo json_encode($ex);
 }
 //Variables defined and finding item by item_id 
 //Deleting previous image before implementing new one..
@@ -19,18 +20,9 @@ try {
     !unlink($img_location);
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 
+    send_200('Your item have now been deleted');
     exit();
 } catch (PDOException $ex) {
+    send_500('Database failed - System under maintainance');
     echo json_encode($ex);
-    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
-}
-
-//Response 500 means server error
-function send_500($error_message)
-{
-    header('Content-Type: application/json');
-    http_response_code(500);
-    $response = ["Error" => $error_message];
-    echo json_encode($response);
-    exit();
 }

@@ -15,8 +15,8 @@ if (strlen($_GET['key']) != 32) {
 try {
     $db = _db();
 } catch (Exception $ex) {
+    send_500('Database failed - System under maintainance');
     echo json_encode($ex);
-    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
 }
 
 try {
@@ -45,35 +45,5 @@ try {
 } catch (PDOException $ex) {
     echo json_encode($ex);
     send_500('System under maintainance - Query failed');
-    exit();
-}
-
-//Response 500 means server error
-function send_500($error_message)
-{
-    header('Content-Type: application/json');
-    http_response_code(500);
-    $response = ["Error" => $error_message];
-    echo json_encode($response);
-    exit();
-}
-
-//Response 400 means Client error
-function send_400($error_message)
-{
-    header('Content-Type: application/json');
-    http_response_code(400);
-    $response = ["Error" => $error_message];
-    echo json_encode($response);
-    exit();
-}
-
-//Response 400 means OK error
-function send_200($error_message)
-{
-    header('Content-Type: application/json');
-    http_response_code(200);
-    $response = ["Info" => $error_message];
-    echo json_encode($response);
     exit();
 }

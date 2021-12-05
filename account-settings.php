@@ -13,6 +13,11 @@
         padding: 54px 0;
     }
 
+    #myDropdown2 {
+        background-color: rgb(249, 249, 251);
+
+    }
+
     @media only screen and (max-width: 768px) {
 
         .logo2 {

@@ -77,9 +77,27 @@ include __DIR__ . "/components/header.php";
             foreach ($data as $item) {
                 echo "
                 <div class='product'>
+                <div class='time-container'>
+                <p id='timeago'>";
+
+                $time = new DateTime($item->item_log);
+                $now = new DateTime();
+                $interval = $time->diff($now, true);
+
+                if ($interval->y) echo $interval->y . ' years ago';
+                elseif ($interval->m) echo ' Listed: ' . $interval->m . ' months ago';
+                elseif ($interval->d) echo ' Listed: ' . $interval->d . ' days ago';
+                elseif ($interval->h) echo ' Listed: ' . $interval->h . ' hours ago';
+                elseif ($interval->i) echo ' Listed: ' . $interval->i . ' minutes ago';
+                else echo " Submitted: less than 1 minute ago";
+
+                echo "</p>
+                    </div>
+
+
                     <div class='pic-container'>
                 
-                        <img src='/img/products/partners/{$item->item_img}' alt='house'>
+                    <img src='{$item->item_img}' alt='house'>
                         <div class='fav-btn'>
                             <label for='1' class='custom-checkbox'>
                                 <input type='checkbox' id='1' />
@@ -110,8 +128,23 @@ include __DIR__ . "/components/header.php";
             include __DIR__ . "/apis/api-collect-items.php";
 
             foreach ($items as $item) {
-                echo "
-                <div class='product'>
+                echo "<div class='product'>
+                <div class='time-container'>
+                <p id='timeago'>";
+
+                $time = new DateTime($item->item_log);
+                $now = new DateTime();
+                $interval = $time->diff($now, true);
+
+                if ($interval->y) echo $interval->y . ' years ago';
+                elseif ($interval->m) echo ' Listed: ' . $interval->m . ' months ago';
+                elseif ($interval->d) echo ' Listed: ' . $interval->d . ' days ago';
+                elseif ($interval->h) echo ' Listed: ' . $interval->h . ' hours ago';
+                elseif ($interval->i) echo ' Listed: ' . $interval->i . ' minutes ago';
+                else echo " Submitted: less than 1 minute ago";
+
+                echo "</p>
+                    </div>
                     <div class='pic-container'>
                 
                         <img src='/img/products/user-listed/img_product_{$item->item_id}' alt='house'>
@@ -138,15 +171,9 @@ include __DIR__ . "/components/header.php";
                         </div>
                     </div>
                 </div>";
-            }
-
-            ?>
-
-
+            } ?>
         </section>
     </div>
-
-
 </main>
 
 

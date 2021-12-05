@@ -22,7 +22,8 @@ if (strlen($_POST['phone_number']) != 8) {
 try {
     $db = _db();
 } catch (Exception $ex) {
-    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
+    send_500('Database failed - System under maintainance');
+    echo json_encode($ex);
     exit();
 }
 

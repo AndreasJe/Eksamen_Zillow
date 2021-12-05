@@ -5,8 +5,8 @@ require_once(__DIR__ . "/globals.php");
 try {
     $db = _db();
 } catch (Exception $ex) {
-    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
-    exit();
+    send_500('Database failed - System under maintainance');
+    echo json_encode($ex);
 }
 
 // Getting all objects from items column
@@ -17,5 +17,6 @@ try {
     $q->execute();
     $items = $q->fetchAll(PDO::FETCH_OBJ);
 } catch (Exception $ex) {
-    send_500('System under maintainance');
+    send_500('Database failed - System under maintainance');
+    echo json_encode($ex);
 }
