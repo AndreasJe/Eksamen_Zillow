@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__ . "/globals.php");
+session_start();
 
 //Initial validation of the parameter
 if (!isset($_GET['key'])) {

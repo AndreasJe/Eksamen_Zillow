@@ -35,8 +35,10 @@ try {
 
     $key = $row['authentication_code'];
     $to_phone = $_POST['phone_number'];
-    $sms_content = " Hello user! Here is your authentication code: " . $key;
+    $sms_content = " Hello user! 
+Here is your authentication code: " . $key;
     require_once(__DIR__ . "/../private/send-sms.php");
+    $_SESSION['phone_number'] = $_POST['phone_number'];
     send_200('Success: We have found your user. Message is on the way!');
     exit();
 } catch (Exception $ex) {

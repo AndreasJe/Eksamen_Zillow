@@ -153,9 +153,11 @@ async function uploadItem() {
       "bg-success"
     );
     _one("#feedback_upload").innerHTML = JSON.stringify(response);
+    _one("#feedback_upload").scrollIntoView();
   } else {
     _one("#feedback_upload").innerHTML = " ";
     _one("#feedback_upload").classList.add("badge", "text-center", "bg-danger");
     _one("#feedback_upload").innerHTML = JSON.stringify(response);
+    _one("#feedback_upload").scrollIntoView();
   }
 }

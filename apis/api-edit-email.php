@@ -1,7 +1,7 @@
 <?php
 
-session_start();
 require_once(__DIR__ . "/globals.php");
+session_start();
 
 
 
@@ -47,7 +47,7 @@ if ($newEmail == $confirmEmail) {
             $q2 = $db->prepare('UPDATE users SET verification_key = :vkey, verified = :verified WHERE user_id = :id');
             $q2->bindValue(':id', $id);
             $q2->bindValue(':vkey', $verification_key);
-            $q2->bindValue(':verified', false);
+            $q2->bindValue(':verified', 0);
             $q2->execute();
             send_200('Success: Email has been changed, and verification_key and verified has been updated. ');
         }

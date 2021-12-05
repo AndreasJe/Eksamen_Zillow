@@ -130,7 +130,15 @@ include __DIR__ . "/components/header.php";
                     </em>
                 </div>
                 <div class="right">
+
+
+                    <?php
+                    if ($_SESSION['verified'] > 0) { ?>
+                    <p class="text-success">Email is verified</p>
+                    <?php } else { ?>
                     <a href="#verEmail" class="envokeModal" data-bs-toggle="modal">Verify</a>
+
+                    <?php } ?>
                     <a href="#newEmail" class="envokeModal" data-bs-toggle="modal">Edit</a>
                 </div>
             </div>
@@ -301,7 +309,7 @@ include __DIR__ . "/components/header.php";
                 </div>
                 <p>Open the email and select the link provided to verify your account.
                     Didn’t receive an email? </p>
-                <p><a onclick="sendVerify()">Resend</a></p>
+                <p><a href="#" onclick="sendVerify()">Resend</a></p>
 
             </div>
             <div class="modal-footer" id="before_foot">
@@ -368,7 +376,7 @@ include __DIR__ . "/components/header.php";
                 <h5 class="modal-title text-center">Setup 2-step verification
                 </h5>
             </div>
-            <form onsubmit="validate(verifyPhone);return false">
+            <form onsubmit="validate();return false">
                 <div id="phone-validation-header" class="modal-body">
                     <div>
                         <p>Enter the phone number you want to use and we’ll send you text message with your
@@ -376,7 +384,7 @@ include __DIR__ . "/components/header.php";
                     </div>
                     <div class="pt-3 d-flex flex-column">
                         <label for="phone_number">Phone Number</label>
-                        <input type="text" name="phone_number" data-validate="str" required data-min="8" data-max="8">
+                        <input type="text" name="phone_number" data-validate="tel" required data-min="8" data-max="8">
                         <em class="password_req p-3"> You need to use a danish number</em>
                     </div>
                     <div>
@@ -397,8 +405,8 @@ include __DIR__ . "/components/header.php";
                     <div class="pt-3 d-flex flex-column">
                         <label for="2fa_key">Authentication Code</label>
                         <input type="text" name="2fa_key" data-min="5" data-max="5">
-                        <em class="password_req p-3 text-center"> It might take a minute or two for the text to get
-                            sent</em>
+                        <em class="password_req p-3 text-center"> It might take a minute or two for the text to
+                            arrive</em>
                     </div>
                     <div>
                         <p id="feedback_2fa" class="p-3 mt-3 text-center d-block">

@@ -54,6 +54,7 @@ try {
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['forgot_pass_key'] = $row['forgot_pass_key'];
             $_SESSION['verification_key'] = $row['verification_key'];
+            $_SESSION['verified'] = $row['verified'];
             send_200('Welcome! You are now logged in');
         } else {
             send_400('Password is not valid');

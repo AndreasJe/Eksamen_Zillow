@@ -1,4 +1,7 @@
+<!-- Page specific CSS -->
+
 <head>
+    <script src="components/validator.js"></script>
     <style>
     header.dark .ic.menu .line {
         background-color: blue;
@@ -56,6 +59,7 @@
 </head>
 
 <!-- Title, language, session_start and header defined -->
+
 <?php
 require_once __DIR__ . ('/components/dictionary.php');
 $lan = $_GET['lan'] ?? 'en'; // en es dk
@@ -66,21 +70,20 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 include __DIR__ . "/components/header.php";
-
 ?>
 
 <!-- Individual Language link to simplify process. -->
+
 <div class="language-link">
     <a class="language-link-item" href="mylistings.php?lan=en" <?php if ($lan == 'en') { ?> style="color: #ff9900;"
         <?php } ?>>English</a> | <a class="language-link-item" href="mylistings.php?lan=es" <?php if ($lan == 'es') { ?>
         style="color: #ff9900;" <?php } ?>>Espaniol</a>
 </div>
 
+<!-- Main content -->
 <main>
-
     <div id="section-wrapper">
         <section id="filter">
-
             <h1 class="listing-header mb-5 w-50 mx-auto">Your listings:</h1>
             <svg height="150" width="100%" fill="none" class="yourhomeicon" viewBox="0 0 352 150"
                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -137,15 +140,11 @@ include __DIR__ . "/components/header.php";
             <div class="seperator"></div>
         </section>
 
+        <!-- Showing products from database. -->
         <section id="productGrid">
-
             <?php
-
-
-            // Showing products from database. 
             include __DIR__ . "/apis/api-collect-uploaded-items.php";
             foreach ($items as $item) {
-                $trim_digits = preg_replace('/\d+/', '', $item->item_id);
                 echo "
                 <div class='product'>
                 <div class='time-container'>
@@ -161,11 +160,9 @@ include __DIR__ . "/components/header.php";
                 elseif ($interval->h) echo ' Last Changed: ' . $interval->h . ' hours ago';
                 elseif ($interval->i) echo ' Last Changed: ' . $interval->i . ' minutes ago';
                 else echo " Submitted: less than 1 minute ago";
-
                 echo "</p>
                     </div>
                     <div class='pic-container'>
-                
                         <img src='/img/products/user-listed/img_product_{$item->item_id}' alt='house'>
                         <div class='fav-btn'>
                             <label for='1' class='custom-checkbox'>
@@ -188,31 +185,22 @@ include __DIR__ . "/components/header.php";
                             <em>Listing by {$item->item_author}</em>
                         </div>
                     </div>
-
                     <div id='button-edit-product'>           
-                    <a class='m-0 modal-link' href='#{$trim_digits}' class='envokeModal' data-bs-toggle='modal'>Edit</a>
+                    <a class='m-0 modal-link' href='#ID{$item->item_id}' class='envokeModal' data-bs-toggle='modal'>Edit</a>
                     </div>
                     <div id='button-delete-product'>           
                     <a class='m-0 modal-link' href='apis/api-delete-item.php?item_id={$item->item_id}'>Delete</a>
                     </div>
-                </div>
-                ";
+                </div>";
             }
-
             ?>
-
         </section>
     </div>
 
-
-
-
+    <!-- Making modal for each product. -->
     <?php
-    // Making modal for each product. 
     foreach ($items as $item) {
-        $trim_digits = preg_replace('/\d+/', '', $item->item_id);
-        $specificItem =  $item->item_id;
-        echo " <div id='{$trim_digits}' class='modal fade'>
+        echo " <div id='ID{$item->item_id}' class='modal fade'>
         <div class='modal-fullscreen-sm-down modal-dialog modal-dialog-centered modal-dialog-scrollable'>
             <div class='modal-content'>
                 <div class='modal-header justify-content-center'>
@@ -222,31 +210,31 @@ include __DIR__ . "/components/header.php";
                     <div class='modal-body d-flex flex-column justify-content-evenly'>
                         <div class='d-flex flex-column '>
                             <label class='pb-1' for='item_name'>Change name of listing</label>
-                            <input type='text' placeholder='{$item->item_name}' name='item_name' data-min='2' data-validate='str' data-max='22' required>
+                            <input type='text' id='item_name_{$item->item_id}' placeholder='{$item->item_name}' name='item_name' data-min='2' data-validate='str' data-max='22' required>
                         </div>
                         <div class='d-flex flex-column '>
                             <label class='pb-1' for='item_price'>Change listing price</label>
-                            <input type='text'  placeholder='{$item->item_price}' name='item_price' data-min='2' data-validate='str' data-max='22'
+                            <input type='text' id='item_price_{$item->item_id}' placeholder='{$item->item_price}' name='item_price' data-min='2' data-validate='str' data-max='22'
                                 required>
                         </div>
                         <div class='d-flex flex-column '>
                             <label for='message-text' class='col-form-label'>Change Features:</label>
                             <textarea class='form-control' placeholder='{$item->item_features}' name='item_features' data-validate='str' data-min='10'
-                                data-max='100' required></textarea>
+                                data-max='100' id='item_features_{$item->item_id}' required></textarea>
                         </div>
                         <div class='d-flex flex-column '>
                             <label class='pb-1' for='item_location'>Change Location</label>
-                            <input type='text' placeholder='{$item->item_location}'  name='item_location' data-min='5' data-validate='str' data-max='52'
+                            <input type='text' id='item_location_{$item->item_id}' placeholder='{$item->item_location}'  name='item_location' data-min='5' data-validate='str' data-max='52'
                                 required>
                         </div>
                         <div class='d-flex flex-column '>
                             <label class='pb-1' for='item_author'>Change Author</label>
-                            <input type='text' placeholder='{$item->item_author}'  name='item_author' data-min='2' data-validate='str' data-max='22'
+                            <input type='text' id='item_author_{$item->item_id}' placeholder='{$item->item_author}'  name='item_author' data-min='2' data-validate='str' data-max='22'
                                 required>
                         </div>
 
                         <div>
-                        <label class='pb-1' for='item_author'>Change Photo</label>
+                        <label class='pb-1' for='item_image'>Change Photo</label>
                             <input class='Inp w-100 mb-3' name='item_image' accept='image/*' type='file'   />
 
                             <em class='mb-1 d-block mx-auto'>Previous photo:</em>
@@ -264,6 +252,9 @@ include __DIR__ . "/components/header.php";
                    <div>
                     <p class='p-3 d-block mx-auto text-center' id='feedback_change'> </p>
                 </div>
+                <script>
+                values();
+            </script>
             </div>
         </div>
     </div>

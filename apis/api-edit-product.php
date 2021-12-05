@@ -7,7 +7,7 @@ require_once(__DIR__ . "/globals.php");
 try {
     $db = _db();
 } catch (Exception $ex) {
-    _res(500, ['info' => 'Database failed - System under maintainance', 'error' => __LINE__]);
+    send_500('Database failed - System under maintainance');
 }
 
 
@@ -48,6 +48,13 @@ try {
     $q = $db->prepare('UPDATE items SET item_author = :item_author WHERE item_id = :id');
     $q->bindValue(':id', $id);
     $q->bindValue(':item_author', $_POST['item_author']);
+    $q->execute();
+
+    // Setting new time in item_log ( usable for "Last change")
+    $now = new DateTime();
+    $q = $db->prepare('UPDATE items SET item_log = :item_log WHERE item_id = :id');
+    $q->bindValue(':id', $id);
+    $q->bindValue(':item_log', $now);
     $q->execute();
 
     //Transaction Commit, and move picture image afterwards

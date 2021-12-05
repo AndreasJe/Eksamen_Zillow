@@ -55,6 +55,10 @@ input:focus {
 main {
   padding: 72px 0;
 }
+textarea::placeholder {
+  padding-top: 0;
+  padding-left: 3px;
+}
 
 .language-link {
   position: absolute;

@@ -23,8 +23,6 @@ try {
 //Executing Content
 try {
 
-    //Binding variables
-    $id = $_SESSION['user_id'];
     //Indentifying the 2FA code within the users table.
     $q = $db->prepare('SELECT * FROM users WHERE authentication_code = :authentication_code');
     $q->bindValue(':authentication_code', $_POST['2fa_key']);
@@ -34,24 +32,26 @@ try {
     // When found and verified - we bind the new phone number & a new 2FA code using a transaction
     if (!empty($row)) {
         try {
+            //Binding variables
+            $id = $_SESSION['user_id'];
+            $phone = $_POST['phone_number'];
             $new_authentication_code = bin2hex(random_bytes(5));
 
-            $db->beginTransaction();
 
-            $update = $db->prepare('UPDATE users SET user_phone = :phone WHERE user_id = :user_id');
-            $update->bindValue(':user_phone', $_POST['phone_number']);
-            $update->bindValue(':user_id', $id);
+            $update1 = $db->prepare('UPDATE users SET user_phone = :user_phone WHERE user_id = :user_id');
+            $update1->bindValue(':user_phone', $phone);
+            $update1->bindValue(':user_id', $id);
+            $update1->execute();
 
 
-            $update = $db->prepare('UPDATE users SET authentication_code = :authentication_code WHERE user_id = :user_id');
-            $update->bindValue(':user_id', $id);
-            $update->bindValue(':authentication_code', $new_authentication_code);
+            $update2 = $db->prepare('UPDATE users SET authentication_code = :authentication_code WHERE user_id = :user_id');
+            $update2->bindValue(':user_id', $id);
+            $update2->bindValue(':authentication_code', $new_authentication_code);
+            $update2->execute();
 
-            $db->commit();
-            $update->execute();
+            $_SESSION['user_id'] = $_POST['phone_number'];
             send_200('Success, your phone has been verified and registered');
         } catch (PDOException $ex) {
-            $db->rollBack();
             echo json_encode($ex);
             send_400('Something went wrong in the transaction');
         }
