@@ -1,0 +1,32 @@
+<IfModule mod_rewrite.c>
+   RewriteEngine on
+   RewriteRule ^zillow(/.*|)$ $1 [L,NC]  
+</IfModule>
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1\.jpg -f [NC]
+RewriteRule ^uploads/([^/]+)/?$ /$1.jpg [L,NC]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1\.gif -f [NC]
+RewriteRule uploads/([^/]+)/?$ /$1.gif [L,NC]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1\.jpeg -f [NC]
+RewriteRule ^uploads/([^/]+)/?$ /$1.jpeg [L,NC]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1\.tiff -f [NC]
+RewriteRule ^uploads/([^/]+)/?$ /$1.tiff [L,NC]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1\.png -f [NC]
+RewriteRule ^uploads/([^/]+)/?$ /$1.png [L,NC]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1\.bmp -f [NC]
+RewriteRule ^uploads/([^/]+)/?$ /$1.bmp [L,NC]
